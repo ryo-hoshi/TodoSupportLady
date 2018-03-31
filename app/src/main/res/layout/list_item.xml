@@ -7,63 +7,52 @@
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButton_delete"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/laala" />
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:id="@+id/button_listTodoComplete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_weight="15">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/todo_list_complete" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_listTodoIndex"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="index"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textView_listTodoLimit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="14">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TodoSetTime"
-                    android:textSize="22sp"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:id="@+id/textView_listTodoTime" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:textSize="14sp"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:id="@+id/textView_listMemo" />
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
-                    android:text="index"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:visibility="invisible"
-                    android:id="@+id/textView_listIndex" />
-            </LinearLayout>
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
-                android:layout_weight="1"
-                android:text=""
-                android:id="@+id/switch_listTodoTime"
-                android:checked="false" />
+                android:layout_marginTop="5dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="TodoLimit"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/textView_listTodoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="4"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="TodoTitle"
+                android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

@@ -1,5 +1,8 @@
 package apl.r_m_unt.todosupportlady.preferences;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
 /**
  * TODO設定情報
  * 設定したTODO1件分の情報を管理するクラス
@@ -7,60 +10,56 @@ package apl.r_m_unt.todosupportlady.preferences;
  * Created by ryota on 2017/04/22.
  */
 public class TodoSettingInfo {
-
-    /** TODO設定ON */
-    public static final boolean TODO_SWITCH_ON = true;
-    /** TODO設定OFF */
-    public static final boolean TODO_SWITCH_OFF = false;
+// 使わない予定
     /** TODO時間デミリタ */
     private static final String TIME_DELIMITER = ":";
 
     private int todoNo;
-    private int hour;
-    private int minute;
-    private boolean todoSwitch;
+    private DateTime todoLimit;
+    private boolean isComplete;
     private int todoMsgNo;
+    private String title;
     private String memo;
 
-    TodoSettingInfo(int todoNo, int todoIndex) {
+    public TodoSettingInfo(int todoNo, int todoIndex) {
         this.todoNo = todoNo;
-        this.hour = 0;
-        this.minute = 0;
-        this.todoSwitch = false;
+        this.isComplete = false;
         this.todoMsgNo = 0;
+        this.title = "タイトル";
         this.memo = "TODO" + (todoIndex + 1 );
     }
 
     public TodoSettingInfo(int todoNo,
-                           int hour,
-                           int minute,
-                           boolean todoSwitch,
+                           DateTime todoLimit,
+                           boolean isComplete,
                            int todoMsgNo,
+                           String title,
                            String memo) {
         this.todoNo = todoNo;
-        this.hour = hour;
-        this.minute = minute;
-        this.todoSwitch = todoSwitch;
+        this.todoLimit = todoLimit;
+        this.isComplete = isComplete;
         this.todoMsgNo = todoMsgNo;
+        this.title = title;
         this.memo = memo;
     }
 
-    public String getTodoTime() {
-        return String.format("%02d", hour) + TIME_DELIMITER + String.format("%02d", minute);
+    public String getTodoLimitDisplay() {
+//        return String.format("%02d", hour) + TIME_DELIMITER + String.format("%02d", minute);
+        return "期限："+DateTimeFormat.forPattern("yyyy/MM/dd").print(todoLimit);
+        //return todoLimit;
     }
 
+    public String getTitle() {
+        return title;
+    }
     public String getMemo() {
         return memo;
     }
 
-    public boolean getTodoSwitch() {
-        return todoSwitch;
+    public boolean getIsComplete() {
+        return isComplete;
     }
-    public void setTodoSwitch(boolean todoSwitch) {this.todoSwitch = todoSwitch;}
-
-    public int getHour() { return hour; }
-
-    public int getMinute() { return minute; }
+    public void setIsComplete(boolean isComplete) {this.isComplete = isComplete;}
 
     public int getTodoMsgNo() { return todoMsgNo; }
 

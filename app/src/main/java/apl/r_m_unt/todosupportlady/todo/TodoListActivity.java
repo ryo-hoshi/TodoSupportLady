@@ -1,9 +1,7 @@
 package apl.r_m_unt.todosupportlady.todo;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.View;
 
 import apl.r_m_unt.todosupportlady.R;
 
@@ -17,29 +15,9 @@ public class TodoListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
 
-        // 追加ボタンをクリックした時の処理
-        // ListFragmentの要素ではないのでここで設定
-        findViewById(R.id.button_todo_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // フラグメントの処理を呼び出す
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_todo_list);
-                if (fragment != null && fragment instanceof TodoListFragment) {
-                    ((TodoListFragment) fragment).addTodoInfo();
-                }
-            }
-        });
+//        RealmConfiguration realmConfig  = new RealmConfiguration.Builder(this).build();
 
-        // 完了ボタンをクリックした時の処理
-        findViewById(R.id.button_todo_comp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 当アクティビティを終了する
-                finish();
-            }
-        });
-
-//        // TODOON／OFFを切り替えた時の処理
+//        // TODO ON／OFFを切り替えた時の処理
 //        findViewById(R.id.switch_listtodoTime).setOnClickListener(new View.OnClickListener() {
 //        //switchtodo.setOnClickListener(new View.OnClickListener() {
 //            @Override

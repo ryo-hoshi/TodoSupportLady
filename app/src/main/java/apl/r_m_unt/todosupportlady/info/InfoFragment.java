@@ -51,7 +51,7 @@ public class InfoFragment extends Fragment {
         // 新着ニュース存在フラグをfalseに変更
         if (circleInfoSetting.isExistNews()) {
             circleInfoSetting.setExistNews(false);
-            circleInfoSetting.saveInstance(getActivity());
+//            circleInfoSetting.saveInstance(getActivity());
         }
     }
 

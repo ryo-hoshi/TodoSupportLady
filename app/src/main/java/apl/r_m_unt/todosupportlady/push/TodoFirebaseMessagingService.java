@@ -82,7 +82,7 @@ public class TodoFirebaseMessagingService extends FirebaseMessagingService {
         CircleInfoSetting circleInfoSetting = CircleInfoSetting.getInstance(getApplicationContext());
         circleInfoSetting.addCircleInfo(new CircleInfo(id, label, text));
         circleInfoSetting.setExistNews(true);
-        circleInfoSetting.saveInstance(getApplicationContext());
+//        circleInfoSetting.saveInstance(getApplicationContext());
 
         // 別スレッドでToast使うための考慮
         Looper.myLooper().prepare();

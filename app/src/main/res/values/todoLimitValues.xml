@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="todo_limit">
+        <item>今日</item>
+        <item>明日</item>
+        <item>今週</item>
+        <item>来週</item>
+        <item>今月</item>
+        <item>今年</item>
+        <item>いつか</item>
+        <item>日付を指定</item>
+    </string-array>
+</resources>

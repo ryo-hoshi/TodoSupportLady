@@ -3,15 +3,16 @@
     <string name="title_item_detail">Item Detail</string>
 
     <string name="todo_list_add">追加</string>
-    <string name="todo_list_comp">完了</string>
+    <string name="todo_list_complete">完了</string>
 
-    <string name="todo_set">アラーム設定</string>
-    <string name="todo_set_memo">メモ</string>
-    <string name="todo_set_sound">アラーム音</string>
-    <string name="todo_set_message">アラームメッセージ</string>
+    <string name="todo_set">TODO設定</string>
+    <string name="todo_set_title">タイトル</string>
+    <string name="todo_set_memo">TODO詳細</string>
+    <string name="todo_set_limit">期限</string>
     <string name="todo_set_save">保存</string>
-    <string name="todo_set_cancel">キャンセル</string>
+    <string name="todo_set_cancel">戻る</string>
     <string name="todo_set_delete">削除</string>
+    <string name="todo_set_complete">完了</string>
 
     <string name="circle_info_info">サークル情報</string>
     <string name="circle_info_description">WEBマンガのキャラクターを使用しています。よかったらWEBマンガの方もご覧ください。</string>
@@ -29,7 +30,6 @@
     <string name="info_config_cfc">info_config_cfc</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string name="confirm_todo_delete">アラームを削除しますか?</string>
-    <string name="over_todo_add_title">アラームの設定数は最大%s件です</string>
+    <string name="confirm_todo_delete">TODOを削除しますか?</string>
     <string name="over_todo_add_msg">設定から最大件数の変更が可能です</string>
 </resources>

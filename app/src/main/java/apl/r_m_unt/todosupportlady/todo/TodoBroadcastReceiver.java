@@ -11,8 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
-import apl.r_m_unt.todosupportlady.preferences.TodoSetting;
-import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
+import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
@@ -23,7 +22,7 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = "TodoBroadcastReceiver";
 
-    private TodoSetting todoSetting;
+    private TodoController todoController;
     CompleteController soundController;
 
     public void onReceive(Context context, Intent intent) {
@@ -64,7 +63,7 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
         int todoIndex = intent.getIntExtra("todoIndex", 0);
         todoSetting = todoSetting.getInstance(context);
         // 表示するTODO1件分の情報を取得
-        todoSettingInfo todoInfo = todoSetting.gettodoSettingInfoList().get(todoIndex);
+        todoSettingInfo todoSettingInfo = todoSetting.gettodoSettingInfoList().get(todoIndex);
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
         Toast.makeText(context, "todoBroadcastReceiver onReceive", Toast.LENGTH_SHORT);
@@ -78,7 +77,7 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
                 // 開いたときに表示されるタイトル
                 .setContentTitle("Testtodo")
                 // 開いたときに表示されるサブタイトル
-                .setContentText("時間になりました：" + todoInfo.gettodoTime())
+                .setContentText("時間になりました：" + todoSettingInfo.gettodoTime())
                 //.setPriority(Notification.PRIORITY_DEFAULT)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setAutoCancel(true)
@@ -110,8 +109,8 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
 
         // 表示するTODO1件分の情報を取得
         int todoIndex = intent.getIntExtra("todoIndex", 0);
-        todoSetting = TodoSetting.getInstance(context);
-        TodoSettingInfo todoInfo = todoSetting.getTodoSettingInfoList().get(todoIndex);
+//        todoController = TodoController.getInstance(context);
+//        TodoSettingInfo todoSettingInfo = todoController.getTodoSettingInfoList().get(todoIndex);
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(context)
@@ -121,8 +120,8 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
                 .setWhen(System.currentTimeMillis())
                 // 開いたときに表示されるタイトル
                 .setContentTitle("TestTodo")
-                // 開いたときに表示されるサブタイトル
-                .setContentText("時間になりました：" + todoInfo.getTodoTime())
+//                // 開いたときに表示されるサブタイトル
+//                .setContentText("時間になりました：" + todoSettingInfo.getTodoTime())
                 //.setPriority(Notification.PRIORITY_DEFAULT)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setAutoCancel(true)

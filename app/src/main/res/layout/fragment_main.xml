@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="お嬢様アラーム"
+        android:text="@string/app_name"
         android:id="@+id/textView_main"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="50dp" />
@@ -29,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButton_todo"
-            android:layout_gravity="right"
+            android:background="@drawable/image_button_bg"
+            android:layout_weight="1"
             android:src="@drawable/laala"
             android:scaleType="fitCenter"/>
 
@@ -37,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButton_info"
-            android:layout_gravity="center_horizontal"
+            android:background="@drawable/image_button_bg"
+            android:layout_weight="1"
             android:src="@drawable/falulu"
             android:scaleType="fitCenter"/>
 
@@ -45,6 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageButton_config"
+            android:background="@drawable/image_button_bg"
+            android:layout_weight="1"
             android:src="@drawable/unitychanlive"
             android:scaleType="fitCenter"/>
     </LinearLayout>

@@ -141,18 +141,18 @@ public class MainFragment extends Fragment {
             Log.d(TAG, "id:" + id + ", label:" + label);
 
             //
-            circleInfoSetting = CircleInfoSetting.getInstance(getActivity());
-            circleInfoSetting.addCircleInfo(new CircleInfo(id, label, text));
-            circleInfoSetting.setExistNews(true);
-            circleInfoSetting.saveInstance(getActivity());
+//            circleInfoSetting = CircleInfoSetting.getInstance(getActivity());
+//            circleInfoSetting.addCircleInfo(new CircleInfo(id, label, text));
+//            circleInfoSetting.setExistNews(true);
+//            circleInfoSetting.saveInstance(getActivity());
         }
 
         // 新着ニュースが存在する場合はインフォメーション画像を差し替える
-        if (circleInfoSetting == null) {circleInfoSetting = CircleInfoSetting.getInstance(getActivity());}
-        if (circleInfoSetting.isExistNews()) {
-            ImageButton imageButtonInfo = (ImageButton)getActivity().findViewById(R.id.imageButton_info);
-            imageButtonInfo.setImageResource(R.drawable.falulu2);
-        }
+//        if (circleInfoSetting == null) {circleInfoSetting = CircleInfoSetting.getInstance(getActivity());}
+//        if (circleInfoSetting.isExistNews()) {
+//            ImageButton imageButtonInfo = (ImageButton)getActivity().findViewById(R.id.imageButton_info);
+//            imageButtonInfo.setImageResource(R.drawable.falulu2);
+//        }
 
     }
 }
