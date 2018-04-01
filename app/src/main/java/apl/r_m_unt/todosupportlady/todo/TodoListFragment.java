@@ -47,6 +47,7 @@ public class TodoListFragment extends ListFragment {
 
     private ListView todoListView;
     private Button buttonAdd;
+    private Button buttonBack;
     private FragmentManager fragmentManager;
     private DialogFragment dialogFragment;
     private List<TodoInfo> todoInfoList;
@@ -68,6 +69,7 @@ public class TodoListFragment extends ListFragment {
         todoListView = getListView();
         myFragment = this;
 
+        // 追加ボタン押下時の処理
         buttonAdd = (Button)getView().findViewById(R.id.button_add);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,16 @@ public class TodoListFragment extends ListFragment {
                 Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
                 todoDetailIntent.putExtra(SELECT_TODO_ID, -1);
                 startActivity(todoDetailIntent);
+            }
+        });
+
+        // 戻るボタン押下時の処理
+        buttonBack = (Button)getView().findViewById(R.id.button_back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            // 当画面のActivityを終了する
+            getActivity().finish();
             }
         });
 

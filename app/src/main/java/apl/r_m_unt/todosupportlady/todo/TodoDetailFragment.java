@@ -229,7 +229,7 @@ public class TodoDetailFragment extends Fragment {
             }
         });
 
-        // キャンセルボタン押下時の処理
+        // 戻るボタン押下時の処理
         view.findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

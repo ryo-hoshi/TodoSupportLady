@@ -2,6 +2,7 @@
     <string name="app_name">TODOマネージャ</string>
     <string name="title_item_detail">Item Detail</string>
 
+    <string name="todo_list_back">戻る</string>
     <string name="todo_list_add">追加</string>
     <string name="todo_list_complete">完了</string>
 
