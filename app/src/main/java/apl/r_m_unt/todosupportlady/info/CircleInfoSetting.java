@@ -1,6 +1,10 @@
 package apl.r_m_unt.todosupportlady.info;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +33,19 @@ public class CircleInfoSetting {
 
         // 初回の場合
         if (instance == null) {
-//            // 保存情報を取得
-//            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//            SharedPreferences prefs = context.getSharedPreferences(CIRCLE_INFO_DATA, Context.MODE_PRIVATE);
-//            Gson gson = new Gson();
-//            String circleInfoString = prefs.getString(CIRCLE_INFO_KEY, "");
-//
-//            // 保存したオブジェクトを取得
-//            if ( !TextUtils.isEmpty(circleInfoString)) {
-//                instance = gson.fromJson(circleInfoString, CircleInfoSetting.class);
-//            } else {
-//                // 何も保存されていない　初期時点は空のリストを入れる
-//                instance = getDefaultInstance();
-//            }
+            // 保存情報を取得
+            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences prefs = context.getSharedPreferences(CIRCLE_INFO_DATA, Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String circleInfoString = prefs.getString(CIRCLE_INFO_KEY, "");
+
+            // 保存したオブジェクトを取得
+            if ( !TextUtils.isEmpty(circleInfoString)) {
+                instance = gson.fromJson(circleInfoString, CircleInfoSetting.class);
+            } else {
+                // 何も保存されていない　初期時点は空のリストを入れる
+                instance = getDefaultInstance();
+            }
         }
 
         return instance;

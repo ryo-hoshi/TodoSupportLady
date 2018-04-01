@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CiecleInfoLabel"
+            android:textSize="16dp"
             android:clickable="false"
             android:focusable="false"
             android:id="@+id/textView_circleInfoLabel" />
@@ -23,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CiecleInfoText"
+            android:textSize="16dp"
             android:clickable="false"
             android:focusable="false"
             android:id="@+id/textView_circleInfoText" />

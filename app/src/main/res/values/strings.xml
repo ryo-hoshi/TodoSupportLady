@@ -16,9 +16,10 @@
     <string name="todo_set_complete">完了</string>
 
     <string name="circle_info_info">サークル情報</string>
-    <string name="circle_info_description">WEBマンガのキャラクターを使用しています。よかったらWEBマンガの方もご覧ください。</string>
-    <string name="circle_info_read">WEBマンガを読む(外部サイトに遷移)</string>
-    <string name="circle_info_read_uri">https://www.yahoo.co.jp</string>
+    <string name="circle_info_description_title">このアプリに出てくるキャラクターについて</string>
+    <string name="circle_info_description">アプリ内で使用しているキャラクターはサークル「てるカフェ。」のWEBマンガのキャラクターを使用しています。\nもし興味を持っていただけたらWEBマンガの方もぜひご覧ください。</string>
+    <string name="circle_info_read">WEBマンガのページ(ニコニコ静画マンガ)を開く</string>
+    <string name="circle_info_read_uri">http://seiga.nicovideo.jp/comic/28047?track=top_favorite</string>
     <string name="circle_info_msg_subscribed">Subscribed to news topic</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
