@@ -14,6 +14,6 @@
         android:name="apl.r_m_unt.todosupportlady.todo.TodoListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp" />
 </LinearLayout>

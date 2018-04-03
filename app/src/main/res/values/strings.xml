@@ -16,6 +16,7 @@
     <string name="todo_set_complete">完了</string>
 
     <string name="circle_info_info">サークル情報</string>
+    <string name="circle_info_back">戻る</string>
     <string name="circle_info_description_title">このアプリに出てくるキャラクターについて</string>
     <string name="circle_info_description">アプリ内で使用しているキャラクターはサークル「てるカフェ。」のWEBマンガのキャラクターを使用しています。\nもし興味を持っていただけたらWEBマンガの方もぜひご覧ください。</string>
     <string name="circle_info_read">WEBマンガのページ(ニコニコ静画マンガ)を開く</string>
@@ -23,6 +24,7 @@
     <string name="circle_info_msg_subscribed">Subscribed to news topic</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
+    <string name="config_back">戻る</string>
     <string name="config_usage">使い方</string>
     <string name="config_usage_content">使い方説明の内容</string>
     <string name="config_version">バージョン</string>

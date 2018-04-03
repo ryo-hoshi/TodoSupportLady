@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import apl.r_m_unt.todosupportlady.R;
 public class InfoFragment extends Fragment {
 
     private TextView textView_circleInfoRead;
-
+    private Button buttonBack;
     CircleInfoAdapter circleInfoAdapter = null;
     CircleInfoSetting circleInfoSetting;
     List<CircleInfo> circleInfoList;
@@ -47,12 +48,23 @@ public class InfoFragment extends Fragment {
 
         circleInfoSetting = CircleInfoSetting.getInstance(this.getActivity().getApplicationContext());
         circleInfoListView = (ListView)getView().findViewById(R.id.listView_circleInfo);
-
+        // TODO ローカルファイルの読み込みは後で削除予定
         // 新着ニュース存在フラグをfalseに変更
-        if (circleInfoSetting.isExistNews()) {
+        if (circleInfoSetting != null && circleInfoSetting.isExistNews()) {
             circleInfoSetting.setExistNews(false);
 //            circleInfoSetting.saveInstance(getActivity());
         }
+
+        // 戻るボタン押下時の処理
+        buttonBack = (Button)getView().findViewById(R.id.button_info_back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            // 当画面のActivityを終了する
+            getActivity().finish();
+            }
+        });
+
     }
 
     @Override
