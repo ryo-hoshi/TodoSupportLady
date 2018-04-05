@@ -277,9 +277,9 @@ public class TodoDetailFragment extends Fragment {
         String result = null;
 
         if (todoInfo.getTitle() == null || todoInfo.getTitle().isEmpty()) {
-            result = "タイトルは入力必須項目です";
+            result = "タイトルは入力必須の項目です";
         } else if (todoInfo.getLimit() == null || todoInfo.getLimit().isEmpty()) {
-            result = "期限は入力必須項目です";
+            result = "期限は入力必須の項目です";
         }
         return result;
     }
