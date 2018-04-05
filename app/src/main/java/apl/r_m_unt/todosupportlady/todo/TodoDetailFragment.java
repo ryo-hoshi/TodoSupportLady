@@ -78,6 +78,9 @@ public class TodoDetailFragment extends Fragment {
         buttonComplete = (Button)getView().findViewById(R.id.button_complete);
         editTextLimit = (EditText)getView().findViewById(R.id.editText_limit);
 
+        // スクロールバー表示を可能にする
+        //editTextDetail.setMovementMethod(ScrollingMovementMethod.getInstance());
+
         // リスト画面から取得したインデックスを取得
         Bundle arguments =  getArguments();
         todoId = arguments.getInt(TodoDetailFragment.SELECT_TODO_ID);
@@ -147,8 +150,6 @@ public class TodoDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "保存ボタン押下", Toast.LENGTH_SHORT).show();
-
                 // 画面入力情報を取得
                 TodoInfo todoSetInfo = getScreenValue(todoId);
 
@@ -158,19 +159,14 @@ public class TodoDetailFragment extends Fragment {
                         + ", detail" + todoSetInfo.getDetail()
                         + ", limit" + todoSetInfo.getLimit()
                         + ", iscomplete" + todoSetInfo.getIsComplete());
-                Toast.makeText(getActivity(), "getScreenValue呼び出し結果", Toast.LENGTH_SHORT).show();
 
-
-                // 画面設定情報をTODO設定情報に反映
-//                todoController.setTodoSettingInfo(listIndex, currentTodoSetInfo);
-                // TODO設定を保存
-//                todoController.saveInstance(getActivity().getApplicationContext());
-
-                // TODO実行の設定
-//                TodoDAO todoDAO = new TodoDAO(getActivity());
-//                todoDAO.setTodo(currentTodoSetInfo);
-//                // TODO情報の変更内容を保存
-//                todoSetting.saveInstance(getActivity().getApplicationContext());
+                // 入力値チェック
+                String result = checkInputVal(todoSetInfo);
+                if (result != null) {
+                    // 入力チェックエラー内容を出力
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 // TODOの登録
                 TodoModel todoModel = new TodoModel(getActivity());
@@ -275,6 +271,17 @@ public class TodoDetailFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    private String checkInputVal(TodoInfo todoInfo) {
+        String result = null;
+
+        if (todoInfo.getTitle() == null || todoInfo.getTitle().isEmpty()) {
+            result = "タイトルは入力必須項目です";
+        } else if (todoInfo.getLimit() == null || todoInfo.getLimit().isEmpty()) {
+            result = "期限は入力必須項目です";
+        }
+        return result;
     }
 
 //    /**

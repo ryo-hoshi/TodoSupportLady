@@ -15,37 +15,56 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="1dp"
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo_set_title"
             android:textColor="@color/colorPrimary"
+            android:background="#ffd700"
             android:id="@+id/textView_title" />
         <EditText
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="30"
+            android:maxLength="40"
+            android:background="#fafad2"
             android:id="@+id/editText_title" />
 
         <TextView
-            android:layout_marginTop="10dp"
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo_set_memo"
             android:textColor="@color/colorPrimary"
+            android:background="#ffd700"
             android:id="@+id/textView_memo" />
-        <EditText
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="30"
-            android:id="@+id/editText_detail" />
+            >
+            <EditText
+                android:padding="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|left"
+                android:minLines="10"
+                android:maxLines="10"
+                android:maxLength="1000"
+                android:background="#fafad2"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:id="@+id/editText_detail">
+            </EditText>
+        </ScrollView>
 
         <TextView
+            android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/todo_set_limit"
             android:textColor="@color/colorPrimary"
+            android:background="#ffd700"
             android:id="@+id/textView_limit" />
         <Spinner
             android:layout_width="match_parent"
