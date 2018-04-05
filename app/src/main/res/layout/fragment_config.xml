@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"
         android:layout_height="1dp"
-        android:background="#FFCC00"/>
+        android:background="#00ff7f"/>
 
     <ListView
         android:layout_marginTop="15dp"
