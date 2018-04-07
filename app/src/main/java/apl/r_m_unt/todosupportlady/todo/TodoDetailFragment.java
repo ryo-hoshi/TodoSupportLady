@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.CompleteDialogFragment;
@@ -43,7 +42,7 @@ public class TodoDetailFragment extends Fragment {
 
     private int todoId;
     private TodoController todoController;
-    private TextView textViewTodoId;
+    //private TextView textViewTodoId;
 
     private Spinner spinnerLimit;
     private DatePicker datePickerLimit;
@@ -74,7 +73,7 @@ public class TodoDetailFragment extends Fragment {
         datePickerLimit = (DatePicker)getView().findViewById(datePicker_limit);
         editTextTitle = (EditText)getView().findViewById(R.id.editText_title);
         editTextDetail = (EditText)getView().findViewById(R.id.editText_detail);
-        textViewTodoId = (TextView)getView().findViewById(R.id.textView_todo_id);
+//        textViewTodoId = (TextView)getView().findViewById(R.id.textView_todo_id);
         buttonComplete = (Button)getView().findViewById(R.id.button_complete);
         editTextLimit = (EditText)getView().findViewById(R.id.editText_limit);
 
@@ -168,15 +167,28 @@ public class TodoDetailFragment extends Fragment {
                     return;
                 }
 
-                // TODOの登録
+                // TODOモデルの取得
                 TodoModel todoModel = new TodoModel(getActivity());
 
-                long rtn = todoModel.insertTodoInfo(todoSetInfo);
+                // 新規登録時はINSERT
+                if (todoId == -1) {
+                    long rtn = todoModel.insertTodoInfo(todoSetInfo);
 
-                if (rtn == -1) {
-                    Log.d(TAG, "todoModel insert結果：TODOの登録に失敗しました");
+                    if (rtn == -1) {
+                        Log.d(TAG, "todoModel insert結果：TODOの登録に失敗しました");
+                    } else {
+                        Log.d(TAG, "todoModel insert結果：TODOを登録しました");
+                    }
+
+                    // 編集時はUPDATE
                 } else {
-                    Log.d(TAG, "todoModel insert結果：TODOを登録しました");
+                    long rtn = todoModel.updateTodoInfo(todoSetInfo);
+
+                    if (rtn == -1) {
+                        Log.d(TAG, "todoModel insert結果：TODOの更新に失敗しました");
+                    } else {
+                        Log.d(TAG, "todoModel insert結果：TODOを更新しました");
+                    }
                 }
 
                 // 当画面のActivityを終了する
@@ -310,22 +322,40 @@ public class TodoDetailFragment extends Fragment {
      */
     private TodoInfo getScreenValue(int selectTodoId) {
 
-        int todoId = selectTodoId == -1 ? selectTodoId : Integer.parseInt(textViewTodoId.getText().toString());
+
+        //int todoId = selectTodoId == -1 ? selectTodoId : Integer.parseInt(textViewTodoId.getText().toString());
 
         // 期限
         String todoLimit;
-        String limitType = spinnerLimit.getSelectedItem().toString();
-        // 編集モードの場合または日付入力を選択の場合は入力値をdatePickerから取得
-        if (selectTodoId != -1 || appointLimitType.equals(limitType)){
-            int year = datePickerLimit.getYear();
-            int month = datePickerLimit.getMonth();
-            int day = datePickerLimit.getDayOfMonth();
-            //todoLimit = CommonFunction.formatDateFromString(year, month, day);
-            todoLimit = CommonFunction.formatDateString(year, month, day);
+        Object limitType = spinnerLimit.getSelectedItem();
+        // 新規登録でスピナーの入力値が「日付入力」以外の場合は取得した日付タイプから日付を取得
+        // 編集のとき、または新規登録でスピナーの入力値が「日付入力」の場合はeditTextから取得
+        if (limitType == null || limitType.toString().equals(appointLimitType)) {
+            // 日付入力値を取得
+            todoLimit = editTextLimit.getText().toString();
         } else {
-            // スピナーの選択種別から期限を取得する
-            todoLimit = CommonFunction.getTodoLimit(limitType);
+            // スピナーで選択した日付種別から期限を取得する
+            todoLimit = CommonFunction.getTodoLimit(limitType.toString());
         }
+
+//        String limitType = spinnerLimit.getSelectedItem().toString();
+//        // 編集モードの場合または日付入力を選択の場合は入力値をeditTextから取得
+//        if (selectTodoId != -1 || appointLimitType.equals(limitType)){
+//            todoLimit = editTextLimit.getText().toString();
+//
+//            if (todoLimit == null || todoLimit.isEmpty()) {
+//                // 後でeditTextLimitから取得に集約する
+//                int year = datePickerLimit.getYear();
+//                int month = datePickerLimit.getMonth();
+//                int day = datePickerLimit.getDayOfMonth();
+//                //todoLimit = CommonFunction.formatDateFromString(year, month, day);
+//                todoLimit = CommonFunction.formatDateString(year, month, day);
+//            }
+//
+//        } else {
+//            // スピナーの選択種別から期限を取得する
+//            todoLimit = CommonFunction.getTodoLimit(limitType);
+//        }
 
         // TODO設定内容を返却（TODOスイッチは固定でONを設定）
         return new TodoInfo(todoId,
@@ -342,7 +372,7 @@ public class TodoDetailFragment extends Fragment {
      */
     private void setScreenValue(TodoInfo todoInfo) {
 
-        textViewTodoId.setText(todoInfo.getId());
+        //textViewTodoId.setText(todoInfo.getId());
         editTextTitle.setText(todoInfo.getTitle());
         editTextDetail.setText(todoInfo.getDetail());
         editTextLimit.setText(todoInfo.getLimit());

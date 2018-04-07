@@ -23,7 +23,7 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IS_COMPLETE = "is_complete";
 
     private static final String COMMA = ", ";
-    private static final String EQUAL = " = ";
+    public static final String EQUAL = " = ";
     private static final String PLACEHOLDER = "?";
 
     private static final String CREATE_TABLE_SQL =

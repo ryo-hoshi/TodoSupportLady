@@ -75,6 +75,30 @@ public class TodoModel {
         return db.insert(TodoDataBaseHelper.TABLE_TODO, null, values);
     }
 
+
+    /**
+     * TODO情報の更新
+     * @param todoInfo TODO情報
+     */
+    public long updateTodoInfo(TodoInfo todoInfo) {
+        SQLiteDatabase db = todoDataBaseHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT, todoInfo.getLimit());
+        values.put(TodoDataBaseHelper.COLUMN_TITLE, todoInfo.getTitle());
+        values.put(TodoDataBaseHelper.COLUMN_DETAIL, todoInfo.getDetail());
+        values.put(TodoDataBaseHelper.COLUMN_IS_COMPLETE, todoInfo.getIsComplete());
+
+        String where = TodoDataBaseHelper.COLUMN_ID + TodoDataBaseHelper.EQUAL + todoInfo.getId();
+
+        return db.update(TodoDataBaseHelper.TABLE_TODO, values, where, null);
+    }
+
+    /**
+     * TODO情報の削除
+     * @param todoId
+     * @return
+     */
     public long deleteTodoInfo(int todoId){
         SQLiteDatabase db = todoDataBaseHelper.getWritableDatabase();
 
