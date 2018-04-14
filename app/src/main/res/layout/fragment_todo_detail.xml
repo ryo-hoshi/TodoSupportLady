@@ -9,6 +9,29 @@
     tools:context="apl.r_m_unt.todosupportlady.todo.TodoDetailActivity">
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="@string/todo_set_cancel" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:text="@string/todo_set_save" />
+    </LinearLayout>
+    <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
@@ -86,35 +109,35 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
             <Button
+                android:id="@+id/button_todo_resetting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/todo_set_save"
-                android:id="@+id/button_save"
-                android:layout_weight="1" />
-
+                android:text="@string/todo_set_resetting"
+                android:visibility="gone"/>
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/todo_set_cancel"
-                android:id="@+id/button_cancel"
-                android:layout_weight="1" />
-
-            <Button
+                android:id="@+id/button_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/todo_set_delete"
-                android:id="@+id/button_delete"
-                android:layout_weight="1" />
+                android:layout_marginLeft="3dp"
+                android:layout_gravity="right"/>
+            <Button
+                android:id="@+id/button_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="6dp"
+                android:layout_gravity="right"
+                android:text="@string/todo_set_complete" />
         </LinearLayout>
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todo_set_complete"
-            android:id="@+id/button_complete"
-            android:layout_gravity="center_horizontal"/>
+
 
         <!--
         <TextView

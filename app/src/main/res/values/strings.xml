@@ -14,6 +14,7 @@
     <string name="todo_set_cancel">戻る</string>
     <string name="todo_set_delete">削除</string>
     <string name="todo_set_complete">完了</string>
+    <string name="todo_set_resetting">再登録</string>
 
     <string name="circle_info_info">サークル情報</string>
     <string name="circle_info_description_title">このアプリに出てくるキャラクターについて</string>

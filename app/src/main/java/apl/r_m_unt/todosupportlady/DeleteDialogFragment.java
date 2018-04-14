@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
+import apl.r_m_unt.todosupportlady.todo.TodoInfo;
 import apl.r_m_unt.todosupportlady.todo.TodoListFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoModel;
 
@@ -88,7 +89,7 @@ public class DeleteDialogFragment extends DialogFragment{
                 todoId  = getArguments().getInt(TODO_ID);
                 TodoModel todoModel = new TodoModel(getActivity());
                 // TODO削除
-                todoModel.deleteTodoInfo(todoId);
+                todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
 
                 // TODO一覧を更新
                 if (fromListDetailCd == FROM_LIST) {

@@ -7,6 +7,8 @@ public class TodoInfo {
 
     public static final int INCOMPLETE = 0;
     public static final int COMPLETE = 1;
+    public static final int NOT_DELETE = 0;
+    public static final int DELETE = 1;
 
     /** TODO時間デミリタ */
     private static final String TIME_DELIMITER = ":";
