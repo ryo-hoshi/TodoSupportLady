@@ -45,7 +45,12 @@
             android:text="@string/todo_set_title"
             android:textColor="@color/colorPrimary"
             android:background="#ffd700"
-            android:id="@+id/textView_title" />
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/textView_title"
+            >
+            <requestFocus />
+         </TextView>
         <EditText
             android:padding="1dp"
             android:layout_width="match_parent"
