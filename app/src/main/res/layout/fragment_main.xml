@@ -17,34 +17,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/linearLayout_under">
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton_todo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/imageButton_todo_register"
             android:background="@drawable/image_button_bg"
-            android:layout_weight="1"
-            android:src="@drawable/laala"
+            android:src="@drawable/register"
             android:scaleType="fitCenter"/>
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:id="@+id/imageButton_info"
             android:background="@drawable/image_button_bg"
-            android:layout_weight="1"
-            android:src="@drawable/falulu"
-            android:scaleType="fitCenter"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton_config"
-            android:background="@drawable/image_button_bg"
-            android:layout_weight="1"
-            android:src="@drawable/unitychanlive"
+            android:src="@drawable/info"
             android:scaleType="fitCenter"/>
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/linearLayout_under"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/view_bottom">
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/imageButton_todo_list"
+            android:background="@drawable/image_button_bg"
+            android:src="@drawable/list"
+            android:scaleType="fitCenter"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:id="@+id/imageButton_config"
+            android:background="@drawable/image_button_bg"
+            android:src="@drawable/config"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/view_bottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>

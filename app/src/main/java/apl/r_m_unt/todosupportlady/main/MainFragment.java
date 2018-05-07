@@ -7,15 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
-import apl.r_m_unt.todosupportlady.todo.TodoListActivity;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
-import apl.r_m_unt.todosupportlady.info.CircleInfo;
 import apl.r_m_unt.todosupportlady.info.CircleInfoSetting;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;
+import apl.r_m_unt.todosupportlady.todo.TodoDetailActivity;
+import apl.r_m_unt.todosupportlady.todo.TodoListActivity;
+
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_ID;
 
 /**
  * Created by ryota on 2017/04/09.
@@ -39,14 +40,22 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        // TextViewをひも付けます
-//        mTextView = (TextView) view.findViewById(R.id.textView_main);
-        // TODOのイメージをクリックした時の処理
-        view.findViewById(R.id.imageButton_todo).setOnClickListener(new View.OnClickListener() {
+
+        // TODO登録のイメージをクリックした時の処理
+        view.findViewById(R.id.imageButton_todo_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent itemListIntent = new Intent(getActivity(), ItemListActivity.class);
-//                startActivity(itemListIntent);
+                // TODO明細画面へ遷移
+                Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
+                todoDetailIntent.putExtra(SELECT_TODO_ID, -1);
+                startActivity(todoDetailIntent);
+            }
+        });
+
+        // TODOリストのイメージをクリックした時の処理
+        view.findViewById(R.id.imageButton_todo_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent todoListIntent = new Intent(getActivity(), TodoListActivity.class);
                 startActivity(todoListIntent);
             }

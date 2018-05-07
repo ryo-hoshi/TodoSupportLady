@@ -74,7 +74,7 @@ public class TodoListFragment extends ListFragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO明細画面へ遷移
+                // TODO詳細画面へ遷移
                 Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
                 todoDetailIntent.putExtra(SELECT_TODO_ID, -1);
                 startActivity(todoDetailIntent);
