@@ -1,21 +1,25 @@
 <resources>
     <string name="app_name">TODOマネージャ</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="main_toolbar">TODO管理</string>
 
+    <string name="todo_list_toolbar">TODO一覧</string>
     <string name="todo_list_back">戻る</string>
     <string name="todo_list_add">追加</string>
     <string name="todo_list_complete">完了</string>
 
-    <string name="todo_set">TODO設定</string>
-    <string name="todo_set_title">タイトル</string>
-    <string name="todo_set_memo">TODO詳細</string>
-    <string name="todo_set_limit">期限</string>
-    <string name="todo_set_save">保存</string>
-    <string name="todo_set_cancel">戻る</string>
-    <string name="todo_set_delete">削除</string>
-    <string name="todo_set_complete">完了</string>
-    <string name="todo_set_resetting">再登録</string>
+    <string name="todo_detail_toolbar">TODO設定</string>
+    <string name="todo_detail">TODO設定</string>
+    <string name="todo_detail_title">タイトル</string>
+    <string name="todo_detail_memo">TODO詳細</string>
+    <string name="todo_detail_limit">期限</string>
+    <string name="todo_detail_save">保存</string>
+    <string name="todo_detail_cancel">戻る</string>
+    <string name="todo_detail_delete">削除</string>
+    <string name="todo_detail_complete">完了</string>
+    <string name="todo_detail_resetting">再登録</string>
 
+    <string name="circle_info_toolbar">アプリ情報</string>
     <string name="circle_info_info">サークル情報</string>
     <string name="circle_info_description_title">このアプリに出てくるキャラクターについて</string>
     <string name="circle_info_description">アプリ内で使用しているキャラクターはサークル「てるカフェ。」のWEBマンガのキャラクターを使用しています。\nもし興味を持っていただけたらWEBマンガの方もぜひご覧ください。</string>
@@ -24,6 +28,7 @@
     <string name="circle_info_msg_subscribed">Subscribed to news topic</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
+    <string name="config_toolbar">設定</string>
     <string name="config_usage">使い方</string>
     <string name="config_usage_content">使い方説明の内容</string>
     <string name="config_version">バージョン</string>
@@ -32,6 +37,8 @@
     <string name="config_setting_voice">アラーム停止後のボイス再生</string>
     <string name="info_config_cfc">info_config_cfc</string>
     <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="config_detail_toolbar">設定</string>
 
     <string name="confirm_todo_delete">TODOを削除しますか?</string>
     <string name="over_todo_add_msg">設定から最大件数の変更が可能です</string>

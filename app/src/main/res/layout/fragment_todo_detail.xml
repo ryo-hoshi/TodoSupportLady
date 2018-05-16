@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:text="@string/todo_set_cancel" />
+            android:text="@string/todo_detail_cancel" />
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dp"
-            android:text="@string/todo_set_save" />
+            android:text="@string/todo_detail_save" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -42,7 +42,7 @@
             android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todo_set_title"
+            android:text="@string/todo_detail_title"
             android:textColor="@color/colorPrimary"
             android:background="#ffd700"
             android:focusable="true"
@@ -63,7 +63,7 @@
             android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todo_set_memo"
+            android:text="@string/todo_detail_memo"
             android:textColor="@color/colorPrimary"
             android:background="#ffd700"
             android:id="@+id/textView_memo" />
@@ -90,7 +90,7 @@
             android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todo_set_limit"
+            android:text="@string/todo_detail_limit"
             android:textColor="@color/colorPrimary"
             android:background="#ffd700"
             android:id="@+id/textView_limit" />
@@ -123,13 +123,13 @@
                 android:id="@+id/button_todo_resetting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/todo_set_resetting"
+                android:text="@string/todo_detail_resetting"
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/button_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/todo_set_delete"
+                android:text="@string/todo_detail_delete"
                 android:layout_marginLeft="3dp"
                 android:layout_gravity="right"/>
             <Button
@@ -139,7 +139,7 @@
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="6dp"
                 android:layout_gravity="right"
-                android:text="@string/todo_set_complete" />
+                android:text="@string/todo_detail_complete" />
         </LinearLayout>
 
 
