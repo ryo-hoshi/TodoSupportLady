@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -25,9 +24,9 @@ public class InfoFragment extends Fragment {
 
     CircleInfoAdapter circleInfoAdapter = null;
     CircleInfoSetting circleInfoSetting;
-    List<CircleInfo> circleInfoList;
-
-    private ListView circleInfoListView;
+//    List<CircleInfo> circleInfoList;
+//
+//    private ListView circleInfoListView;
 
     // Fragmentで表示するViewを作成するメソッド
     @Override
@@ -45,14 +44,14 @@ public class InfoFragment extends Fragment {
 
         textView_circleInfoRead = (TextView)getView().findViewById(R.id.textView_circleInfoRead);
 
-        circleInfoSetting = CircleInfoSetting.getInstance(this.getActivity().getApplicationContext());
-        circleInfoListView = (ListView)getView().findViewById(R.id.listView_circleInfo);
+//        circleInfoSetting = CircleInfoSetting.getInstance(this.getActivity().getApplicationContext());
+//        circleInfoListView = (ListView)getView().findViewById(R.id.listView_circleInfo);
 
-        // 新着ニュース存在フラグをfalseに変更
-        if (circleInfoSetting.isExistNews()) {
-            circleInfoSetting.setExistNews(false);
-//            circleInfoSetting.saveInstance(getActivity());
-        }
+//        // 新着ニュース存在フラグをfalseに変更
+//        if (circleInfoSetting.isExistNews()) {
+//            circleInfoSetting.setExistNews(false);
+////            circleInfoSetting.saveInstance(getActivity());
+//        }
     }
 
     @Override
@@ -63,24 +62,25 @@ public class InfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse(getString(R.string.circle_info_read_uri));
+                Uri uri = Uri.parse(getString(R.string.app_info_read_uri));
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
 
         // サークル情報リストを取得
-        circleInfoList = circleInfoSetting.getCircleInfoList();
+        // 使用するまでコメントアウト
+//        circleInfoList = circleInfoSetting.getCircleInfoList();
 
-        if (circleInfoList.isEmpty()) {
-            circleInfoList.add(new CircleInfo("0","これはテストのラベルです","これはテストのテキストです"));
-        }
-
-        if (circleInfoList.size() > 0) {
-            // サークル情報一覧に設定
-            circleInfoAdapter = new CircleInfoAdapter(getActivity(), 0, circleInfoList);
-            circleInfoListView.setAdapter(circleInfoAdapter);
-        }
+//        if (circleInfoList.isEmpty()) {
+//            circleInfoList.add(new CircleInfo("0","これはテストのラベルです","これはテストのテキストです"));
+//        }
+//
+//        if (circleInfoList.size() > 0) {
+//            // サークル情報一覧に設定
+//            circleInfoAdapter = new CircleInfoAdapter(getActivity(), 0, circleInfoList);
+//            circleInfoListView.setAdapter(circleInfoAdapter);
+//        }
     }
 
     /**

@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/circle_info_toolbar"
+                android:text="@string/app_info_toolbar"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/textView_circle_info_toolbar" />
         </android.support.v7.widget.Toolbar>

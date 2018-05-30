@@ -47,9 +47,6 @@
             android:name=".config.ConfigActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".config.ConfigDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".todo.TodoDetailActivity"
             android:screenOrientation="portrait"/>
 
