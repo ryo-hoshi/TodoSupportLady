@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/button_back"
+            android:id="@+id/button_todo_list_back"
             android:layout_marginLeft="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,8 +18,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
         <Button
             android:id="@+id/button_add"
             android:layout_marginRight="6dp"
@@ -28,6 +27,12 @@
             android:layout_gravity="right"
             android:text="@string/todo_list_add" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="1dp"
+        android:background="#00ff7f"/>
 
     <ListView
         android:layout_width="match_parent"

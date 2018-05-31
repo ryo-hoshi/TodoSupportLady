@@ -20,7 +20,7 @@
     <string name="todo_detail_resetting">再登録</string>
 
     <string name="app_info_toolbar">アプリ情報</string>
-    <string name="app_info_cancel">戻る</string>
+    <string name="app_info_back">戻る</string>
     <string name="app_info_description_title">このアプリに出てくるキャラクターについて</string>
     <string name="app_info_description">アプリ内で使用しているキャラクターはサークル「てるカフェ。」のWEBマンガのキャラクターを使用しています。\nもし興味を持っていただけたらWEBマンガの方もぜひご覧ください。</string>
     <string name="app_info_read">WEBマンガのページ(ニコニコ静画マンガ)を開く</string>
@@ -34,6 +34,11 @@
 
     <string name="config_toolbar">設定</string>
     <string name="config_cancel">戻る</string>
+    <string name="config_back">戻る</string>
+    <string name="config_usage">使い方</string>
+    <string name="config_usage_content">使い方説明の内容</string>
+    <string name="config_version">バージョン</string>
+    <string name="config_version_content">バージョン説明の内容</string>
     <string name="config_setting">設定</string>
     <string name="config_show_lady_image">TODO完了／削除時のキャラクター表示</string>
     <string name="config_setting_voice">アラーム停止後のボイス再生</string>

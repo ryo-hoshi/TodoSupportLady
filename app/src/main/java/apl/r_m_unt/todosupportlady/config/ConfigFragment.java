@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -22,6 +23,8 @@ public class ConfigFragment extends Fragment {
     private Switch switchIsShowLadyImage;
 
 //    private List<String> mList = new ArrayList<>();
+
+    private Button buttonBack;
 
     // Fragmentで表示するViewを作成するメソッド
     @Override
@@ -51,6 +54,17 @@ public class ConfigFragment extends Fragment {
                 }
             }
         );
+
+
+        // 戻るボタン押下時の処理
+        buttonBack = (Button)getView().findViewById(R.id.button_config_back);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 当画面のActivityを終了する
+                getActivity().finish();
+            }
+        });
     }
 
 
@@ -58,46 +72,8 @@ public class ConfigFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-
-//        mList.add("このアプリについて");
-//        mList.add("使い方");
-//        mList.add("設定");
-        //ListView listViewInfoConfig = (ListView) getView().findViewById(R.id.listView_infoConfig);
-
-//        // アダプターの生成
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, mList);
-
-//        // アダプターの設定
-//        setListAdapter(adapter);
-
-
     }
 
-// 必要なら使う
-//    /*
-//     * アイテムの追加
-//     */
-//    public void add(String message) {
-//
-//        mList.add(message);
-//
-//    }
-
-//    /*
-//     * アイテムのクリック
-//     *
-//     * @see
-//     * android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView
-//     * , android.view.View, int, long)
-//     */
-//    @Override
-//    public void onListItemClick(ListView l, View v, int position, long id) {
-//        Log.d(TAG, "onListItemClick position => " + position + " : id => " + id);
-//        Intent configDetailIntent = new Intent(getActivity(), ConfigDetailActivity.class);
-//        configDetailIntent.putExtra(ConfigDetailFragment.CONFIG_SELECT_NO, position);
-//        startActivity(configDetailIntent);
-//    }
 
 
 }

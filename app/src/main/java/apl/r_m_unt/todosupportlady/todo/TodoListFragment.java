@@ -82,7 +82,7 @@ public class TodoListFragment extends ListFragment {
         });
 
         // 戻るボタン押下時の処理
-        buttonBack = (Button)getView().findViewById(R.id.button_back);
+        buttonBack = (Button)getView().findViewById(R.id.button_todo_list_back);
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
