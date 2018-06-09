@@ -1,5 +1,7 @@
 package apl.r_m_unt.todosupportlady.todo;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -16,7 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import apl.r_m_unt.todosupportlady.CompleteDialogFragment;
+import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
+import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.CommonFunction;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
@@ -55,6 +58,7 @@ public class TodoDetailFragment extends Fragment {
     private DialogFragment dialogFragment;
     private Button buttonSave;
     private Button buttonResetting;
+    private Fragment myFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,12 +79,12 @@ public class TodoDetailFragment extends Fragment {
         datePickerLimit = (DatePicker)getView().findViewById(datePicker_limit);
         editTextTitle = (EditText)getView().findViewById(R.id.editText_title);
         editTextDetail = (EditText)getView().findViewById(R.id.editText_detail);
-//        textViewTodoId = (TextView)getView().findViewById(R.id.textView_todo_id);
+        editTextLimit = (EditText)getView().findViewById(R.id.editText_limit);
         buttonComplete = (Button)getView().findViewById(R.id.button_complete);
         buttonDelete = (Button)getView().findViewById(R.id.button_delete);
-        editTextLimit = (EditText)getView().findViewById(R.id.editText_limit);
         buttonSave = (Button)getView().findViewById(R.id.button_save);
         buttonResetting = (Button)getView().findViewById(R.id.button_todo_resetting);
+        myFragment = this;
 
         // スクロールバー表示を可能にする
         //editTextDetail.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -198,47 +202,29 @@ public class TodoDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                // TODOモデルの取得
-                TodoModel todoModel = new TodoModel(getActivity());
-                // 削除を設定
-                long rtn = todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
-                if (rtn == -1) {
-                    Log.d(TAG, "todoModel update結果：TODOの削除に失敗しました");
-                } else {
-                    Log.d(TAG, "todoModel update結果：TODOを削除しました");
-                }
+//                // TODOモデルの取得
+//                TodoModel todoModel = new TodoModel(getActivity());
+//                // 削除を設定
+//                long rtn = todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
+//                if (rtn == -1) {
+//                    Log.d(TAG, "todoModel update結果：TODOの削除に失敗しました");
+//                } else {
+//                    Log.d(TAG, "todoModel update結果：TODOを削除しました");
+//                }
+                fragmentManager = getActivity().getSupportFragmentManager();
+                dialogFragment = new DeleteConfirmDialogFragment();
 
-                // 保存ボタンを非活性にする
-                buttonSave.setEnabled(false);
-                // 完了ボタンを非活性
-                buttonComplete.setEnabled(false);
-                // 削除ボタンを非活性
-                buttonDelete.setEnabled(false);
-                // 再登録ボタンを表示する
-                buttonResetting.setVisibility(View.VISIBLE);
+                Bundle args = new Bundle();
+                // 削除対象のTODO_ID
+                args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoId);
+                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
+                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
+                dialogFragment.setArguments(args);
+                // ダイアログに呼び出し元のFragmentオブジェクトを設定
+                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_DELETE_CONFIRM_DIALOG);
 
-                // TODO 削除時のダイアログ表示
-                // 削除時のダイアログを表示する
+                dialogFragment.show(fragmentManager, "delete");
 
-//                new AlertDialog.Builder(getActivity())
-//                    .setTitle(getActivity().getString(R.string.confirm_todo_delete))
-//                    .setMessage(editTextDetail.getText())
-//                    .setPositiveButton(android.R.string.ok,
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int whichButton) {
-//                                // OK ボタン押下時
-//                                Log.d(TAG, "TODO削除ダイアログのOKボタンを押下しました。" + "whichButton:" + whichButton);
-//
-//                                // TODOモデルの取得
-//                                TodoModel todoModel = new TodoModel(getActivity());
-//                                todoModel.deleteTodoInfo(todoId);
-//
-//                                // 当画面のActivityを終了する
-//                                getActivity().finish();
-//                            }
-//                        })
-//                    .setNegativeButton(android.R.string.cancel, null)
-//                    .show();
             }
         });
 
@@ -270,7 +256,7 @@ public class TodoDetailFragment extends Fragment {
                 // TODO 完了時のダイアログ表示
                 // 完了時のダイアログを表示する
                 fragmentManager = getActivity().getSupportFragmentManager();
-                dialogFragment = new CompleteDialogFragment();
+                dialogFragment = new CompleteImgDialogFragment();
                 dialogFragment.show(fragmentManager, "complete");
 
                 // 保存ボタンを非活性にする
@@ -312,6 +298,32 @@ public class TodoDetailFragment extends Fragment {
                 buttonResetting.setVisibility(View.GONE);
             }
         });
+    }
+
+    /**
+     * ダイアログからのコールバックに使用
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DeleteConfirmDialogFragment.REQUEST_DELETE_CONFIRM_DIALOG:
+                if (resultCode != Activity.RESULT_OK) { return; }
+
+                // 保存ボタンを非活性にする
+                buttonSave.setEnabled(false);
+                // 完了ボタンを非活性
+                buttonComplete.setEnabled(false);
+                // 削除ボタンを非活性
+                buttonDelete.setEnabled(false);
+                // 再登録ボタンを表示する
+                buttonResetting.setVisibility(View.VISIBLE);
+
+                return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

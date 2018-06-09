@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import apl.r_m_unt.todosupportlady.CompleteDialogFragment;
-import apl.r_m_unt.todosupportlady.DeleteDialogFragment;
+import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
+import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
@@ -118,15 +118,17 @@ public class TodoListFragment extends ListFragment {
                 Log.d(TAG, "Listのロングタップ");
 
                 fragmentManager = getActivity().getSupportFragmentManager();
-                dialogFragment = new DeleteDialogFragment();
+                dialogFragment = new DeleteConfirmDialogFragment();
 
                 TodoInfo todoInfo = todoInfoList.get(position);
                 Bundle args = new Bundle();
-                args.putInt(DeleteDialogFragment.TODO_ID, todoInfo.getId()); // 削除対象のTODO_ID
-                args.putInt(DeleteDialogFragment.FROM_LIST_DETAIL_CD, DeleteDialogFragment.FROM_LIST); // TODO一覧からの遷移
+                // 削除対象のTODO_IDを設定
+                args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoInfo.getId());
+//                // TODO一覧からの遷移であることを設定してダイアログ呼び出し
+//                args.putInt(DeleteDialogFragment.TRANSITION_SOURCE_CD, DeleteDialogFragment.TransitionSource.TodoDetail.getInt());
                 dialogFragment.setArguments(args);
-                // 削除ダイアログに呼び出し元情報を設定
-                dialogFragment.setTargetFragment(myFragment, DeleteDialogFragment.FROM_LIST);
+                // ダイアログに呼び出し元のFragmentオブジェクトを設定(結果はもらわないのでリクエストコードはダミーの0)
+                dialogFragment.setTargetFragment(myFragment, 0);
 
                 dialogFragment.show(fragmentManager, "delete");
 
@@ -316,10 +318,9 @@ public class TodoListFragment extends ListFragment {
                         todoInfo.setIsComplete(TodoInfo.COMPLETE);
                         //updateTodoInfo(position, todoInfo);
 
-                        // TODO 完了時のダイアログ表示
-                        // 完了時のダイアログを表示する
+                        // 完了時の画像ダイアログを表示する
                         fragmentManager = getActivity().getSupportFragmentManager();
-                        dialogFragment = new CompleteDialogFragment();
+                        dialogFragment = new CompleteImgDialogFragment();
                         dialogFragment.show(fragmentManager, "complete");
 
                     }

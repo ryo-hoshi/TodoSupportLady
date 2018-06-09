@@ -1,5 +1,6 @@
 package apl.r_m_unt.todosupportlady;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
@@ -17,14 +19,15 @@ import apl.r_m_unt.todosupportlady.todo.TodoModel;
 /**
  * Created by ryota on 2017/05/01.
  */
-public class DeleteDialogFragment extends DialogFragment{
+public class DeleteConfirmDialogFragment extends DialogFragment{
 
-    private static final String TAG = "DeleteDialogFragment";
+    private static final String TAG = "DelConfDialogFragment";
     public static final String TODO_ID = "TODO_ID";
-    public static final String FROM_LIST_DETAIL_CD = "FROM_LIST_DETAIL_CD";
-    public static final int FROM_LIST = 0;
-    public static final int FROM_DETAIL = 1;
-    private int fromListDetailCd;
+    public static final String TRANSITION_SOURCE_CD = "TRANSITION_SOURCE_CD";
+    public static final int REQUEST_DELETE_CONFIRM_DIALOG = 0;
+
+    /** 遷移元画面 */
+//    private int transitionSourceCd;
     private int todoId;
 
     private TodoListFragment todoListFragment;
@@ -62,22 +65,6 @@ public class DeleteDialogFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Log.d(TAG, "DeleteDialog表示処理");
-//        final DialogInterface.OnClickListener listener = (dialog, which) -> {
-//            dismiss();
-//            Intent intent = new Intent();
-//            if (getArguments() != null) {
-//                intent.putExtras(getArguments());
-//            }
-//            getParentFragment().onActivityResult(getTargetRequestCode(), which, intent);
-//        };
-//        // ダイアログ表示はこれで可能
-//            return new AlertDialog.Builder(getActivity())
-//                    .setTitle("TODOを削除しますか？")
-//                    .setPositiveButton("OK", null)
-//                    .setNegativeButton("Cancel", null)
-//                    .create();
-
-        fromListDetailCd = getArguments().getInt(FROM_LIST_DETAIL_CD);
 
         // ダイアログの表示内容と呼び出しもとに値を返す設定
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -91,16 +78,45 @@ public class DeleteDialogFragment extends DialogFragment{
                 // TODO削除
                 todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
 
-                // TODO一覧を更新
-                if (fromListDetailCd == FROM_LIST) {
+//                // 遷移元情報確認
+//                transitionSourceCd = getArguments().getInt(TRANSITION_SOURCE_CD);
+
+
+                // TODO一覧で削除の場合
+                if (todoListFragment != null ) {
+                    // TODO一覧を再設定する
                     todoListFragment.setTodoInfoList();
-
+                    // OKの結果のみ呼び出しもとに渡すのでIntentはnull
+                    todoListFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 } else {
-
+                    todoDetailFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 }
+
+                // 削除時の画像ダイアログを表示する
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                DialogFragment dialogFragment = new DeleteImgDialogFragment();
+                dialogFragment.show(fragmentManager, "delete");
             }
         });
         dialogBuilder.setNegativeButton("Cancel", null);
         return dialogBuilder.create();
+    }
+
+    /**
+     * 遷移元情報
+     */
+    public enum TransitionSource {
+        TodoList(0),
+        TodoDetail(1),
+        ;
+        private final int id;
+
+        private TransitionSource(final int id) {
+            this.id = id;
+        }
+
+        public int getInt() {
+            return this.id;
+        }
     }
 }

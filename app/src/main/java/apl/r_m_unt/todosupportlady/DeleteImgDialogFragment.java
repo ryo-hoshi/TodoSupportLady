@@ -8,12 +8,10 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.ImageView;
 
-//import android.app.DialogFragment;
-
 /**
- * Created by ryota on 2018/03/10.
+ * Created by ryota on 2017/05/01.
  */
-public class CompleteDialogFragment extends DialogFragment{
+public class DeleteImgDialogFragment extends DialogFragment{
 
     private AlertDialog dialog;
     private AlertDialog.Builder alert;
@@ -23,24 +21,21 @@ public class CompleteDialogFragment extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         alert = new AlertDialog.Builder(getActivity());
-        alert.setTitle("TODOを完了しました");
+        alert.setTitle("TODOを削除しました");
 
         // カスタムレイアウトの生成
-        View alertView = getActivity().getLayoutInflater().inflate(R.layout.complete_layout, null);
+        View alertView = getActivity().getLayoutInflater().inflate(R.layout.delete_dialog_layout, null);
 
-        // complete_layout.xmlにあるボタンIDを使う
-        ImageView imgv = (ImageView) alertView.findViewById(R.id.imageView_complete);
+        // delete_layout.xmlにあるボタンIDを使用して画像を設定
+        ImageView imgv = (ImageView) alertView.findViewById(R.id.imageView_delete);
         imgv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                Log.d("complete dialog", "clicked");
-
-//                alert.setMessage("image clicked");
                 // Dialogを消す
                 getDialog().dismiss();
             }
         });
 
-        // ViewをCompleteDialog.Builderに追加
+        // ViewをdeleteDialog.Builderに追加
         alert.setView(alertView);
 
         // Dialogを生成
@@ -49,8 +44,4 @@ public class CompleteDialogFragment extends DialogFragment{
 
         return dialog;
     }
-
-//    private void setMessage(String message) {
-//
-//    }
 }
