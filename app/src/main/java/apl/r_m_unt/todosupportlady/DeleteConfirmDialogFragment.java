@@ -22,9 +22,6 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
 
     private static final String TAG = "DelConfDialogFragment";
     public static final String TODO_ID = "TODO_ID";
-    public static final String TRANSITION_SOURCE_CD = "TRANSITION_SOURCE_CD";
-    public static final int REQUEST_TODO_LIST = 0;
-    public static final int REQUEST_TODO_DETAIL = 1;
 
     /** 遷移元画面 */
 //    private int transitionSourceCd;

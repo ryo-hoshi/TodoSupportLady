@@ -1,6 +1,5 @@
 package apl.r_m_unt.todosupportlady.todo;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -21,9 +20,11 @@ import android.widget.Toast;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
+import apl.r_m_unt.todosupportlady.TodoConstant;
 import apl.r_m_unt.todosupportlady.common.CommonFunction;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
+import static android.app.Activity.RESULT_OK;
 import static apl.r_m_unt.todosupportlady.R.id.datePicker_limit;
 
 
@@ -37,7 +38,8 @@ public class TodoDetailFragment extends Fragment {
     public static final String SELECT_TODO_TITLE = "SELECT_TODO_TITLE";
     public static final String SELECT_TODO_DETAIL = "SELECT_TODO_DETAIL";
     public static final String SELECT_TODO_LIMIT = "SELECT_TODO_LIMIT";
-    public static final String SELECT_TODO_IS_COMPLETE = "SELECT_TODO_IS_COMPLETE";
+    public static final String INTENT_KEY_REGISTER = "INTENT_KEY_REGISTER";
+    public static final String INTENT_KEY_REGISTER_NEW = "INTENT_KEY_REGISTER_NEW";
 
     private static final String TAG = "TodoDetailFragment";
 
@@ -58,6 +60,30 @@ public class TodoDetailFragment extends Fragment {
     private Button buttonSave;
     private Button buttonResetting;
     private Fragment myFragment;
+//    private Fragment mainFragment;
+
+//    // ClassCastException対応
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//
+//        // 遷移元のFragmentをチェック
+//        final Fragment fragment = getTargetFragment();
+//        if (fragment != null) {
+//            if(fragment instanceof MainFragment) {
+//                mainFragment = (MainFragment) fragment;
+//            }
+//        }
+//    }
+//
+//    /**
+//     * リーク対策
+//     */
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mainFragment = null;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -180,6 +206,11 @@ public class TodoDetailFragment extends Fragment {
                         Log.d(TAG, "todoModel insert結果：TODOを登録しました");
                     }
 
+                    // Main画面に戻った時に新規登録からの戻りかどうかの判断用に設定
+                    Intent intent = new Intent();
+                    intent.putExtra(INTENT_KEY_REGISTER, INTENT_KEY_REGISTER_NEW);
+                    getActivity().setResult(RESULT_OK, intent);
+
                     // 編集時はUPDATE
                 } else {
                     long rtn = todoModel.updateTodoInfo(todoSetInfo);
@@ -189,6 +220,8 @@ public class TodoDetailFragment extends Fragment {
                     } else {
                         Log.d(TAG, "todoModel update結果：TODOを更新しました");
                     }
+//                    // 当画面のActivityを終了する
+//                    getActivity().finish();
                 }
 
                 // 当画面のActivityを終了する
@@ -220,7 +253,7 @@ public class TodoDetailFragment extends Fragment {
 //                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
                 dialogFragment.setArguments(args);
                 // ダイアログに呼び出し元のFragmentオブジェクトを設定
-                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_TODO_DETAIL);
+                dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoDetail.getInt());
 
                 dialogFragment.show(fragmentManager, "delete");
 
@@ -307,20 +340,19 @@ public class TodoDetailFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case DeleteConfirmDialogFragment.REQUEST_TODO_DETAIL:
-                if (resultCode != Activity.RESULT_OK) { return; }
+        if (requestCode == TodoConstant.RequestCode.TodoDetail.getInt()) {
+            if (resultCode != RESULT_OK) { return; }
 
-                // 保存ボタンを非活性にする
-                buttonSave.setEnabled(false);
-                // 完了ボタンを非活性
-                buttonComplete.setEnabled(false);
-                // 削除ボタンを非活性
-                buttonDelete.setEnabled(false);
-                // 再登録ボタンを表示する
-                buttonResetting.setVisibility(View.VISIBLE);
+            // 保存ボタンを非活性にする
+            buttonSave.setEnabled(false);
+            // 完了ボタンを非活性
+            buttonComplete.setEnabled(false);
+            // 削除ボタンを非活性
+            buttonDelete.setEnabled(false);
+            // 再登録ボタンを表示する
+            buttonResetting.setVisibility(View.VISIBLE);
 
-                return;
+            return;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -23,6 +23,7 @@ import java.util.List;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
+import apl.r_m_unt.todosupportlady.TodoConstant;
 import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
@@ -129,7 +130,7 @@ public class TodoListFragment extends ListFragment {
 //                args.putInt(DeleteDialogFragment.TRANSITION_SOURCE_CD, DeleteDialogFragment.TransitionSource.TodoDetail.getInt());
                 dialogFragment.setArguments(args);
                 // ダイアログに呼び出し元のFragmentオブジェクトを設定
-                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_TODO_LIST);
+                dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoList.getInt());
 
                 dialogFragment.show(fragmentManager, "delete");
 
@@ -150,9 +151,6 @@ public class TodoListFragment extends ListFragment {
 
     }
 
-    public void onStart() {
-        super.onStart();
-    }
 
     @Override
     public void onResume() {
@@ -193,14 +191,16 @@ public class TodoListFragment extends ListFragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case DeleteConfirmDialogFragment.REQUEST_TODO_LIST:
-                if (resultCode != Activity.RESULT_OK) { return; }
+        if (requestCode == TodoConstant.RequestCode.TodoList.getInt()) {
 
-                // TODO一覧の再設定
-                setTodoInfoList();
-
+            if (resultCode != Activity.RESULT_OK) {
                 return;
+            }
+
+            // TODO一覧の再設定
+            setTodoInfoList();
+
+            return;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

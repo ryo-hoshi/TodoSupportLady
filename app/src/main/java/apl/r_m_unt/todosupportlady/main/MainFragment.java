@@ -1,5 +1,6 @@
 package apl.r_m_unt.todosupportlady.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
+import apl.r_m_unt.todosupportlady.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
 import apl.r_m_unt.todosupportlady.info.CircleInfoSetting;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoListActivity;
 
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.INTENT_KEY_REGISTER;
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.INTENT_KEY_REGISTER_NEW;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_ID;
 
 /**
@@ -45,14 +49,16 @@ public class MainFragment extends Fragment {
         view.findViewById(R.id.imageButton_todo_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO明細画面へ遷移
+                // TODO詳細画面へ遷移
                 Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
                 todoDetailIntent.putExtra(SELECT_TODO_ID, -1);
-                startActivity(todoDetailIntent);
+                //startActivity(todoDetailIntent);
+                // 返却値を受け取るモードでActivityを起動
+                startActivityForResult(todoDetailIntent, TodoConstant.RequestCode.Main.getInt());
             }
         });
 
-        // TODOリストのイメージをクリックした時の処理
+        // TODO一覧のイメージをクリックした時の処理
         view.findViewById(R.id.imageButton_todo_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +67,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        // サークル情報のイメージをクリックした時の処理
+        // アプリ情報のイメージをクリックした時の処理
         view.findViewById(R.id.imageButton_info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +115,28 @@ public class MainFragment extends Fragment {
 //                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 //            }
 //        });
+    }
+
+
+    /**
+     * 呼び出し先からのコールバックを受け取る
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == TodoConstant.RequestCode.Main.getInt()) {
+
+            // TODO登録画面からの戻り時に新規登録の設定がされていた場合はTODO一覧を表示する
+            if (resultCode == Activity.RESULT_OK && INTENT_KEY_REGISTER_NEW.equals(data.getStringExtra(INTENT_KEY_REGISTER))) {
+                Intent todoListIntent = new Intent(getActivity(), TodoListActivity.class);
+                startActivity(todoListIntent);
+            }
+
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

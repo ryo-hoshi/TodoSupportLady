@@ -55,7 +55,7 @@ public class TodoInfo {
     public void setIsComplete(int isComplete) {this.isComplete = isComplete;}
 
     /**
-     * 遷移元情報
+     * 削除情報
      */
     public enum DeleteStatus {
         NotDelete(0),
@@ -73,7 +73,7 @@ public class TodoInfo {
     }
 
     /**
-     * 遷移元情報
+     * 完了情報
      */
     public enum CompleteStatus {
         NotComplete(0),
