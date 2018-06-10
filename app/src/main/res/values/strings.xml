@@ -5,7 +5,7 @@
 
     <string name="todo_list_toolbar">TODO一覧</string>
     <string name="todo_list_back">戻る</string>
-    <string name="todo_list_add">追加</string>
+    <string name="todo_list_add">登録</string>
     <string name="todo_list_complete">完了</string>
 
     <string name="todo_detail_toolbar">TODO設定</string>
