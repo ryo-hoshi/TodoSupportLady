@@ -5,11 +5,6 @@ package apl.r_m_unt.todosupportlady.todo;
  */
 public class TodoInfo {
 
-    public static final int INCOMPLETE = 0;
-    public static final int COMPLETE = 1;
-    public static final int NOT_DELETE = 0;
-    public static final int DELETE = 1;
-
     /** TODO時間デミリタ */
     private static final String TIME_DELIMITER = ":";
 
@@ -59,34 +54,40 @@ public class TodoInfo {
 
     public void setIsComplete(int isComplete) {this.isComplete = isComplete;}
 
+    /**
+     * 遷移元情報
+     */
+    public enum DeleteStatus {
+        NotDelete(0),
+        Delete(1),
+        ;
+        private final int id;
 
-//    private String id;
-//    private int hour;
-//    private int minute;
-//    private String memo;
-//    private boolean todoSwitch;
-//
-//    public TodoInfo(String id, int hour, int minute, String memo, boolean todoSwitch) {
-//        this.id = id;
-//        this.hour = hour;
-//        this.minute = minute;
-//        this.memo = memo;
-//        this.todoSwitch = todoSwitch;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public String getTodoTime() {
-//        return hour + ":" + minute;
-//    }
-//
-//    public String getMemo() {
-//        return memo;
-//    }
-//
-//    public boolean getTodoSwitch() {
-//        return todoSwitch;
-//    }
+        private DeleteStatus(final int id) {
+            this.id = id;
+        }
+
+        public int getInt() {
+            return this.id;
+        }
+    }
+
+    /**
+     * 遷移元情報
+     */
+    public enum CompleteStatus {
+        NotComplete(0),
+        Complete(1),
+        ;
+        private final int id;
+
+        private CompleteStatus(final int id) {
+            this.id = id;
+        }
+
+        public int getInt() {
+            return this.id;
+        }
+    }
+
 }

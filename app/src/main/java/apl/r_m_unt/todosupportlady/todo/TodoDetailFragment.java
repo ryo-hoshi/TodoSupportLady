@@ -25,7 +25,6 @@ import apl.r_m_unt.todosupportlady.common.CommonFunction;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
 import static apl.r_m_unt.todosupportlady.R.id.datePicker_limit;
-import static apl.r_m_unt.todosupportlady.todo.TodoInfo.INCOMPLETE;
 
 
 /**
@@ -217,11 +216,11 @@ public class TodoDetailFragment extends Fragment {
                 Bundle args = new Bundle();
                 // 削除対象のTODO_ID
                 args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoId);
-                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
-                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
+//                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
+//                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
                 dialogFragment.setArguments(args);
                 // ダイアログに呼び出し元のFragmentオブジェクトを設定
-                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_DELETE_CONFIRM_DIALOG);
+                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_TODO_DETAIL);
 
                 dialogFragment.show(fragmentManager, "delete");
 
@@ -246,7 +245,7 @@ public class TodoDetailFragment extends Fragment {
                 // TODOモデルの取得
                 TodoModel todoModel = new TodoModel(getActivity());
                 // 完了を設定
-                long rtn = todoModel.updateIsComplete(todoId, TodoInfo.COMPLETE);
+                long rtn = todoModel.complete(todoId);
                 if (rtn == -1) {
                     Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
                 } else {
@@ -281,7 +280,7 @@ public class TodoDetailFragment extends Fragment {
                 // TODOモデルの取得
                 TodoModel todoModel = new TodoModel(getActivity());
                 // TODOを再登録
-                long rtn = todoModel.updateTodoIsCompleteDelete(todoId, TodoInfo.INCOMPLETE, TodoInfo.NOT_DELETE);
+                long rtn = todoModel.reRegister(todoId);
                 if (rtn == -1) {
                     Log.d(TAG, "todoModel update結果：TODOの再登録に失敗しました");
                 } else {
@@ -309,7 +308,7 @@ public class TodoDetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case DeleteConfirmDialogFragment.REQUEST_DELETE_CONFIRM_DIALOG:
+            case DeleteConfirmDialogFragment.REQUEST_TODO_DETAIL:
                 if (resultCode != Activity.RESULT_OK) { return; }
 
                 // 保存ボタンを非活性にする
@@ -407,7 +406,7 @@ public class TodoDetailFragment extends Fragment {
                 todoLimit,
                 editTextTitle.getText().toString(),
                 editTextDetail.getText().toString(),
-                INCOMPLETE
+                TodoInfo.CompleteStatus.NotComplete.getInt()
         );
     }
 

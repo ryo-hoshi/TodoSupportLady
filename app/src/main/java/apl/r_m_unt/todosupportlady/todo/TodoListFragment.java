@@ -1,5 +1,6 @@
 package apl.r_m_unt.todosupportlady.todo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -127,8 +128,8 @@ public class TodoListFragment extends ListFragment {
 //                // TODO一覧からの遷移であることを設定してダイアログ呼び出し
 //                args.putInt(DeleteDialogFragment.TRANSITION_SOURCE_CD, DeleteDialogFragment.TransitionSource.TodoDetail.getInt());
                 dialogFragment.setArguments(args);
-                // ダイアログに呼び出し元のFragmentオブジェクトを設定(結果はもらわないのでリクエストコードはダミーの0)
-                dialogFragment.setTargetFragment(myFragment, 0);
+                // ダイアログに呼び出し元のFragmentオブジェクトを設定
+                dialogFragment.setTargetFragment(myFragment, DeleteConfirmDialogFragment.REQUEST_TODO_LIST);
 
                 dialogFragment.show(fragmentManager, "delete");
 
@@ -182,6 +183,26 @@ public class TodoListFragment extends ListFragment {
         todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoInfoList);
         setListAdapter(todoInfoAdapter);
 
+    }
+
+    /**
+     * ダイアログからのコールバックに使用
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case DeleteConfirmDialogFragment.REQUEST_TODO_LIST:
+                if (resultCode != Activity.RESULT_OK) { return; }
+
+                // TODO一覧の再設定
+                setTodoInfoList();
+
+                return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 //    /**
 //     * TODO情報リストの更新
@@ -314,15 +335,24 @@ public class TodoListFragment extends ListFragment {
                         // 上記positionからデータを取得
                         TodoInfo todoInfo = todoInfoAdapter.getItem(position);
                         Log.d(TAG, "imageButtonDelete onClick呼ばれた" + "position:" + position);
-                        // TODOを更新する
-                        todoInfo.setIsComplete(TodoInfo.COMPLETE);
-                        //updateTodoInfo(position, todoInfo);
+
+                        // TODOを完了する
+                        // TODOモデルの取得
+                        TodoModel todoModel = new TodoModel(getActivity());
+                        // 完了を設定
+                        long rtn = todoModel.complete(todoInfo.getId());
+                        if (rtn == -1) {
+                            Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
+                        } else {
+                            Log.d(TAG, "todoModel update結果：TODOを完了しました");
+                        }
 
                         // 完了時の画像ダイアログを表示する
                         fragmentManager = getActivity().getSupportFragmentManager();
                         dialogFragment = new CompleteImgDialogFragment();
                         dialogFragment.show(fragmentManager, "complete");
 
+                        setTodoInfoList();
                     }
                 });
             }

@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
-import apl.r_m_unt.todosupportlady.todo.TodoInfo;
 import apl.r_m_unt.todosupportlady.todo.TodoListFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoModel;
 
@@ -24,7 +23,8 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
     private static final String TAG = "DelConfDialogFragment";
     public static final String TODO_ID = "TODO_ID";
     public static final String TRANSITION_SOURCE_CD = "TRANSITION_SOURCE_CD";
-    public static final int REQUEST_DELETE_CONFIRM_DIALOG = 0;
+    public static final int REQUEST_TODO_LIST = 0;
+    public static final int REQUEST_TODO_DETAIL = 1;
 
     /** 遷移元画面 */
 //    private int transitionSourceCd;
@@ -76,7 +76,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
                 todoId  = getArguments().getInt(TODO_ID);
                 TodoModel todoModel = new TodoModel(getActivity());
                 // TODO削除
-                todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
+                todoModel.delete(todoId);
 
 //                // 遷移元情報確認
 //                transitionSourceCd = getArguments().getInt(TRANSITION_SOURCE_CD);
@@ -85,7 +85,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
                 // TODO一覧で削除の場合
                 if (todoListFragment != null ) {
                     // TODO一覧を再設定する
-                    todoListFragment.setTodoInfoList();
+                    //todoListFragment.setTodoInfoList();
                     // OKの結果のみ呼び出しもとに渡すのでIntentはnull
                     todoListFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 } else {
@@ -100,23 +100,5 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
         });
         dialogBuilder.setNegativeButton("Cancel", null);
         return dialogBuilder.create();
-    }
-
-    /**
-     * 遷移元情報
-     */
-    public enum TransitionSource {
-        TodoList(0),
-        TodoDetail(1),
-        ;
-        private final int id;
-
-        private TransitionSource(final int id) {
-            this.id = id;
-        }
-
-        public int getInt() {
-            return this.id;
-        }
     }
 }

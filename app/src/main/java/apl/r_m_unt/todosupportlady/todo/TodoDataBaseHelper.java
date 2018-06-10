@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static apl.r_m_unt.todosupportlady.todo.TodoInfo.INCOMPLETE;
-import static apl.r_m_unt.todosupportlady.todo.TodoInfo.NOT_DELETE;
 
 /**
  * Created by ryota on 2018/03/21.
@@ -65,8 +63,8 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
                 .append(" FROM ")
                 .append(TABLE_TODO)
                 .append(" WHERE ")
-                .append(COLUMN_IS_COMPLETE).append(EQUAL).append(INCOMPLETE)
-                .append(AND).append(COLUMN_IS_DELETE).append(EQUAL).append(NOT_DELETE);
+                .append(COLUMN_IS_COMPLETE).append(EQUAL).append(TodoInfo.CompleteStatus.NotComplete.getInt())
+                .append(AND).append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt());
         return sb.toString();
     }
 
