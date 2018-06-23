@@ -63,7 +63,7 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
                 .append(" FROM ")
                 .append(TABLE_TODO)
                 .append(" WHERE ")
-                .append(COLUMN_IS_COMPLETE).append(EQUAL).append(TodoInfo.CompleteStatus.NotComplete.getInt())
+                .append(COLUMN_IS_COMPLETE).append(EQUAL).append("?")
                 .append(AND).append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt());
         return sb.toString();
     }

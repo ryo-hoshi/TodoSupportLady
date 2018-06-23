@@ -22,14 +22,14 @@ public class TodoModel {
         todoDataBaseHelper = new TodoDataBaseHelper(context);
     }
 
-    public List<TodoInfo> getTodoInfo(){
+    public List<TodoInfo> getTodoInfo(int completeStatus){
 
         List<TodoInfo> todoInfoList = new ArrayList<>();
 
         // 読み込み用としてDBを取得
         SQLiteDatabase db = todoDataBaseHelper.getReadableDatabase();
         try {
-            Cursor cursor = db.rawQuery(todoDataBaseHelper.selectInCompleteTodoSql(), new String[]{});
+            Cursor cursor = db.rawQuery(todoDataBaseHelper.selectInCompleteTodoSql(), new String[]{String.valueOf(completeStatus)});
 
             // 参照先を一番始めに
             boolean isEof = cursor.moveToFirst();

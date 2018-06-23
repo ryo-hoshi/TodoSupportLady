@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,6 +30,7 @@ import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_ID;
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_IS_COMPLETE;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_TITLE;
 
@@ -54,6 +57,7 @@ public class TodoListFragment extends ListFragment {
     private DialogFragment dialogFragment;
     private List<TodoInfo> todoInfoList;
     private Fragment myFragment;
+    private Switch switchCompleteShow;
 
     // Fragmentで表示するViewを作成するメソッド
     @Override
@@ -114,6 +118,9 @@ public class TodoListFragment extends ListFragment {
 //        todoListView.setAdapter(todoAdapter);
 
 
+        /**
+         * リストアイテムのロングタップ時
+         */
         todoListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -138,6 +145,17 @@ public class TodoListFragment extends ListFragment {
                 return true;
             }
         });
+
+        /**
+         * TODO完了表示 切替スイッチをタップ時の処理
+         */
+        switchCompleteShow = (Switch)getView().findViewById(R.id.switch_complete_show);
+        switchCompleteShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setTodoInfoList();
+            }
+        });
     }
 
     // ダイアログの戻り値取得時の処理
@@ -150,7 +168,6 @@ public class TodoListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
     }
-
 
     @Override
     public void onResume() {
@@ -174,9 +191,15 @@ public class TodoListFragment extends ListFragment {
      * TODO一覧の設定
      */
     public void setTodoInfoList() {
+        // 完了の表示フラグをスイッチの状態から取得
+        int completeStatus = TodoInfo.CompleteStatus.NotComplete.getInt();
+        if (isCompleteShow()) {
+            completeStatus = TodoInfo.CompleteStatus.Complete.getInt();
+        }
+
         // TODOの取得
         TodoModel todoModel = new TodoModel(getActivity());
-        todoInfoList = todoModel.getTodoInfo();
+        todoInfoList = todoModel.getTodoInfo(completeStatus);
 
         todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoInfoList);
         setListAdapter(todoInfoAdapter);
@@ -269,14 +292,22 @@ public class TodoListFragment extends ListFragment {
         TodoInfo todoInfo = todoInfoList.get(position);
 
         Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
-        todoDetailIntent.putExtra(SELECT_TODO_ID, todoInfo.getId());
-        todoDetailIntent.putExtra(SELECT_TODO_TITLE, todoInfo.getTitle());
-        todoDetailIntent.putExtra(SELECT_TODO_DETAIL, todoInfo.getDetail());
-        todoDetailIntent.putExtra(SELECT_TODO_LIMIT, todoInfo.getLimit());
+        Bundle bundle = new Bundle();
+//        todoDetailIntent.putExtra(SELECT_TODO_ID, todoInfo.getId());
+//        todoDetailIntent.putExtra(SELECT_TODO_TITLE, todoInfo.getTitle());
+//        todoDetailIntent.putExtra(SELECT_TODO_DETAIL, todoInfo.getDetail());
+//        todoDetailIntent.putExtra(SELECT_TODO_LIMIT, todoInfo.getLimit());
+        bundle.putInt(SELECT_TODO_ID, todoInfo.getId());
+        bundle.putString(SELECT_TODO_TITLE, todoInfo.getTitle());
+        bundle.putString(SELECT_TODO_DETAIL, todoInfo.getDetail());
+        bundle.putString(SELECT_TODO_LIMIT, todoInfo.getLimit());
+
+        Log.d(TAG, "■■完了フラグ確認1(List)■■" + todoInfo.getIsComplete());
+        bundle.putInt(SELECT_TODO_IS_COMPLETE, todoInfo.getIsComplete());
+        Log.d(TAG, "■■完了フラグ確認2(List)■■" + todoInfo.getIsComplete());
+        todoDetailIntent.putExtras(bundle);
         startActivity(todoDetailIntent);
     }
-
-
 
 
     /**
@@ -323,7 +354,10 @@ public class TodoListFragment extends ListFragment {
 
             // 完了ボタン
             Button buttonComplete = (Button)rowView.findViewById(R.id.button_listTodoComplete);
-
+            // 完了済のTODOはボタンを非活性にする
+            if (item.getIsComplete() == TodoInfo.CompleteStatus.Complete.getInt()){
+                buttonComplete.setEnabled(false);
+            }
             // ---------- 初回のみイベント登録 ----------
             // 完了ボタン押下時の処理
             if (buttonComplete.getTag() == null) {
@@ -362,5 +396,9 @@ public class TodoListFragment extends ListFragment {
 
             return rowView;
         }
+    }
+
+    private boolean isCompleteShow() {
+        return switchCompleteShow.isChecked();
     }
 }
