@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,6 +16,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/todo_list_back" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:id="@+id/switch_complete_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:layout_marginRight="10dp"
+            android:checked="false"
+            android:switchMinWidth="@dimen/activity_horizontal_margin"
+            android:text="@string/todo_list_complete_show"
+            android:textAlignment="textEnd" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"

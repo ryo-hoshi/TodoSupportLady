@@ -38,6 +38,7 @@ public class TodoDetailFragment extends Fragment {
     public static final String SELECT_TODO_TITLE = "SELECT_TODO_TITLE";
     public static final String SELECT_TODO_DETAIL = "SELECT_TODO_DETAIL";
     public static final String SELECT_TODO_LIMIT = "SELECT_TODO_LIMIT";
+    public static final String SELECT_TODO_IS_COMPLETE = "SELECT_TODO_IS_COMPLETE";
     public static final String INTENT_KEY_REGISTER = "INTENT_KEY_REGISTER";
     public static final String INTENT_KEY_REGISTER_NEW = "INTENT_KEY_REGISTER_NEW";
 
@@ -115,7 +116,11 @@ public class TodoDetailFragment extends Fragment {
         //editTextDetail.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         // リスト画面から取得したインデックスを取得
-        Bundle arguments =  getArguments();
+        Intent intent = getActivity().getIntent();
+        Bundle arguments =  intent.getExtras();
+    //    Bundle arguments =  getArguments();
+        Log.d(TAG, "■■todoId確認(Detail arguments)■■" + arguments.getInt(TodoDetailFragment.SELECT_TODO_ID));
+        Log.d(TAG, "■■完了フラグ確認1(Detail arguments)■■" + arguments.getInt(TodoDetailFragment.SELECT_TODO_IS_COMPLETE));
         todoId = arguments.getInt(TodoDetailFragment.SELECT_TODO_ID);
         Log.d(TAG, "onViewCreated todoIdの値:" + todoId);
 
@@ -167,6 +172,19 @@ public class TodoDetailFragment extends Fragment {
             editTextTitle.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
             editTextDetail.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_DETAIL));
             editTextLimit.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_LIMIT));
+
+            // 完了済TODOの遷移の場合は入力項目や保存ボタンなどを非活性にする
+            if (TodoInfo.CompleteStatus.Complete.getInt() == arguments.getInt(TodoDetailFragment.SELECT_TODO_IS_COMPLETE)) {
+                Log.d(TAG, "■■完了TODOの場合■■");
+                buttonSave.setEnabled(false);
+                buttonComplete.setEnabled(false);
+                buttonDelete.setEnabled(false);
+                editTextTitle.setEnabled(false);
+                editTextDetail.setEnabled(false);
+                spinnerLimit.setEnabled(false);
+                datePickerLimit.setEnabled(false);
+                editTextLimit.setEnabled(false);
+            }
             //setScreenValue();
         }
 
