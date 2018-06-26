@@ -29,7 +29,12 @@ public class TodoModel {
         // 読み込み用としてDBを取得
         SQLiteDatabase db = todoDataBaseHelper.getReadableDatabase();
         try {
-            Cursor cursor = db.rawQuery(todoDataBaseHelper.selectInCompleteTodoSql(), new String[]{String.valueOf(completeStatus)});
+                Cursor cursor;
+            if (TodoInfo.CompleteStatus.NotComplete.getInt() == completeStatus) {
+                cursor = db.rawQuery(todoDataBaseHelper.selectNotCompleteTodoSql(), new String[]{});
+            } else {
+                cursor = db.rawQuery(todoDataBaseHelper.selectAllTodoSql(), new String[]{});
+            }
 
             // 参照先を一番始めに
             boolean isEof = cursor.moveToFirst();

@@ -25,7 +25,7 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
     private static final String COMMA = ", ";
     public static final String EQUAL = " = ";
     public static final String AND = " AND ";
-//    private static final String PLACEHOLDER = "?";
+    private static final String PLACEHOLDER = "?";
 
     private static final String CREATE_TABLE_SQL =
             "CREATE TABLE " + TABLE_TODO + " ("
@@ -51,7 +51,7 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
 //        return sb.toString();
 //    }
 
-    public String selectInCompleteTodoSql(){
+    public String selectNotCompleteTodoSql() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("SELECT ")
@@ -63,8 +63,24 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
                 .append(" FROM ")
                 .append(TABLE_TODO)
                 .append(" WHERE ")
-                .append(COLUMN_IS_COMPLETE).append(EQUAL).append("?")
+                .append(COLUMN_IS_COMPLETE).append(EQUAL).append(TodoInfo.CompleteStatus.NotComplete.getInt())
                 .append(AND).append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt());
+        return sb.toString();
+    }
+
+    public String selectAllTodoSql() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("SELECT ")
+                .append(COLUMN_ID).append(COMMA)
+                .append(COLUMN_LIMIT).append(COMMA)
+                .append(COLUMN_TITLE).append(COMMA)
+                .append(COLUMN_DETAIL).append(COMMA)
+                .append(COLUMN_IS_COMPLETE)
+                .append(" FROM ")
+                .append(TABLE_TODO)
+                .append(" WHERE ")
+                .append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt());
         return sb.toString();
     }
 

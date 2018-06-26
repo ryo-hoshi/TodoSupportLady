@@ -26,6 +26,7 @@ import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.TodoConstant;
+import apl.r_m_unt.todosupportlady.config.ConfigModel;
 import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
@@ -146,13 +147,21 @@ public class TodoListFragment extends ListFragment {
             }
         });
 
+        // 完了済表示設定の保存値を読み込んで設定
+        ConfigModel configModel = new ConfigModel();
+        switchCompleteShow = (Switch)getView().findViewById(R.id.switch_complete_show);
+        switchCompleteShow.setChecked(configModel.isShowCompleted(getActivity()));
+
         /**
          * TODO完了表示 切替スイッチをタップ時の処理
          */
-        switchCompleteShow = (Switch)getView().findViewById(R.id.switch_complete_show);
         switchCompleteShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // 完了済表示設定を保存
+                ConfigModel configModel = new ConfigModel();
+                configModel.setShowLadyImage(getActivity(), isChecked);
+                // 一覧を再表示
                 setTodoInfoList();
             }
         });
@@ -318,7 +327,6 @@ public class TodoListFragment extends ListFragment {
         // レイアウトxmlファイルからIDを指定してViewが使用可能
         private LayoutInflater mLayoutInflater;
 
-        //public TodoInfoAdapter(Context context, int resourceId, List<TodoInfo> objects) {
         public TodoInfoAdapter(Context context, int resourceId, List<TodoInfo> objects) {
             super(context, resourceId, objects);
             // getLayoutInflater()メソッドはActivityじゃないと使えない
@@ -332,7 +340,6 @@ public class TodoListFragment extends ListFragment {
             View rowView = convertView;
 
             // 特定行(position)のデータを得る
-            //TodoInfo item = (TodoInfo)getItem(position);
             TodoInfo item = (TodoInfo)getItem(position);
             // convertViewは使いまわされている可能性があるのでnullの時だけ新しく作る
             if (null == rowView) rowView = mLayoutInflater.inflate(R.layout.list_item, null);
@@ -357,6 +364,8 @@ public class TodoListFragment extends ListFragment {
             // 完了済のTODOはボタンを非活性にする
             if (item.getIsComplete() == TodoInfo.CompleteStatus.Complete.getInt()){
                 buttonComplete.setEnabled(false);
+            } else {
+                buttonComplete.setEnabled(true);
             }
             // ---------- 初回のみイベント登録 ----------
             // 完了ボタン押下時の処理
