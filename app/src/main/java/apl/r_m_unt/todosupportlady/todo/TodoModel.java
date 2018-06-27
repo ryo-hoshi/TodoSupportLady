@@ -22,18 +22,20 @@ public class TodoModel {
         todoDataBaseHelper = new TodoDataBaseHelper(context);
     }
 
-    public List<TodoInfo> getTodoInfo(int completeStatus){
+    public List<TodoInfo> getTodoInfo(boolean isCompleteShow){
 
         List<TodoInfo> todoInfoList = new ArrayList<>();
 
         // 読み込み用としてDBを取得
         SQLiteDatabase db = todoDataBaseHelper.getReadableDatabase();
         try {
-                Cursor cursor;
-            if (TodoInfo.CompleteStatus.NotComplete.getInt() == completeStatus) {
-                cursor = db.rawQuery(todoDataBaseHelper.selectNotCompleteTodoSql(), new String[]{});
-            } else {
+
+            Cursor cursor;
+            // 完了済のTODOも取得の場合
+            if (isCompleteShow) {
                 cursor = db.rawQuery(todoDataBaseHelper.selectAllTodoSql(), new String[]{});
+            } else {
+                cursor = db.rawQuery(todoDataBaseHelper.selectNotCompleteTodoSql(), new String[]{});
             }
 
             // 参照先を一番始めに

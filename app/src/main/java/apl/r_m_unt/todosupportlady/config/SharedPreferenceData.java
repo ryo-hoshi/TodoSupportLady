@@ -7,12 +7,13 @@ import android.content.SharedPreferences;
  * Created by ryota on 2018/05/30.
  */
 
-public class ConfigModel {
+public class SharedPreferenceData {
 
     // KEY
     private static final String CONFIG_DATA = "CONFIG_DATA";
+    private static final String TODO_LIST_DATA = "TODO_LIST_DATA";
     private static final String CONFIG_IS_SHOW_LADY_IMAGE = "CONFIG_IS_SHOW_LADY_IMAGE";
-    private static final String CONFIG_IS_SHOW_COMPLETED = "CONFIG_IS_SHOW_LADY_IMAGE";
+    private static final String TODO_LIST_IS_SHOW_COMPLETED = "TODO_LIST_IS_SHOW_COMPLETED";
 
     /**
      * サポート画像表示有無を設定
@@ -36,9 +37,9 @@ public class ConfigModel {
     public void setShowCompleted(Context context, boolean isShowCompleted) {
 
         // TODO一覧の完了済表示を設定
-        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(TODO_LIST_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(CONFIG_IS_SHOW_COMPLETED, isShowCompleted);
+        editor.putBoolean(TODO_LIST_IS_SHOW_COMPLETED, isShowCompleted);
         editor.apply();
     }
 
@@ -63,8 +64,8 @@ public class ConfigModel {
     public boolean isShowCompleted(Context context) {
 
         // TODO一覧の完了済表示を取得（初期値は非表示）
-        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
-        boolean isShowCompleted = prefs.getBoolean(CONFIG_IS_SHOW_COMPLETED, false);
+        SharedPreferences prefs = context.getSharedPreferences(TODO_LIST_DATA, Context.MODE_PRIVATE);
+        boolean isShowCompleted = prefs.getBoolean(TODO_LIST_IS_SHOW_COMPLETED, false);
         return isShowCompleted;
     }
 }

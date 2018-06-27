@@ -41,16 +41,16 @@ public class ConfigFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // サポート画像表示有無の保存値を画面に設定
-        ConfigModel configModel = new ConfigModel();
+        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
         switchIsShowLadyImage = (Switch)getView().findViewById(R.id.switch_show_lady_image);
-        switchIsShowLadyImage.setChecked(configModel.isShowLadyImage(getActivity()));
+        switchIsShowLadyImage.setChecked(sharedPreferenceData.isShowLadyImage(getActivity()));
 
         // サポート画像表示有無の画面設定値を保存
         switchIsShowLadyImage.setOnCheckedChangeListener(
             new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                    ConfigModel configModel = new ConfigModel();
-                    configModel.setShowLadyImage(getActivity(), isChecked);
+                    SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+                    sharedPreferenceData.setShowLadyImage(getActivity(), isChecked);
                 }
             }
         );

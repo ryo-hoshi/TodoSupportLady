@@ -26,7 +26,7 @@ import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.TodoConstant;
-import apl.r_m_unt.todosupportlady.config.ConfigModel;
+import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
@@ -148,9 +148,9 @@ public class TodoListFragment extends ListFragment {
         });
 
         // 完了済表示設定の保存値を読み込んで設定
-        ConfigModel configModel = new ConfigModel();
+        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
         switchCompleteShow = (Switch)getView().findViewById(R.id.switch_complete_show);
-        switchCompleteShow.setChecked(configModel.isShowCompleted(getActivity()));
+        switchCompleteShow.setChecked(sharedPreferenceData.isShowCompleted(getActivity()));
 
         /**
          * TODO完了表示 切替スイッチをタップ時の処理
@@ -159,8 +159,8 @@ public class TodoListFragment extends ListFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 完了済表示設定を保存
-                ConfigModel configModel = new ConfigModel();
-                configModel.setShowLadyImage(getActivity(), isChecked);
+                SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+                sharedPreferenceData.setShowCompleted(getActivity(), isChecked);
                 // 一覧を再表示
                 setTodoInfoList();
             }
@@ -200,15 +200,9 @@ public class TodoListFragment extends ListFragment {
      * TODO一覧の設定
      */
     public void setTodoInfoList() {
-        // 完了の表示フラグをスイッチの状態から取得
-        int completeStatus = TodoInfo.CompleteStatus.NotComplete.getInt();
-        if (isCompleteShow()) {
-            completeStatus = TodoInfo.CompleteStatus.Complete.getInt();
-        }
-
-        // TODOの取得
+        // 完了済の表示フラグをスイッチの状態から取得してTODO一覧を取得する
         TodoModel todoModel = new TodoModel(getActivity());
-        todoInfoList = todoModel.getTodoInfo(completeStatus);
+        todoInfoList = todoModel.getTodoInfo(isCompleteShow());
 
         todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoInfoList);
         setListAdapter(todoInfoAdapter);
@@ -320,7 +314,7 @@ public class TodoListFragment extends ListFragment {
 
 
     /**
-     *
+     * TODO一覧表示用
      */
     public class TodoInfoAdapter extends ArrayAdapter<TodoInfo> {
 
@@ -390,10 +384,20 @@ public class TodoListFragment extends ListFragment {
                             Log.d(TAG, "todoModel update結果：TODOを完了しました");
                         }
 
-                        // 完了時の画像ダイアログを表示する
-                        fragmentManager = getActivity().getSupportFragmentManager();
-                        dialogFragment = new CompleteImgDialogFragment();
-                        dialogFragment.show(fragmentManager, "complete");
+//                        ConfigModel configModel = new ConfigModel();
+//                        // TODO完了イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
+//                        if (configModel.isShowLadyImage(getActivity())) {
+                            // 完了時の画像ダイアログを表示する
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            dialogFragment = new CompleteImgDialogFragment();
+                            dialogFragment.show(fragmentManager, "complete");
+//                        } else {
+//                            new AlertDialog.Builder(getActivity())
+//                                    .setTitle("TODO完了")
+//                                    .setMessage("TODOを完了しました")
+//                                    .setPositiveButton("OK", null)
+//                                    .show();
+//                        }
 
                         setTodoInfoList();
                     }

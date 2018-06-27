@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
+import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoListFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoModel;
@@ -89,10 +90,21 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
                     todoDetailFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 }
 
-                // 削除時の画像ダイアログを表示する
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                DialogFragment dialogFragment = new DeleteImgDialogFragment();
-                dialogFragment.show(fragmentManager, "delete");
+                // TODO削除イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
+                SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+                if (sharedPreferenceData.isShowLadyImage(getActivity())) {
+                    // 削除時の画像ダイアログを表示する
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    DialogFragment dialogFragment = new DeleteImgDialogFragment();
+                    dialogFragment.show(fragmentManager, "delete");
+                } else {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("TODO削除")
+                            .setMessage("TODOを削除しました")
+                            .setPositiveButton("OK", null)
+                            .show();
+                }
+
             }
         });
         dialogBuilder.setNegativeButton("Cancel", null);
