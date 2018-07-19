@@ -7,7 +7,7 @@
         <item>来週</item>
         <item>今月</item>
         <item>今年</item>
-        <item>いつか</item>
         <item>日付を指定</item>
+        <item>いつか</item>
     </string-array>
 </resources>

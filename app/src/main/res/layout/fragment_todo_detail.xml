@@ -98,15 +98,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_limit" />
-        <DatePicker
-            android:visibility="gone"
-            android:id="@+id/datePicker_limit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="30"
+            android:focusable="false"
             android:id="@+id/editText_limit" />
 
         <LinearLayout

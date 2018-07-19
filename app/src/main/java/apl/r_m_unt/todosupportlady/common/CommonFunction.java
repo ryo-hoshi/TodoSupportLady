@@ -56,7 +56,7 @@ public class CommonFunction {
                 return formatStrFromDateTime(now.dayOfYear().withMaximumValue());
 
             case SOME_TIME:
-                return null;
+                return SOME_TIME;
 
             default:
                 return null;
@@ -106,7 +106,7 @@ public class CommonFunction {
     public static String formatDateString(int year, int month, int day){
 
         StringBuilder sb = new StringBuilder();
-        sb.append(year).append("/").append(month).append("/").append(day);
+        sb.append(year).append("年").append(month).append("月").append(day).append("日");
 
         return sb.toString();
     }

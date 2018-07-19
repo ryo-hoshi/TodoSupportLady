@@ -1,6 +1,8 @@
 package apl.r_m_unt.todosupportlady.todo;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -12,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import apl.r_m_unt.todosupportlady.CalendarDialogFragment;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
@@ -25,7 +27,7 @@ import apl.r_m_unt.todosupportlady.common.CommonFunction;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
 import static android.app.Activity.RESULT_OK;
-import static apl.r_m_unt.todosupportlady.R.id.datePicker_limit;
+import static apl.r_m_unt.todosupportlady.CalendarDialogFragment.TODO_LIMIT_KEY;
 
 
 /**
@@ -49,13 +51,12 @@ public class TodoDetailFragment extends Fragment {
     //private TextView textViewTodoId;
 
     private Spinner spinnerLimit;
-    private DatePicker datePickerLimit;
     private EditText editTextTitle;
     private EditText editTextDetail;
     private Button buttonComplete;
     private Button buttonDelete;
     private EditText editTextLimit;
-    private String appointLimitType = "日付を指定";
+    private String limitTypeAppoint = "日付を指定";
     private FragmentManager fragmentManager;
     private DialogFragment dialogFragment;
     private Button buttonSave;
@@ -102,7 +103,6 @@ public class TodoDetailFragment extends Fragment {
 
         // 各画面要素を取得
         spinnerLimit = (Spinner)getView().findViewById(R.id.spinner_limit);
-        datePickerLimit = (DatePicker)getView().findViewById(datePicker_limit);
         editTextTitle = (EditText)getView().findViewById(R.id.editText_title);
         editTextDetail = (EditText)getView().findViewById(R.id.editText_detail);
         editTextLimit = (EditText)getView().findViewById(R.id.editText_limit);
@@ -124,6 +124,15 @@ public class TodoDetailFragment extends Fragment {
         todoId = arguments.getInt(TodoDetailFragment.SELECT_TODO_ID);
         Log.d(TAG, "onViewCreated todoIdの値:" + todoId);
 
+        // TODO期限種類をスピナーに設定
+        // ArrayAdapterインスタンスをResourceXMLから取得してTODOメッセージの選択内容を作成
+        ArrayAdapter<CharSequence> adapterLimit = ArrayAdapter.createFromResource(
+                getActivity(), R.array.todo_limit,
+                android.R.layout.simple_spinner_item);
+        adapterLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLimit.setAdapter(adapterLimit);
+
+        // ##### 新規登録か編集によってボタン表示状態を制御する #####
         // 新規登録時は完了ボタン、削除ボタン、再登録ボタンと期限（テキスト）は非表示
         if (todoId == -1) {
             buttonComplete.setVisibility(View.INVISIBLE);
@@ -131,47 +140,24 @@ public class TodoDetailFragment extends Fragment {
             buttonResetting.setVisibility(View.INVISIBLE);
             editTextLimit.setVisibility(View.INVISIBLE);
 
-            // TODO期限種類の設定
-            // ArrayAdapterインスタンスをResourceXMLから取得してTODOメッセージの選択内容を作成
-            ArrayAdapter<CharSequence> adapterLimit = ArrayAdapter.createFromResource(
-                    getActivity(), R.array.todo_limit,
-                    android.R.layout.simple_spinner_item);
-            adapterLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerLimit.setAdapter(adapterLimit);
-
-            // スピナーの動作を設定
-            spinnerLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                // アイテムが選択された時の動作
-                @Override
-                public void onItemSelected(AdapterView parent, View view, int position, long id){
-                    // Spinnerを取得
-                    Spinner spinner = (Spinner) parent;
-                    // 選択されたアイテムのテキスト
-                    String str = spinner.getSelectedItem().toString();
-
-                    // スピナーの最後の値「日付を指定」を設定した場合は日付入力領域を表示する
-                    if (appointLimitType.equals(str)) {
-                        datePickerLimit.setVisibility(View.VISIBLE);
-                    } else {
-                        datePickerLimit.setVisibility(View.GONE);
-                    }
-                }
-
-                // 何も選択されたかった時の動作
-                public void onNothingSelected(AdapterView parent){
-                }
-            });
-
-            // 編集時は期限種別とdatepickerは非表示
-            // 一覧から渡された情報をセット
+            // 編集時
+            // 一覧から渡された情報をセット（期限種別が未定以外の場合は日付指定扱い）
         } else {
-            spinnerLimit.setVisibility(View.GONE);
-            datePickerLimit.setVisibility(View.GONE);
-
             Log.d(TAG, "SELECT_TODO_TITLEの値:" + arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
             editTextTitle.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
             editTextDetail.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_DETAIL));
-            editTextLimit.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_LIMIT));
+            String limit = arguments.getString(TodoDetailFragment.SELECT_TODO_LIMIT);
+            editTextLimit.setText(limit);
+            // 期限種別が未定かどうかチェック（xmlに定義した期限種別の最後が「未定」）
+            Resources res = getResources();
+            TypedArray ta = res.obtainTypedArray(R.array.todo_limit);
+            String limitSomeTime = ta.getString(ta.length() - 1);
+            if (limitSomeTime.equals(limit)) {
+                spinnerLimit.setSelection(adapterLimit.getPosition(limitSomeTime));
+            } else {
+                // 第2引数にfalseを設定して、onItemSelectedを回避
+                spinnerLimit.setSelection(adapterLimit.getPosition(limitTypeAppoint), false);
+            }
 
             // 完了済TODOの遷移の場合は入力項目や保存ボタンなどを非活性にする
             if (TodoInfo.CompleteStatus.Complete.getInt() == arguments.getInt(TodoDetailFragment.SELECT_TODO_IS_COMPLETE)) {
@@ -182,11 +168,47 @@ public class TodoDetailFragment extends Fragment {
                 editTextTitle.setEnabled(false);
                 editTextDetail.setEnabled(false);
                 spinnerLimit.setEnabled(false);
-                datePickerLimit.setEnabled(false);
                 editTextLimit.setEnabled(false);
             }
             //setScreenValue();
         }
+
+        // ****************** 期限種別のスピナー変更時の動作 ******************
+        spinnerLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            // アイテムが選択された時の動作
+            @Override
+            public void onItemSelected(AdapterView parent, View view, int position, long id){
+                // Spinnerを取得
+                Spinner spinner = (Spinner) parent;
+                // 選択されたアイテムのテキスト
+                String selectedLimit = spinner.getSelectedItem().toString();
+
+                // スピナーの最後の値「日付を指定」を設定した場合は日付入力ダイアログを表示する
+                if (limitTypeAppoint.equals(selectedLimit)) {
+                    Log.d(TAG, "==日付指定を選択==");
+                    // カレンダーダイアログ表示
+                    showCalendarDialog();
+                    editTextLimit.setVisibility(View.VISIBLE);
+                } else {
+                    Log.d(TAG, "==日付指定以外を選択==");
+                    //datePickerLimit.setVisibility(View.GONE);
+                    editTextLimit.setVisibility(View.GONE);
+                }
+            }
+
+            // 何も選択されたかった時の動作
+            public void onNothingSelected(AdapterView parent){
+            }
+        });
+
+        // ****************** 期限テキスト押下時の処理 ******************
+        editTextLimit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // カレンダーダイアログ表示
+                showCalendarDialog();
+            }
+        });
 
         // ****************** 保存ボタン押下時の処理 ******************
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -424,7 +446,7 @@ public class TodoDetailFragment extends Fragment {
         Object limitType = spinnerLimit.getSelectedItem();
         // 新規登録でスピナーの入力値が「日付入力」以外の場合は取得した日付タイプから日付を取得
         // 編集のとき、または新規登録でスピナーの入力値が「日付入力」の場合はeditTextから取得
-        if (limitType == null || limitType.toString().equals(appointLimitType)) {
+        if (limitType == null || limitType.toString().equals(limitTypeAppoint)) {
             // 日付入力値を取得
             todoLimit = editTextLimit.getText().toString();
         } else {
@@ -460,6 +482,29 @@ public class TodoDetailFragment extends Fragment {
         );
     }
 
+    // カレンダーダイアログで入力した値をtextViewに入れる - ダイアログから呼び出される
+    public void setCalendar(String value){
+        //TextView textView = (TextView) findViewById(R.id.text);
+        editTextLimit.setText(value);
+    }
+
+    /**
+     * カレンダーダイアログを表示する
+     */
+    private void showCalendarDialog() {
+        fragmentManager = getActivity().getSupportFragmentManager();
+        dialogFragment = new CalendarDialogFragment();
+
+        // カレンダーダイアログに期限の入力値を渡す
+        String todoLimit = editTextLimit.getText().toString();
+        Bundle args = new Bundle();
+        args.putString(TODO_LIMIT_KEY, todoLimit);
+        dialogFragment.setArguments(args);
+
+        // ダイアログに呼び出し元のFragmentオブジェクトを設定
+        dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoDetail.getInt());
+        dialogFragment.show(fragmentManager, "calendar");
+    }
 
     /**
      * 画面情報を設定
