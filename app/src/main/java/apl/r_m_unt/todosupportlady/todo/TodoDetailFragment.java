@@ -169,6 +169,7 @@ public class TodoDetailFragment extends Fragment {
                 editTextDetail.setEnabled(false);
                 spinnerLimit.setEnabled(false);
                 editTextLimit.setEnabled(false);
+                buttonResetting.setVisibility(View.VISIBLE);
             }
             //setScreenValue();
         }
@@ -356,8 +357,10 @@ public class TodoDetailFragment extends Fragment {
                 long rtn = todoModel.reRegister(todoId);
                 if (rtn == -1) {
                     Log.d(TAG, "todoModel update結果：TODOの再登録に失敗しました");
+                    Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d(TAG, "todoModel update結果：TODOを再登録しました");
+                    Toast.makeText(getActivity(), "TODOを再登録しました。期限などを再設定してください。", Toast.LENGTH_LONG).show();
                 }
 
                 // 保存ボタンを活性化する
@@ -368,6 +371,15 @@ public class TodoDetailFragment extends Fragment {
                 buttonDelete.setEnabled(true);
                 // 再登録ボタンを非表示にする
                 buttonResetting.setVisibility(View.GONE);
+
+                // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
+                buttonSave.setEnabled(true);
+                buttonComplete.setEnabled(true);
+                buttonDelete.setEnabled(true);
+                editTextTitle.setEnabled(true);
+                editTextDetail.setEnabled(true);
+                spinnerLimit.setEnabled(true);
+                editTextLimit.setEnabled(true);
             }
         });
     }
