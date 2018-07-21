@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
-import apl.r_m_unt.todosupportlady.TodoConstant;
+import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
 import apl.r_m_unt.todosupportlady.info.CircleInfoSetting;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;

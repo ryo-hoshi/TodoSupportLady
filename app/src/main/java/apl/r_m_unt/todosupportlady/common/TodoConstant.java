@@ -1,4 +1,4 @@
-package apl.r_m_unt.todosupportlady;
+package apl.r_m_unt.todosupportlady.common;
 
 /**
  * Created by ryota on 2017/04/29.

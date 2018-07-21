@@ -22,12 +22,13 @@ import apl.r_m_unt.todosupportlady.CalendarDialogFragment;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
-import apl.r_m_unt.todosupportlady.TodoConstant;
-import apl.r_m_unt.todosupportlady.common.CommonFunction;
+import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
+import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
 import static android.app.Activity.RESULT_OK;
 import static apl.r_m_unt.todosupportlady.CalendarDialogFragment.TODO_LIMIT_KEY;
+import static apl.r_m_unt.todosupportlady.common.TodoCommonFunction.formatLimitString;
 
 
 /**
@@ -39,7 +40,9 @@ public class TodoDetailFragment extends Fragment {
     public static final String SELECT_TODO_ID = "SELECT_TODO_ID";
     public static final String SELECT_TODO_TITLE = "SELECT_TODO_TITLE";
     public static final String SELECT_TODO_DETAIL = "SELECT_TODO_DETAIL";
-    public static final String SELECT_TODO_LIMIT = "SELECT_TODO_LIMIT";
+    public static final String SELECT_TODO_LIMIT_YEAR = "SELECT_TODO_LIMIT_YEAR";
+    public static final String SELECT_TODO_LIMIT_MONTH = "SELECT_TODO_LIMIT_MONTH";
+    public static final String SELECT_TODO_LIMIT_DAY = "SELECT_TODO_LIMIT_DAY";
     public static final String SELECT_TODO_IS_COMPLETE = "SELECT_TODO_IS_COMPLETE";
     public static final String INTENT_KEY_REGISTER = "INTENT_KEY_REGISTER";
     public static final String INTENT_KEY_REGISTER_NEW = "INTENT_KEY_REGISTER_NEW";
@@ -146,13 +149,16 @@ public class TodoDetailFragment extends Fragment {
             Log.d(TAG, "SELECT_TODO_TITLEの値:" + arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
             editTextTitle.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
             editTextDetail.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_DETAIL));
-            String limit = arguments.getString(TodoDetailFragment.SELECT_TODO_LIMIT);
-            editTextLimit.setText(limit);
+            int limitYear = arguments.getInt(TodoDetailFragment.SELECT_TODO_LIMIT_YEAR);
+            int limitMonth = arguments.getInt(TodoDetailFragment.SELECT_TODO_LIMIT_MONTH);
+            int limitDay = arguments.getInt(TodoDetailFragment.SELECT_TODO_LIMIT_DAY);
+            String limitStr = formatLimitString(limitYear, limitMonth, limitDay);
+            editTextLimit.setText(limitStr);
             // 期限種別が未定かどうかチェック（xmlに定義した期限種別の最後が「未定」）
             Resources res = getResources();
             TypedArray ta = res.obtainTypedArray(R.array.todo_limit);
             String limitSomeTime = ta.getString(ta.length() - 1);
-            if (limitSomeTime.equals(limit)) {
+            if (limitSomeTime.equals(limitStr)) {
                 spinnerLimit.setSelection(adapterLimit.getPosition(limitSomeTime));
             } else {
                 // 第2引数にfalseを設定して、onItemSelectedを回避
@@ -218,13 +224,22 @@ public class TodoDetailFragment extends Fragment {
 
                 // 画面入力情報を取得
                 TodoInfo todoSetInfo = getScreenValue();
+                TodoLimit todoLimit = todoSetInfo.getTodoLimit();
 
-                Log.d(TAG, "getScreenValue取得結果:"
-                        + "id" + todoSetInfo.getId()
-                        + ", title" + todoSetInfo.getTitle()
-                        + ", detail" + todoSetInfo.getDetail()
-                        + ", limit" + todoSetInfo.getLimit()
-                        + ", iscomplete" + todoSetInfo.getIsComplete());
+                Log.d(TAG, "getScreenValue取得結果⇒"
+                        + "id: " + todoSetInfo.getId()
+                        + ", title: " + todoSetInfo.getTitle()
+                        + ", detail: " + todoSetInfo.getDetail()
+                        + ", isComplete: " + todoSetInfo.getIsComplete());
+                if (todoLimit == null ) {
+                    Log.d(TAG, "getScreenValue(TODO期限)取得結果⇒null");
+                } else {
+                    Log.d(TAG, "getScreenValue(TODO期限)取得結果⇒"
+                            + "year:[" + todoLimit.getYear()+"]"
+                            + "month:[" + todoLimit.getMonth()+"]"
+                            + "day:[" + todoLimit.getDay()+"]"
+                    );
+                }
 
                 // 入力値チェック
                 String result = checkInputVal(todoSetInfo);
@@ -416,12 +431,17 @@ public class TodoDetailFragment extends Fragment {
 
     }
 
+    /**
+     *
+     * @param todoInfo
+     * @return
+     */
     private String checkInputVal(TodoInfo todoInfo) {
         String result = null;
 
         if (todoInfo.getTitle() == null || todoInfo.getTitle().isEmpty()) {
             result = "タイトルは入力必須の項目です";
-        } else if (todoInfo.getLimit() == null || todoInfo.getLimit().isEmpty()) {
+        } else if (todoInfo.getTodoLimit() == null) {
             result = "期限は入力必須の項目です";
         }
         return result;
@@ -454,16 +474,16 @@ public class TodoDetailFragment extends Fragment {
     private TodoInfo getScreenValue() {
 
         // 期限
-        String todoLimit;
+        TodoLimit todoLimit;
         Object limitType = spinnerLimit.getSelectedItem();
         // 新規登録でスピナーの入力値が「日付入力」以外の場合は取得した日付タイプから日付を取得
-        // 編集のとき、または新規登録でスピナーの入力値が「日付入力」の場合はeditTextから取得
+        // 編集のとき、または新規登録でスピナーの入力値が「日付入力」の場合は日付のeditTextから取得
         if (limitType == null || limitType.toString().equals(limitTypeAppoint)) {
-            // 日付入力値を取得
-            todoLimit = editTextLimit.getText().toString();
+            // 日付のテキスト情報から日付入力値を取得
+            todoLimit = TodoCommonFunction.textToTodoLimit(editTextLimit.getText().toString());
         } else {
             // スピナーで選択した日付種別から期限を取得する
-            todoLimit = CommonFunction.getTodoLimit(limitType.toString());
+            todoLimit = TodoCommonFunction.selectedToTodoLimit(limitType.toString());
         }
 
 //        String limitType = spinnerLimit.getSelectedItem().toString();
@@ -526,6 +546,6 @@ public class TodoDetailFragment extends Fragment {
         //textViewTodoId.setText(todoInfo.getId());
         editTextTitle.setText(todoInfo.getTitle());
         editTextDetail.setText(todoInfo.getDetail());
-        editTextLimit.setText(todoInfo.getLimit());
+        editTextLimit.setText(formatLimitString(todoInfo.getTodoLimit()));
     }
 }

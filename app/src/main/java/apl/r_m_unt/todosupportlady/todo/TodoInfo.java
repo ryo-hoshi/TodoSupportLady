@@ -9,7 +9,7 @@ public class TodoInfo {
     private static final String TIME_DELIMITER = ":";
 
     private int id;
-    private String limit;
+    private TodoLimit todoLimit;
     private String title;
     private String detail;
     private int isComplete;
@@ -23,12 +23,12 @@ public class TodoInfo {
 //    }
 
     public TodoInfo(int id,
-                    String limit,
+                    TodoLimit todoLimit,
                     String title,
                     String detail,
                     int isComplete) {
         this.id = id;
-        this.limit = limit;
+        this.todoLimit = todoLimit;
         this.title = title;
         this.detail = detail;
         this.isComplete = isComplete;
@@ -41,7 +41,7 @@ public class TodoInfo {
 //    }
 
     public int getId() { return id;}
-    public String getLimit() { return limit;}
+    public TodoLimit getTodoLimit() { return todoLimit;}
     public String getTitle() {
         return title;
     }
@@ -89,5 +89,4 @@ public class TodoInfo {
             return this.id;
         }
     }
-
 }

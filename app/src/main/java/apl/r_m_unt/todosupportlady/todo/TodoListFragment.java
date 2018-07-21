@@ -25,14 +25,17 @@ import java.util.List;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
-import apl.r_m_unt.todosupportlady.TodoConstant;
+import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
+import static apl.r_m_unt.todosupportlady.common.TodoCommonFunction.formatLimitString;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_ID;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_IS_COMPLETE;
-import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT;
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT_DAY;
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT_MONTH;
+import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT_YEAR;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_TITLE;
 
 //import android.app.DialogFragment;
@@ -303,7 +306,11 @@ public class TodoListFragment extends ListFragment {
         bundle.putInt(SELECT_TODO_ID, todoInfo.getId());
         bundle.putString(SELECT_TODO_TITLE, todoInfo.getTitle());
         bundle.putString(SELECT_TODO_DETAIL, todoInfo.getDetail());
-        bundle.putString(SELECT_TODO_LIMIT, todoInfo.getLimit());
+
+        TodoLimit todoLimit = todoInfo.getTodoLimit();
+        bundle.putInt(SELECT_TODO_LIMIT_YEAR, todoLimit.getYear());
+        bundle.putInt(SELECT_TODO_LIMIT_MONTH, todoLimit.getMonth());
+        bundle.putInt(SELECT_TODO_LIMIT_DAY, todoLimit.getDay());
 
         Log.d(TAG, "■■完了フラグ確認1(List)■■" + todoInfo.getIsComplete());
         bundle.putInt(SELECT_TODO_IS_COMPLETE, todoInfo.getIsComplete());
@@ -347,7 +354,7 @@ public class TodoListFragment extends ListFragment {
 
             // TODO設定時間
             TextView textViewListTodoTime = (TextView)rowView.findViewById(R.id.textView_listTodoLimit);
-            textViewListTodoTime.setText(item.getLimit());
+            textViewListTodoTime.setText(formatLimitString(item.getTodoLimit()));
 
             // TODOタイトル
             TextView textViewTodoTitle = (TextView)rowView.findViewById(R.id.textView_listTodoTitle);

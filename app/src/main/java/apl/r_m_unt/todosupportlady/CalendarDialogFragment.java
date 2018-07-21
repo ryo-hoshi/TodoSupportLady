@@ -13,6 +13,9 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
+import apl.r_m_unt.todosupportlady.todo.TodoLimit;
+
+import static apl.r_m_unt.todosupportlady.common.TodoCommonFunction.textToTodoLimit;
 
 
 /**
@@ -58,26 +61,34 @@ public class CalendarDialogFragment extends DialogFragment{
         int year = 0;
         int month = 0;
         int day = 0;
-        String todoLimit  = getArguments().getString(TODO_LIMIT_KEY);
-        if (todoLimit != null && todoLimit != "") {
-            try{
-                String[] yearMonths = todoLimit.split("年");
-                String[] monthDayss = yearMonths[1].split("月");
-                String[] days = monthDayss[1].split("日");
-                year = Integer.parseInt(yearMonths[0]);
-                month = Integer.parseInt(monthDayss[0]) - 1;
-                day = Integer.parseInt(days[0]);
-            } catch (Exception e) {
-                Log.d(TAG, "■■■カレンダーダイアログの日付取得に失敗:" + e.getMessage());
-            }
-        }
+        String todoLimitStr  = getArguments().getString(TODO_LIMIT_KEY);
+        TodoLimit todoLimit = textToTodoLimit(todoLimitStr);
 
-        // 日付取得でできていない場合は今日日付を設定する
-        if (year == 0 || month == 0 || day == 0){
+//        if (todoLimit != null && todoLimit.length() > 0) {
+//            try{
+//                String[] yearMonths = todoLimit.split("年");
+//                String[] monthDayss = yearMonths[1].split("月");
+//                String[] days = monthDayss[1].split("日");
+//                year = Integer.parseInt(yearMonths[0]);
+//                month = Integer.parseInt(monthDayss[0]) - 1;
+//                day = Integer.parseInt(days[0]);
+//            } catch (Exception e) {
+//                Log.d(TAG, "■■■カレンダーダイアログの日付取得に失敗:" + e.getMessage());
+//                Log.d(TAG, "■■■todoLimit[" + todoLimit + "]");
+//            }
+//        }
+
+        // 日付取得でできていない場合は今日日付をカレンダーダイアログに設定する
+//        if (year == 0 || month == 0 || day == 0){
+        if (todoLimit == null || todoLimit.getYear() == 9999){
             final Calendar calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);
+        } else {
+            year = todoLimit.getYear();
+            month = todoLimit.getMonth() - 1;
+            day = todoLimit.getDay();
         }
 
 

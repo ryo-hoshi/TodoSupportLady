@@ -38,13 +38,16 @@ public class TodoModel {
                 cursor = db.rawQuery(todoDataBaseHelper.selectNotCompleteTodoSql(), new String[]{});
             }
 
-            // 参照先を一番始めに
+            // 参照先を一番始めに設定
             boolean isEof = cursor.moveToFirst();
             while(isEof) {
 
                 todoInfoList.add(new TodoInfo(
                         cursor.getInt(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_ID)),
-                        cursor.getString(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_LIMIT)),
+                        new TodoLimit(cursor.getInt(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_LIMIT_YEAR)),
+                                cursor.getInt(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_LIMIT_MONTH)),
+                                cursor.getInt(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_LIMIT_DAY))
+                        ),
                         cursor.getString(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_TITLE)),
                         cursor.getString(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_DETAIL)),
                         cursor.getInt(cursor.getColumnIndex(TodoDataBaseHelper.COLUMN_IS_COMPLETE))
@@ -68,7 +71,10 @@ public class TodoModel {
         SQLiteDatabase db = todoDataBaseHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TodoDataBaseHelper.COLUMN_LIMIT, todoInfo.getLimit());
+        TodoLimit todoLimit = todoInfo.getTodoLimit();
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_YEAR, todoLimit.getYear());
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_MONTH, todoLimit.getMonth());
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_DAY, todoLimit.getDay());
         values.put(TodoDataBaseHelper.COLUMN_TITLE, todoInfo.getTitle());
         values.put(TodoDataBaseHelper.COLUMN_DETAIL, todoInfo.getDetail());
         values.put(TodoDataBaseHelper.COLUMN_IS_COMPLETE, todoInfo.getIsComplete());
@@ -129,7 +135,11 @@ public class TodoModel {
         SQLiteDatabase db = todoDataBaseHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TodoDataBaseHelper.COLUMN_LIMIT, todoInfo.getLimit());
+
+        TodoLimit todoLimit = todoInfo.getTodoLimit();
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_YEAR, todoLimit.getYear());
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_MONTH, todoLimit.getMonth());
+        values.put(TodoDataBaseHelper.COLUMN_LIMIT_DAY, todoLimit.getDay());
         values.put(TodoDataBaseHelper.COLUMN_TITLE, todoInfo.getTitle());
         values.put(TodoDataBaseHelper.COLUMN_DETAIL, todoInfo.getDetail());
         values.put(TodoDataBaseHelper.COLUMN_IS_COMPLETE, todoInfo.getIsComplete());
