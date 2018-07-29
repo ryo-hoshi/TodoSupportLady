@@ -65,6 +65,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:text="TodoTitle"
+                android:textColor="@android:color/black"
                 android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>

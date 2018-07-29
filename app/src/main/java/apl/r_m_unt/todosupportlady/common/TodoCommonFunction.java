@@ -2,10 +2,9 @@ package apl.r_m_unt.todosupportlady.common;
 
 import android.util.Log;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.util.Calendar;
 
 import apl.r_m_unt.todosupportlady.todo.TodoLimit;
 
@@ -25,7 +24,7 @@ public class TodoCommonFunction {
     private static final String THIS_YEAR = "今年";
     private static final String SOME_TIME = "未定";
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.JAPAN);
+    //private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.JAPAN);
 
     /**
      * 画面入力値から期限情報を取得する
@@ -34,31 +33,33 @@ public class TodoCommonFunction {
      */
     public static TodoLimit selectedToTodoLimit(String limitType) {
 
-        DateTime now;
+        LocalDateTime now;
+        final Calendar calendar = Calendar.getInstance();
+        Log.d(TAG, "カレンダーの値：" + calendar);
         switch (limitType) {
             case TODAY:
-                now = new DateTime();
+                now = LocalDateTime.fromCalendarFields(calendar);
                 return dateToTodoLimit(now);
 
             case TOMORROW:
-                now = new DateTime();
+                now = LocalDateTime.fromCalendarFields(calendar);
                 return dateToTodoLimit(now.plusDays(1));
 
             case THIS_WEEK:
-                now = new DateTime();
+                now = LocalDateTime.fromCalendarFields(calendar);
                 return dateToTodoLimit(now.dayOfWeek().withMaximumValue());
 
             case NEXT_WEEK:
-                now = new DateTime();
-                DateTime weekEnd = now.dayOfWeek().withMaximumValue();
+                now = LocalDateTime.fromCalendarFields(calendar);
+                LocalDateTime weekEnd = now.dayOfWeek().withMaximumValue();
                 return dateToTodoLimit(weekEnd.plusDays(7));
 
             case THIS_MONTH:
-                now = new DateTime();
+                now = LocalDateTime.fromCalendarFields(calendar);
                 return dateToTodoLimit(now.dayOfMonth().withMaximumValue());
 
             case THIS_YEAR:
-                now = new DateTime();
+                now = LocalDateTime.fromCalendarFields(calendar);
                 return dateToTodoLimit(now.dayOfYear().withMaximumValue());
 
             case SOME_TIME:
@@ -71,12 +72,12 @@ public class TodoCommonFunction {
 
     /**
      *
-     * @param dateTime 日付
+     * @param localDateTime 日付
      * @return String型の日付
      */
-    public static TodoLimit dateToTodoLimit(DateTime dateTime) {
+    public static TodoLimit dateToTodoLimit(LocalDateTime localDateTime) {
 
-        return new TodoLimit(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth());
+        return new TodoLimit(localDateTime.getYear(), localDateTime.getMonthOfYear(), localDateTime.getDayOfMonth());
 //        Date date = null;
 //        try {
 //            date = sdf.parse(dateStr);

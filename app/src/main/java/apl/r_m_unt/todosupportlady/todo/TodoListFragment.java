@@ -3,6 +3,7 @@ package apl.r_m_unt.todosupportlady.todo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
@@ -27,7 +29,6 @@ import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
-import apl.r_m_unt.todosupportlady.preferences.TodoSettingInfo;
 
 import static apl.r_m_unt.todosupportlady.common.TodoCommonFunction.formatLimitString;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
@@ -50,7 +51,7 @@ public class TodoListFragment extends ListFragment {
 
 //    private TodoController todoController;
 
-    private List<TodoSettingInfo> todoSettingInfoList;
+//    private List<TodoSettingInfo> todoSettingInfoList;
 
     private int todoSelectIndex = 0;
 
@@ -325,6 +326,12 @@ public class TodoListFragment extends ListFragment {
      */
     public class TodoInfoAdapter extends ArrayAdapter<TodoInfo> {
 
+        // 期限切れのチェックのために現在日時を取得する
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
         // レイアウトxmlファイルからIDを指定してViewが使用可能
         private LayoutInflater mLayoutInflater;
 
@@ -338,6 +345,7 @@ public class TodoListFragment extends ListFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
+            // 各行のデータ
             View rowView = convertView;
 
             // 特定行(position)のデータを得る
@@ -352,9 +360,28 @@ public class TodoListFragment extends ListFragment {
             Log.i(TAG, "itemの値："+item);
             textViewListIndex.setText(String.valueOf(item.getId()));
 
-            // TODO設定時間
+            // TODO期限
             TextView textViewListTodoTime = (TextView)rowView.findViewById(R.id.textView_listTodoLimit);
-            textViewListTodoTime.setText(formatLimitString(item.getTodoLimit()));
+            TodoLimit todoLimit = item.getTodoLimit();
+            textViewListTodoTime.setText(formatLimitString(todoLimit));
+
+            // 期限切れの場合は期限のテキストの色を赤くする
+            if (todoLimit.getYear() < year
+                    || (todoLimit.getYear() == year && todoLimit.getMonth() < month)
+                    || (todoLimit.getYear() == year && todoLimit.getMonth() == month && todoLimit.getDay() < day)) {
+                Log.i(TAG, "年：" + todoLimit.getYear() + "現在日時（年）" + year);
+                Log.i(TAG, "月：" + todoLimit.getMonth() + "現在日時（月）" + month);
+                Log.i(TAG, "日：" + todoLimit.getDay() + "現在日時（日）" + day);
+                textViewListTodoTime.setTextColor(Color.RED);
+                TextView limitLabel = (TextView)rowView.findViewById(R.id.textView_listTodoLimitLabel);
+                limitLabel.setTextColor(Color.RED);
+
+                // 上記以外は期限のテキストの色を青色にする
+            } else {
+                textViewListTodoTime.setTextColor(Color.BLUE);
+                TextView limitLabel = (TextView)rowView.findViewById(R.id.textView_listTodoLimitLabel);
+                limitLabel.setTextColor(Color.BLUE);
+            }
 
             // TODOタイトル
             TextView textViewTodoTitle = (TextView)rowView.findViewById(R.id.textView_listTodoTitle);
@@ -362,11 +389,15 @@ public class TodoListFragment extends ListFragment {
 
             // 完了ボタン
             Button buttonComplete = (Button)rowView.findViewById(R.id.button_listTodoComplete);
-            // 完了済のTODOはボタンを非活性にする
+            // 完了済のTODOはボタンを非活性にし、ラベルを完了済にする
             if (item.getIsComplete() == TodoInfo.CompleteStatus.Complete.getInt()){
                 buttonComplete.setEnabled(false);
+                buttonComplete.setText(getString(R.string.todo_list_complete_done));
+
+                // 上記以外
             } else {
                 buttonComplete.setEnabled(true);
+                buttonComplete.setText(getString(R.string.todo_list_complete));
             }
             // ---------- 初回のみイベント登録 ----------
             // 完了ボタン押下時の処理

@@ -7,6 +7,7 @@
     <string name="todo_list_back">戻る</string>
     <string name="todo_list_add">登録</string>
     <string name="todo_list_complete">完了</string>
+    <string name="todo_list_complete_done">完了済</string>
     <string name="todo_list_complete_show">完了済を表示</string>
     <string name="todo_list_limit_label">期限：</string>
 

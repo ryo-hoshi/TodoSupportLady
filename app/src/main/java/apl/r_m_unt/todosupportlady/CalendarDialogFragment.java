@@ -82,6 +82,7 @@ public class CalendarDialogFragment extends DialogFragment{
 //        if (year == 0 || month == 0 || day == 0){
         if (todoLimit == null || todoLimit.getYear() == 9999){
             final Calendar calendar = Calendar.getInstance();
+            Log.d(TAG, "カレンダーの値：" + calendar);
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH);
             day = calendar.get(Calendar.DAY_OF_MONTH);

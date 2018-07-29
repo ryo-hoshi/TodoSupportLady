@@ -484,6 +484,8 @@ public class TodoDetailFragment extends Fragment {
         } else {
             // スピナーで選択した日付種別から期限を取得する
             todoLimit = TodoCommonFunction.selectedToTodoLimit(limitType.toString());
+            Log.d(TAG, "スピナーの値："+limitType.toString());
+            Log.d(TAG, "スピナーから取得した日付⇒："+todoLimit.getYear() + "年" + todoLimit.getMonth() +"月"+todoLimit.getDay()+"日");
         }
 
 //        String limitType = spinnerLimit.getSelectedItem().toString();
