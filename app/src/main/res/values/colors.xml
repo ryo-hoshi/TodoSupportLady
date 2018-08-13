@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="primaryLabel">#3F51B5</color>
+    <color name="primaryDarkLabel">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bodyBackGround">#fffff0</color>
+    <color name="detailLabelBackGround">#ffee6b</color>
+    <color name="headerBackGround">#fdf9f3</color>
+    <color name="headerLine">#ffefd5</color>
+    <color name="backGround">#fffafa</color>
+    <color name="endLine">#f0f0f0</color>
+    <color name="infoLabel">#ff9f5f</color>
+    <color name="link">#4169e1</color>
 </resources>

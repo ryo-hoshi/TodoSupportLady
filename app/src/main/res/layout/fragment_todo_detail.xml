@@ -9,42 +9,58 @@
     tools:context="apl.r_m_unt.todosupportlady.todo.TodoDetailActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="3dp"
+        android:orientation="vertical"
+        android:background="@color/headerBackGround"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:text="@string/todo_detail_cancel" />
         <View
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_weight="1"
-            />
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:text="@string/todo_detail_save" />
+            android:background="@color/headerLine"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todo_detail_cancel" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todo_detail_save" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="1dp"
+        android:background="@color/bodyBackGround"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginTop="1dp"
-            android:padding="1dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo_detail_title"
-            android:textColor="@color/colorPrimary"
-            android:background="#ffd700"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:id="@+id/textView_title"
@@ -52,34 +68,40 @@
             <requestFocus />
          </TextView>
         <EditText
-            android:padding="1dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="40"
-            android:background="#fafad2"
+            android:background="@color/bodyBackGround"
             android:id="@+id/editText_title" />
 
         <TextView
-            android:padding="1dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo_detail_memo"
-            android:textColor="@color/colorPrimary"
-            android:background="#ffd700"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
             android:id="@+id/textView_memo" />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
             <EditText
-                android:padding="1dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="7dp"
+                android:paddingBottom="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top|left"
                 android:minLines="10"
                 android:maxLines="10"
                 android:maxLength="1000"
-                android:background="#fafad2"
+                android:background="@color/bodyBackGround"
                 android:scrollbars="vertical"
                 android:fadeScrollbars="false"
                 android:id="@+id/editText_detail">
@@ -87,29 +109,53 @@
         </ScrollView>
 
         <TextView
-            android:padding="1dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/todo_detail_limit"
-            android:textColor="@color/colorPrimary"
-            android:background="#ffd700"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
             android:id="@+id/textView_limit" />
         <Spinner
+            android:paddingTop="8dp"
+            android:paddingBottom="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_limit" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
         <EditText
+            android:paddingTop="6dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="4dp"
+            android:background="@color/bodyBackGround"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="30"
             android:focusable="false"
             android:id="@+id/editText_limit" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="6dp"
+            android:background="@color/backGround"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todo_detail_delete"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -120,34 +166,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/todo_detail_resetting"
-                android:visibility="gone"/>
-            <Button
-                android:id="@+id/button_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/todo_detail_delete"
-                android:layout_marginLeft="3dp"
+                android:visibility="invisible"
                 android:layout_gravity="right"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
             <Button
                 android:id="@+id/button_complete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="6dp"
                 android:layout_gravity="right"
                 android:text="@string/todo_detail_complete" />
         </LinearLayout>
-
-
-
-        <!--
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="index"
-            android:visibility="invisible"
-            android:id="@+id/textView_todo_id" />
-        -->
     </LinearLayout>
 
 </LinearLayout>

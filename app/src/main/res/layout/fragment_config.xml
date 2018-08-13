@@ -4,23 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_config_back"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/config_back" />
-    <View
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/headerBackGround"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_height="1dp"
-        android:background="#00ff7f"/>
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_config_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/config_back" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+    </LinearLayout>
 
-    <Switch
-        android:id="@+id/switch_show_lady_image"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/config_show_lady_image" />
+        android:layout_height="wrap_content">
+        <Switch
+            android:id="@+id/switch_show_lady_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/config_show_lady_image" />
+    </LinearLayout>
 
 </LinearLayout>
