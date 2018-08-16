@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.preferences.TodoController;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
@@ -114,7 +113,7 @@ public class TodoBroadcastReceiver extends BroadcastReceiver {
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.laala)
+                //.setSmallIcon(R.drawable.laala)
                 // ステータスバーに表示されるテキスト
                 .setTicker("時間です")
                 .setWhen(System.currentTimeMillis())
