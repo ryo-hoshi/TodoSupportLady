@@ -175,7 +175,8 @@ public class TodoDetailFragment extends Fragment {
                 editTextDetail.setEnabled(false);
                 spinnerLimit.setEnabled(false);
                 editTextLimit.setEnabled(false);
-                buttonResetting.setVisibility(View.VISIBLE);
+                // 再登録は活性化
+                buttonResetting.setEnabled(true);
             }
             //setScreenValue();
         }
@@ -245,7 +246,7 @@ public class TodoDetailFragment extends Fragment {
                 String result = checkInputVal(todoSetInfo);
                 if (result != null) {
                     // 入力チェックエラー内容を出力
-                    Toast.makeText(getActivity(), result, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -349,12 +350,12 @@ public class TodoDetailFragment extends Fragment {
 
                 // 保存ボタンを非活性にする
                 buttonSave.setEnabled(false);
-                // 完了ボタンを非活性
+                // 完了ボタンを非活性にする
                 buttonComplete.setEnabled(false);
-                // 削除ボタンを非活性
-                buttonDelete.setEnabled(false);
-                // 再登録ボタンを表示する
-                buttonResetting.setVisibility(View.VISIBLE);
+//                // 削除ボタンを非活性にする
+//                buttonDelete.setEnabled(false);
+                // 再登録ボタンを活性化する
+                buttonResetting.setEnabled(true);
 
                 // 当画面のActivityを終了する
                 //getActivity().finish();
@@ -384,8 +385,8 @@ public class TodoDetailFragment extends Fragment {
                 buttonComplete.setEnabled(true);
                 // 削除ボタンを活性化する
                 buttonDelete.setEnabled(true);
-                // 再登録ボタンを非表示にする
-                buttonResetting.setVisibility(View.GONE);
+                // 再登録ボタンを非活性にする
+                buttonResetting.setEnabled(false);
 
                 // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
                 buttonSave.setEnabled(true);
@@ -416,8 +417,8 @@ public class TodoDetailFragment extends Fragment {
             buttonComplete.setEnabled(false);
             // 削除ボタンを非活性
             buttonDelete.setEnabled(false);
-            // 再登録ボタンを表示する
-            buttonResetting.setVisibility(View.VISIBLE);
+            // 再登録ボタンを活性化する
+            buttonResetting.setEnabled(true);
 
             return;
         }

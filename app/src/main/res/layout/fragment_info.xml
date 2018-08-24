@@ -15,19 +15,21 @@
             android:background="@color/headerLine"/>
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingTop="3dp"
-            android:paddingLeft="3dp"
+            android:paddingTop="7dp"
+            android:paddingLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/button_info_back"
+                android:background="@drawable/button_design_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
                 android:text="@string/app_info_back" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:layout_height="1dp"
             android:background="@color/headerLine"/>
     </LinearLayout>

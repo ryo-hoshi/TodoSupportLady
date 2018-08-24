@@ -16,8 +16,10 @@
 
         <Button
             android:id="@+id/button_listTodoComplete"
+            android:background="@drawable/button_design_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center_vertical|center_horizontal"
             android:text="@string/todo_list_complete" />
         <LinearLayout

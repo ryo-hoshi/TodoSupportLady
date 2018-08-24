@@ -16,14 +16,16 @@
             android:background="@color/headerLine"/>
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/button_todo_list_back"
+                android:background="@drawable/button_design_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
                 android:text="@string/todo_list_back" />
             <View
                 android:layout_width="0dp"
@@ -47,15 +49,17 @@
                 android:layout_weight="1" />
             <Button
                 android:id="@+id/button_add"
+                android:background="@drawable/button_design_register"
                 android:layout_marginRight="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                style="?android:attr/borderlessButtonStyle"
                 android:text="@string/todo_list_add" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:layout_height="1dp"
             android:background="@color/headerLine"/>
     </LinearLayout>
@@ -67,7 +71,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
         android:background="@color/bodyBackGround"
         android:id="@+id/android:list" />
     <View
