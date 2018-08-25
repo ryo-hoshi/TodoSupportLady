@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import apl.r_m_unt.todosupportlady.CalendarDialogFragment;
 import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
@@ -433,18 +435,37 @@ public class TodoDetailFragment extends Fragment {
     }
 
     /**
-     *
+     * 画面入力値のチェック
      * @param todoInfo
      * @return
      */
     private String checkInputVal(TodoInfo todoInfo) {
         String result = null;
 
+        // ##### 必須入力項目チェック #####
         if (todoInfo.getTitle() == null || todoInfo.getTitle().isEmpty()) {
             result = "タイトルは入力必須の項目です";
         } else if (todoInfo.getTodoLimit() == null) {
             result = "期限は入力必須の項目です";
         }
+        if (result != null){
+            return result;
+        }
+
+        // ##### 期限妥当性チェック #####
+        // TODO期限と現在日付を比較
+        TodoLimit todoLimit = todoInfo.getTodoLimit();
+        final Calendar now = Calendar.getInstance();
+        int currentYear = now.get(Calendar.YEAR);
+        int currentMonth = now.get(Calendar.MONTH) + 1;
+        int currentDay = now.get(Calendar.DAY_OF_MONTH);
+
+        if (todoLimit.getYear() < currentYear
+                || (todoLimit.getYear() == currentYear && todoLimit.getMonth() < currentMonth)
+                || (todoLimit.getYear() == currentYear && todoLimit.getMonth() == currentMonth && todoLimit.getDay() < currentDay)) {
+            result = "期限に過去日は設定できません";
+        }
+
         return result;
     }
 
