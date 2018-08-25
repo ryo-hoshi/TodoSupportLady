@@ -148,8 +148,9 @@ public class TodoDetailFragment extends Fragment {
             // 編集時
             // 一覧から渡された情報をセット（期限種別が未定以外の場合は日付指定扱い）
         } else {
-            Log.d(TAG, "SELECT_TODO_TITLEの値:" + arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
-            editTextTitle.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
+            final String todoTitle = arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE);
+            Log.d(TAG, "SELECT_TODO_TITLEの値:" + todoTitle);
+            editTextTitle.setText(todoTitle);
             editTextDetail.setText(arguments.getString(TodoDetailFragment.SELECT_TODO_DETAIL));
             int limitYear = arguments.getInt(TodoDetailFragment.SELECT_TODO_LIMIT_YEAR);
             int limitMonth = arguments.getInt(TodoDetailFragment.SELECT_TODO_LIMIT_MONTH);
@@ -163,7 +164,7 @@ public class TodoDetailFragment extends Fragment {
             if (limitSomeTime.equals(limitStr)) {
                 spinnerLimit.setSelection(adapterLimit.getPosition(limitSomeTime));
             } else {
-                // 第2引数にfalseを設定して、onItemSelectedを回避
+                // 第2引数にfalseを設定して、onItemSelectedが呼ばれるのを回避
                 spinnerLimit.setSelection(adapterLimit.getPosition(limitTypeAppoint), false);
             }
 
@@ -181,6 +182,111 @@ public class TodoDetailFragment extends Fragment {
                 buttonResetting.setEnabled(true);
             }
             //setScreenValue();
+
+            // ****************** 削除ボタン押下時の処理 ******************
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+//                // TODOモデルの取得
+//                TodoModel todoModel = new TodoModel(getActivity());
+//                // 削除を設定
+//                long rtn = todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
+//                if (rtn == -1) {
+//                    Log.d(TAG, "todoModel update結果：TODOの削除に失敗しました");
+//                } else {
+//                    Log.d(TAG, "todoModel update結果：TODOを削除しました");
+//                }
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    dialogFragment = new DeleteConfirmDialogFragment();
+
+                    Bundle args = new Bundle();
+                    // 削除対象のTODOのID
+                    args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoId);
+                    // 削除対象のTODOのタイトルを設定
+                    args.putString(DeleteConfirmDialogFragment.TODO_TITLE, todoTitle);
+//                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
+//                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
+                    dialogFragment.setArguments(args);
+                    // ダイアログに呼び出し元のFragmentオブジェクトを設定
+                    dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoDetail.getInt());
+
+                    dialogFragment.show(fragmentManager, "delete");
+
+                }
+            });
+
+            // ****************** 完了ボタン押下時の処理 ******************
+            buttonComplete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // TODOモデルの取得
+                    TodoModel todoModel = new TodoModel(getActivity());
+                    // 完了を設定
+                    long rtn = todoModel.complete(todoId);
+                    if (rtn == -1) {
+                        Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
+                    } else {
+                        Log.d(TAG, "todoModel update結果：TODOを完了しました");
+                    }
+
+                    // TODO 完了時のダイアログ表示
+                    // 完了時のダイアログを表示する
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    dialogFragment = new CompleteImgDialogFragment();
+                    dialogFragment.show(fragmentManager, "complete");
+
+                    // 保存ボタンを非活性にする
+                    buttonSave.setEnabled(false);
+                    // 完了ボタンを非活性にする
+                    buttonComplete.setEnabled(false);
+//                // 削除ボタンを非活性にする
+//                buttonDelete.setEnabled(false);
+                    // 再登録ボタンを活性化する
+                    buttonResetting.setEnabled(true);
+
+                    // 当画面のActivityを終了する
+                    //getActivity().finish();
+                }
+            });
+
+            // ****************** 再登録ボタン押下時の処理 ******************
+            buttonResetting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // TODOモデルの取得
+                    TodoModel todoModel = new TodoModel(getActivity());
+                    // TODOを再登録
+                    long rtn = todoModel.reRegister(todoId);
+                    if (rtn == -1) {
+                        Log.d(TAG, "todoModel update結果：TODOの再登録に失敗しました");
+                        Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "todoModel update結果：TODOを再登録しました");
+                        Toast.makeText(getActivity(), "TODOを再登録しました。期限などを再設定してください。", Toast.LENGTH_LONG).show();
+                    }
+
+                    // 保存ボタンを活性化する
+                    buttonSave.setEnabled(true);
+                    // 完了ボタンを活性化する
+                    buttonComplete.setEnabled(true);
+                    // 削除ボタンを活性化する
+                    buttonDelete.setEnabled(true);
+                    // 再登録ボタンを非活性にする
+                    buttonResetting.setEnabled(false);
+
+                    // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
+                    buttonSave.setEnabled(true);
+                    buttonComplete.setEnabled(true);
+                    buttonDelete.setEnabled(true);
+                    editTextTitle.setEnabled(true);
+                    editTextDetail.setEnabled(true);
+                    spinnerLimit.setEnabled(true);
+                    editTextLimit.setEnabled(true);
+                }
+            });
         }
 
         // ****************** 期限種別のスピナー変更時の動作 ******************
@@ -288,36 +394,39 @@ public class TodoDetailFragment extends Fragment {
             }
         });
 
-        // ****************** 削除ボタン押下時の処理 ******************
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                // TODOモデルの取得
-//                TodoModel todoModel = new TodoModel(getActivity());
-//                // 削除を設定
-//                long rtn = todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
-//                if (rtn == -1) {
-//                    Log.d(TAG, "todoModel update結果：TODOの削除に失敗しました");
-//                } else {
-//                    Log.d(TAG, "todoModel update結果：TODOを削除しました");
-//                }
-                fragmentManager = getActivity().getSupportFragmentManager();
-                dialogFragment = new DeleteConfirmDialogFragment();
-
-                Bundle args = new Bundle();
-                // 削除対象のTODO_ID
-                args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoId);
-//                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
-//                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
-                dialogFragment.setArguments(args);
-                // ダイアログに呼び出し元のFragmentオブジェクトを設定
-                dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoDetail.getInt());
-
-                dialogFragment.show(fragmentManager, "delete");
-
-            }
-        });
+        // 編集の場合に移動
+//        // ****************** 削除ボタン押下時の処理 ******************
+//        buttonDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                // TODOモデルの取得
+////                TodoModel todoModel = new TodoModel(getActivity());
+////                // 削除を設定
+////                long rtn = todoModel.updateIsDelete(todoId, TodoInfo.DELETE);
+////                if (rtn == -1) {
+////                    Log.d(TAG, "todoModel update結果：TODOの削除に失敗しました");
+////                } else {
+////                    Log.d(TAG, "todoModel update結果：TODOを削除しました");
+////                }
+//                fragmentManager = getActivity().getSupportFragmentManager();
+//                dialogFragment = new DeleteConfirmDialogFragment();
+//
+//                Bundle args = new Bundle();
+//                // 削除対象のTODOのID
+//                args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoId);
+//                // 削除対象のTODOのタイトルを設定
+//                args.putString(DeleteConfirmDialogFragment.TODO_TITLE, arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE));
+////                // TODO詳細からの遷移であることを設定してダイアログ呼び出し
+////                args.putInt(DeleteConfirmDialogFragment.TRANSITION_SOURCE_CD, DeleteConfirmDialogFragment.TransitionSource.TodoList.getInt());
+//                dialogFragment.setArguments(args);
+//                // ダイアログに呼び出し元のFragmentオブジェクトを設定
+//                dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoDetail.getInt());
+//
+//                dialogFragment.show(fragmentManager, "delete");
+//
+//            }
+//        });
 
         // 戻るボタン押下時の処理
         view.findViewById(R.id.button_cancel).setOnClickListener(new View.OnClickListener() {
@@ -329,77 +438,78 @@ public class TodoDetailFragment extends Fragment {
             }
         });
 
-        // ****************** 完了ボタン押下時の処理 ******************
-        buttonComplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // TODOモデルの取得
-                TodoModel todoModel = new TodoModel(getActivity());
-                // 完了を設定
-                long rtn = todoModel.complete(todoId);
-                if (rtn == -1) {
-                    Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
-                } else {
-                    Log.d(TAG, "todoModel update結果：TODOを完了しました");
-                }
-
-                // TODO 完了時のダイアログ表示
-                // 完了時のダイアログを表示する
-                fragmentManager = getActivity().getSupportFragmentManager();
-                dialogFragment = new CompleteImgDialogFragment();
-                dialogFragment.show(fragmentManager, "complete");
-
-                // 保存ボタンを非活性にする
-                buttonSave.setEnabled(false);
-                // 完了ボタンを非活性にする
-                buttonComplete.setEnabled(false);
-//                // 削除ボタンを非活性にする
-//                buttonDelete.setEnabled(false);
-                // 再登録ボタンを活性化する
-                buttonResetting.setEnabled(true);
-
-                // 当画面のActivityを終了する
-                //getActivity().finish();
-            }
-        });
-
-        // ****************** 再登録ボタン押下時の処理 ******************
-        buttonResetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // TODOモデルの取得
-                TodoModel todoModel = new TodoModel(getActivity());
-                // TODOを再登録
-                long rtn = todoModel.reRegister(todoId);
-                if (rtn == -1) {
-                    Log.d(TAG, "todoModel update結果：TODOの再登録に失敗しました");
-                    Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.d(TAG, "todoModel update結果：TODOを再登録しました");
-                    Toast.makeText(getActivity(), "TODOを再登録しました。期限などを再設定してください。", Toast.LENGTH_LONG).show();
-                }
-
-                // 保存ボタンを活性化する
-                buttonSave.setEnabled(true);
-                // 完了ボタンを活性化する
-                buttonComplete.setEnabled(true);
-                // 削除ボタンを活性化する
-                buttonDelete.setEnabled(true);
-                // 再登録ボタンを非活性にする
-                buttonResetting.setEnabled(false);
-
-                // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
-                buttonSave.setEnabled(true);
-                buttonComplete.setEnabled(true);
-                buttonDelete.setEnabled(true);
-                editTextTitle.setEnabled(true);
-                editTextDetail.setEnabled(true);
-                spinnerLimit.setEnabled(true);
-                editTextLimit.setEnabled(true);
-            }
-        });
+        // 編集の場合に移動
+//        // ****************** 完了ボタン押下時の処理 ******************
+//        buttonComplete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // TODOモデルの取得
+//                TodoModel todoModel = new TodoModel(getActivity());
+//                // 完了を設定
+//                long rtn = todoModel.complete(todoId);
+//                if (rtn == -1) {
+//                    Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
+//                } else {
+//                    Log.d(TAG, "todoModel update結果：TODOを完了しました");
+//                }
+//
+//                // TODO 完了時のダイアログ表示
+//                // 完了時のダイアログを表示する
+//                fragmentManager = getActivity().getSupportFragmentManager();
+//                dialogFragment = new CompleteImgDialogFragment();
+//                dialogFragment.show(fragmentManager, "complete");
+//
+//                // 保存ボタンを非活性にする
+//                buttonSave.setEnabled(false);
+//                // 完了ボタンを非活性にする
+//                buttonComplete.setEnabled(false);
+////                // 削除ボタンを非活性にする
+////                buttonDelete.setEnabled(false);
+//                // 再登録ボタンを活性化する
+//                buttonResetting.setEnabled(true);
+//
+//                // 当画面のActivityを終了する
+//                //getActivity().finish();
+//            }
+//        });
+//
+//        // ****************** 再登録ボタン押下時の処理 ******************
+//        buttonResetting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // TODOモデルの取得
+//                TodoModel todoModel = new TodoModel(getActivity());
+//                // TODOを再登録
+//                long rtn = todoModel.reRegister(todoId);
+//                if (rtn == -1) {
+//                    Log.d(TAG, "todoModel update結果：TODOの再登録に失敗しました");
+//                    Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Log.d(TAG, "todoModel update結果：TODOを再登録しました");
+//                    Toast.makeText(getActivity(), "TODOを再登録しました。期限などを再設定してください。", Toast.LENGTH_LONG).show();
+//                }
+//
+//                // 保存ボタンを活性化する
+//                buttonSave.setEnabled(true);
+//                // 完了ボタンを活性化する
+//                buttonComplete.setEnabled(true);
+//                // 削除ボタンを活性化する
+//                buttonDelete.setEnabled(true);
+//                // 再登録ボタンを非活性にする
+//                buttonResetting.setEnabled(false);
+//
+//                // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
+//                buttonSave.setEnabled(true);
+//                buttonComplete.setEnabled(true);
+//                buttonDelete.setEnabled(true);
+//                editTextTitle.setEnabled(true);
+//                editTextDetail.setEnabled(true);
+//                spinnerLimit.setEnabled(true);
+//                editTextLimit.setEnabled(true);
+//            }
+//        });
     }
 
     /**
