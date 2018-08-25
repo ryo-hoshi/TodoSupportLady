@@ -16,7 +16,8 @@
     <string name="todo_detail_title">タイトル</string>
     <string name="todo_detail_memo">TODO詳細</string>
     <string name="todo_detail_limit">期限</string>
-    <string name="todo_detail_save">保存</string>
+    <string name="todo_detail_save">登録</string>
+    <string name="todo_detail_update">更新</string>
     <string name="todo_detail_cancel">戻る</string>
     <string name="todo_detail_delete">削除</string>
     <string name="todo_detail_complete">完了</string>

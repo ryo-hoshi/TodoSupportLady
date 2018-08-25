@@ -65,8 +65,14 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
 
         // ダイアログの表示内容と呼び出しもとに値を返す設定
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle("下記のTODOを削除します");
-        dialogBuilder.setMessage(getArguments().getString(TODO_TITLE));
+        // TODO一覧で削除の場合
+        if (todoListFragment != null ) {
+            dialogBuilder.setTitle("下記のTODOを削除します");
+            dialogBuilder.setMessage(getArguments().getString(TODO_TITLE));
+        } else {
+            dialogBuilder.setTitle("このTODOを削除します");
+        }
+
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
