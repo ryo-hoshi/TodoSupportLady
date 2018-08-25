@@ -136,8 +136,10 @@ public class TodoListFragment extends ListFragment {
 
                 TodoInfo todoInfo = todoInfoList.get(position);
                 Bundle args = new Bundle();
-                // 削除対象のTODO_IDを設定
+                // 削除対象のTODOのIDを設定
                 args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoInfo.getId());
+                // 削除対象のTODOのタイトルを設定
+                args.putString(DeleteConfirmDialogFragment.TODO_TITLE, todoInfo.getTitle());
 //                // TODO一覧からの遷移であることを設定してダイアログ呼び出し
 //                args.putInt(DeleteDialogFragment.TRANSITION_SOURCE_CD, DeleteDialogFragment.TransitionSource.TodoDetail.getInt());
                 dialogFragment.setArguments(args);

@@ -8,10 +8,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
-import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoListFragment;
 import apl.r_m_unt.todosupportlady.todo.TodoModel;
@@ -23,6 +21,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
 
     private static final String TAG = "DelConfDialogFragment";
     public static final String TODO_ID = "TODO_ID";
+    public static final String TODO_TITLE = "TODO_TITLE";
 
     /** 遷移元画面 */
 //    private int transitionSourceCd;
@@ -66,7 +65,8 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
 
         // ダイアログの表示内容と呼び出しもとに値を返す設定
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle("TODOを削除しますか？");
+        dialogBuilder.setTitle("下記のTODOを削除します");
+        dialogBuilder.setMessage(getArguments().getString(TODO_TITLE));
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -90,20 +90,21 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
                     todoDetailFragment.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
                 }
 
-                // TODO削除イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
-                SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
-                if (sharedPreferenceData.isShowLadyImage(getActivity())) {
-                    // 削除時の画像ダイアログを表示する
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    DialogFragment dialogFragment = new DeleteImgDialogFragment();
-                    dialogFragment.show(fragmentManager, "delete");
-                } else {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("TODO削除")
-                            .setMessage("TODOを削除しました")
-                            .setPositiveButton("OK", null)
-                            .show();
-                }
+                // ##### 削除後のダイアログ表示処理は一旦削除する #####
+//                // TODO削除イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
+//                SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+//                if (sharedPreferenceData.isShowLadyImage(getActivity())) {
+//                    // 削除時の画像ダイアログを表示する
+//                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                    DialogFragment dialogFragment = new DeleteImgDialogFragment();
+//                    dialogFragment.show(fragmentManager, "delete");
+//                } else {
+//                    new AlertDialog.Builder(getActivity())
+//                            .setTitle("TODO削除")
+//                            .setMessage("TODOを削除しました")
+//                            .setPositiveButton("OK", null)
+//                            .show();
+//                }
 
             }
         });

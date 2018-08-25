@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TodoDataBaseHelper extends SQLiteOpenHelper {
 
     private static final String DBNAME = "todo.db";
-    private static final int DBVERSION = 4;
+    private static final int DBVERSION = 5;
     public static final String TABLE_TODO = "todo";
 
     public static final String COLUMN_ID = "_id";
