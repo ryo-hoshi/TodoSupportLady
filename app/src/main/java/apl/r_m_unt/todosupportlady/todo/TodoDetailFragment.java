@@ -224,7 +224,7 @@ public class TodoDetailFragment extends Fragment {
 
 
                     new AlertDialog.Builder(getActivity())
-                            .setTitle("このTODOを完了します")
+                            .setTitle("TODOを完了しますか？")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -304,7 +304,7 @@ public class TodoDetailFragment extends Fragment {
                         Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d(TAG, "todoModel update結果：TODOを再登録しました");
-                        Toast.makeText(getActivity(), "TODOを再登録しました。登録内容を更新してください", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "TODOを再登録しました", Toast.LENGTH_LONG).show();
                     }
 
                     // 保存ボタンを活性化する
@@ -562,14 +562,17 @@ public class TodoDetailFragment extends Fragment {
         if (requestCode == TodoConstant.RequestCode.TodoDetail.getInt()) {
             if (resultCode != RESULT_OK) { return; }
 
-            // 保存ボタンを非活性にする
-            buttonSave.setEnabled(false);
-            // 完了ボタンを非活性
-            buttonComplete.setEnabled(false);
-            // 削除ボタンを非活性
-            buttonDelete.setEnabled(false);
-            // 再登録ボタンを活性化する
-            buttonResetting.setEnabled(true);
+//            // 保存ボタンを非活性にする
+//            buttonSave.setEnabled(false);
+//            // 完了ボタンを非活性
+//            buttonComplete.setEnabled(false);
+//            // 削除ボタンを非活性
+//            buttonDelete.setEnabled(false);
+//            // 再登録ボタンを活性化する
+//            buttonResetting.setEnabled(true);
+            Toast.makeText(getActivity(), "TODOを削除しました", Toast.LENGTH_LONG).show();
+            // 当画面のActivityを終了する
+            getActivity().finish();
 
             return;
         }

@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 
 //import android.app.DialogFragment;
@@ -49,7 +51,13 @@ public class CompleteImgDialogFragment extends DialogFragment{
 
             // complete_dialog_layout.xmlにあるボタンIDを使用して画像を設定
             ImageView imgv = (ImageView) alertView.findViewById(R.id.imageView_complete);
-            imgv.setImageResource(R.drawable.complete_maya1);
+            Random r = new Random();
+            int n = r.nextInt(2);
+            if (n < 1) {
+                imgv.setImageResource(R.drawable.complete_reika1);
+            } else {
+                imgv.setImageResource(R.drawable.complete_reika2);
+            }
             imgv.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 //                Log.d("complete dialog", "clicked");

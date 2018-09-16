@@ -70,7 +70,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
             dialogBuilder.setTitle("下記のTODOを削除します");
             dialogBuilder.setMessage(getArguments().getString(TODO_TITLE));
         } else {
-            dialogBuilder.setTitle("このTODOを削除します");
+            dialogBuilder.setTitle("TODOを削除しますか？");
         }
 
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
