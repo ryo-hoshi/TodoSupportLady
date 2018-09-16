@@ -2,6 +2,7 @@ package apl.r_m_unt.todosupportlady.common;
 
 import android.util.Log;
 
+import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDateTime;
 
 import java.util.Calendar;
@@ -47,12 +48,24 @@ public class TodoCommonFunction {
 
             case THIS_WEEK:
                 now = LocalDateTime.fromCalendarFields(calendar);
-                return dateToTodoLimit(now.dayOfWeek().withMaximumValue());
+//                return dateToTodoLimit(now.dayOfWeek().withMaximumValue());
+                Log.d(TAG, "day of weekの値：" + now.dayOfWeek().get());
+                // デフォルトだと月曜が週初めとなっているため、日曜の場合は1日後から週末の日を取得する
+                if(DateTimeConstants.SUNDAY == now.dayOfWeek().get()){
+                    now = now.plusDays(1);
+                }
+                return dateToTodoLimit(now.withDayOfWeek(DateTimeConstants.SATURDAY));
 
             case NEXT_WEEK:
                 now = LocalDateTime.fromCalendarFields(calendar);
-                LocalDateTime weekEnd = now.dayOfWeek().withMaximumValue();
-                return dateToTodoLimit(weekEnd.plusDays(7));
+//                LocalDateTime weekEnd = now.dayOfWeek().withMaximumValue();
+                Log.d(TAG, "day of weekの値：" + now.dayOfWeek().get());
+                if(DateTimeConstants.SUNDAY == now.dayOfWeek().get()){
+                    now = now.plusDays(1);
+                }
+                //return dateToTodoLimit(weekEnd.plusDays(7));
+                LocalDateTime nextWeek = now.plusWeeks(1);
+                return dateToTodoLimit(nextWeek.withDayOfWeek(DateTimeConstants.SATURDAY));
 
             case THIS_MONTH:
                 now = LocalDateTime.fromCalendarFields(calendar);
