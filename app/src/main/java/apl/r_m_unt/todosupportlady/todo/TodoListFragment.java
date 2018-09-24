@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -229,6 +230,8 @@ public class TodoListFragment extends ListFragment {
                 return;
             }
 
+            Toast.makeText(getActivity(), "TODOを削除しました", Toast.LENGTH_SHORT).show();
+
             // TODO一覧の再設定
             setTodoInfoList();
 
@@ -367,22 +370,31 @@ public class TodoListFragment extends ListFragment {
             TodoLimit todoLimit = item.getTodoLimit();
             textViewListTodoTime.setText(formatLimitString(todoLimit));
 
-            // 期限切れの場合は期限のテキストの色を赤くする
-            if (todoLimit.getYear() < year
-                    || (todoLimit.getYear() == year && todoLimit.getMonth() < month)
-                    || (todoLimit.getYear() == year && todoLimit.getMonth() == month && todoLimit.getDay() < day)) {
-                Log.i(TAG, "年：" + todoLimit.getYear() + "現在日時（年）" + year);
-                Log.i(TAG, "月：" + todoLimit.getMonth() + "現在日時（月）" + month);
-                Log.i(TAG, "日：" + todoLimit.getDay() + "現在日時（日）" + day);
-                textViewListTodoTime.setTextColor(Color.RED);
-                TextView limitLabel = (TextView)rowView.findViewById(R.id.textView_listTodoLimitLabel);
-                limitLabel.setTextColor(Color.RED);
+            // 期限のラベルを取得
+            TextView limitLabel = (TextView)rowView.findViewById(R.id.textView_listTodoLimitLabel);
 
-                // 上記以外は期限のテキストの色を青色にする
+            // TODO完了済の場合は期限のテキストを黒色にする
+            if (item.getIsComplete() == TodoInfo.CompleteStatus.Complete.getInt()){
+                textViewListTodoTime.setTextColor(Color.BLACK);
+                limitLabel.setTextColor(Color.BLACK);
+
+                // 上記以外
             } else {
-                textViewListTodoTime.setTextColor(Color.BLUE);
-                TextView limitLabel = (TextView)rowView.findViewById(R.id.textView_listTodoLimitLabel);
-                limitLabel.setTextColor(Color.BLUE);
+                // 期限切れの場合は期限のテキストの色を赤くする
+                if (todoLimit.getYear() < year
+                        || (todoLimit.getYear() == year && todoLimit.getMonth() < month)
+                        || (todoLimit.getYear() == year && todoLimit.getMonth() == month && todoLimit.getDay() < day)) {
+                    Log.i(TAG, "年：" + todoLimit.getYear() + "現在日時（年）" + year);
+                    Log.i(TAG, "月：" + todoLimit.getMonth() + "現在日時（月）" + month);
+                    Log.i(TAG, "日：" + todoLimit.getDay() + "現在日時（日）" + day);
+                    textViewListTodoTime.setTextColor(Color.RED);
+                    limitLabel.setTextColor(Color.RED);
+
+                    // 上記以外は期限のテキストの色を青色にする
+                } else {
+                    textViewListTodoTime.setTextColor(Color.BLUE);
+                    limitLabel.setTextColor(Color.BLUE);
+                }
             }
 
             // TODOタイトル

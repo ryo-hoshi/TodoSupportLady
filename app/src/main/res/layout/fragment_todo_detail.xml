@@ -70,14 +70,15 @@
             android:id="@+id/textView_title"
             >
             <requestFocus />
-         </TextView>
+        </TextView>
         <EditText
             android:paddingTop="2dp"
             android:paddingLeft="7dp"
             android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="40"
+            android:maxLength="36"
+            android:inputType="text"
             android:background="@color/bodyBackGround"
             android:id="@+id/editText_title" />
 
@@ -91,26 +92,30 @@
             android:textColor="@color/primaryLabel"
             android:background="@color/detailLabelBackGround"
             android:id="@+id/textView_memo" />
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="fill_parent"
+            android:layout_height="290dp"
+            android:layout_margin="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="1dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="1dp">
             <EditText
                 android:paddingTop="2dp"
                 android:paddingLeft="7dp"
                 android:paddingBottom="2dp"
+                android:paddingRight="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minLines="13"
                 android:gravity="top|left"
-                android:minLines="10"
-                android:maxLines="10"
                 android:maxLength="1000"
                 android:background="@color/bodyBackGround"
-                android:scrollbars="vertical"
-                android:fadeScrollbars="false"
                 android:id="@+id/editText_detail">
             </EditText>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
         <TextView
             android:paddingTop="2dp"
@@ -138,7 +143,7 @@
             android:paddingBottom="4dp"
             android:background="@color/bodyBackGround"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:maxLength="30"
             android:focusable="false"
             android:id="@+id/editText_limit" />

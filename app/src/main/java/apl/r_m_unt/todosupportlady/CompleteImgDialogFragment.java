@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
 import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 
 //import android.app.DialogFragment;
@@ -31,7 +32,7 @@ public class CompleteImgDialogFragment extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // TODO完了イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
-        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        final SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
         Activity activity = getActivity();
         if (sharedPreferenceData.isShowLadyImage(activity)) {
 
@@ -49,32 +50,55 @@ public class CompleteImgDialogFragment extends DialogFragment{
             // カスタムレイアウトの生成
             View alertView = activity.getLayoutInflater().inflate(R.layout.complete_dialog_layout, null);
 
-            // complete_dialog_layout.xmlにあるボタンIDを使用して画像を設定
-            ImageView imgv = (ImageView) alertView.findViewById(R.id.imageView_complete);
+            // メッセージを設定
+            String[] completeMsg = getResources().getStringArray(R.array.complete_msg_reika);
             Random r = new Random();
+            int msgTarget = r.nextInt(completeMsg.length);
+            TextView textViewComplete = (TextView)alertView.findViewById(R.id.textView_complete);
+            String raikaMsg = completeMsg[msgTarget];
+            if (msgTarget == 2) {
+                // メッセージに呼ばれ方を設定
+                String name = sharedPreferenceData.getName(getActivity());
+                if (!TodoCommonFunction.isValidValue(name)) {
+                    name = getResources().getString(R.string.default_name);
+                }
+                raikaMsg = raikaMsg + " " + name + getResources().getString(R.string.default_honorific);
+            }
+            textViewComplete.setText(raikaMsg);
+
+            // 画像を設定
+            ImageView imgv = (ImageView) alertView.findViewById(R.id.imageView_complete);
             int n = r.nextInt(2);
             if (n < 1) {
                 imgv.setImageResource(R.drawable.complete_reika1);
             } else {
                 imgv.setImageResource(R.drawable.complete_reika2);
             }
-            imgv.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-//                Log.d("complete dialog", "clicked");
+//            LinearLayout layout = (LinearLayout)imageView_layout
 
-//                alert.setMessage("image clicked");
-                    // Dialogを消す
+            // タップで削除する
+            alertView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
                     getDialog().dismiss();
                 }
             });
+//            imgv.setOnClickListener(new View.OnClickListener() {
+//                public void onClick(View v) {
+////                Log.d("complete dialog", "clicked");
+//
+////                alert.setMessage("image clicked");
+//                    // Dialogを消す
+//                    getDialog().dismiss();
+//                }
+//            });
 
             // ViewをCompleteDialog.Builderに追加
             alert.setView(alertView);
 
         } else {
             alert = new AlertDialog.Builder(activity);
-            alert.setTitle("TODO完了");
-            alert.setMessage("TODOを完了しました");
+            alert.setTitle("TODOを完了しました");
             alert.setPositiveButton("OK", null);
 //            new AlertDialog.Builder(activity)
 //                    .setTitle("TODO完了")

@@ -176,4 +176,27 @@ public class TodoCommonFunction {
 
         return todoLimit;
     }
+
+    /**
+     * テキスト入力の有効な値チェック
+     * null、空文字、スペースのみは無効
+     * @param value 入力値
+     * @return チェック結果（true:有効な入力値、false:無効な入力値）
+     */
+    public static boolean isValidValue(String value) {
+
+        if (value == null || value.isEmpty()) {
+            return false;
+
+        } else {
+
+            String checkValue = value.trim();
+            checkValue = checkValue.replaceAll("　", "");
+            if (checkValue.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

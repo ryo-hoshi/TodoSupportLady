@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -119,6 +120,17 @@ public class TodoDetailFragment extends Fragment {
         buttonResetting = (Button)getView().findViewById(R.id.button_todo_resetting);
         myFragment = this;
 
+//        getView().findViewById(R.id.scrollview).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // TODO詳細にフォーカス移動する
+//                editTextDetail.setFocusable(true);
+//                editTextDetail.setFocusableInTouchMode(true);
+//                editTextDetail.requestFocus();
+//            }
+//        });
+
         // スクロールバー表示を可能にする
         //editTextDetail.setMovementMethod(ScrollingMovementMethod.getInstance());
 
@@ -139,6 +151,9 @@ public class TodoDetailFragment extends Fragment {
         adapterLimit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLimit.setAdapter(adapterLimit);
 
+        TextView toolBar = (TextView)getActivity().findViewById(R.id.textView_todo_detail_toolbar);
+        Resources res = getResources();
+
         // ##### 新規登録か編集によってボタン表示状態を制御する #####
         // 新規登録時は完了ボタン、削除ボタン、再登録ボタンと期限（テキスト）は非表示
         if (todoId == -1) {
@@ -147,11 +162,26 @@ public class TodoDetailFragment extends Fragment {
             buttonResetting.setVisibility(View.INVISIBLE);
             editTextLimit.setVisibility(View.INVISIBLE);
 
+
+            // 保存ボタンを活性化する
+            buttonSave.setEnabled(true);
+
+            // 各要素を編集可能にする
+            editTextTitle.setEnabled(true);
+            editTextDetail.setEnabled(true);
+            spinnerLimit.setEnabled(true);
+            editTextLimit.setEnabled(true);
+
+            // ツールバーを変更
+            toolBar.setText(res.getString(R.string.todo_detail_toolbar_register));
+
             // 編集時
             // 一覧から渡された情報をセット（期限種別が未定以外の場合は日付指定扱い）
         } else {
-            Resources res = getResources();
+            // ボタンのラベルを変更
             buttonSave.setText(res.getString(R.string.todo_detail_update));
+            // ツールバーを変更
+            toolBar.setText(res.getString(R.string.todo_detail_toolbar_update));
             final String todoTitle = arguments.getString(TodoDetailFragment.SELECT_TODO_TITLE);
             Log.d(TAG, "SELECT_TODO_TITLEの値:" + todoTitle);
             editTextTitle.setText(todoTitle);
@@ -176,20 +206,20 @@ public class TodoDetailFragment extends Fragment {
                 Log.d(TAG, "■■完了TODOの場合■■");
                 buttonSave.setEnabled(false);
                 buttonComplete.setEnabled(false);
-                buttonDelete.setEnabled(false);
                 editTextTitle.setEnabled(false);
                 editTextDetail.setEnabled(false);
                 spinnerLimit.setEnabled(false);
                 editTextLimit.setEnabled(false);
-                // 再登録は活性化
+                // 再登録と削除は活性化
+                buttonDelete.setEnabled(true);
                 buttonResetting.setEnabled(true);
             }
             //setScreenValue();
 
             // ****************** 削除ボタン押下時の処理 ******************
             buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
 //                // TODOモデルの取得
 //                TodoModel todoModel = new TodoModel(getActivity());
@@ -246,10 +276,14 @@ public class TodoDetailFragment extends Fragment {
                                     dialogFragment = new CompleteImgDialogFragment();
                                     dialogFragment.show(fragmentManager, "complete");
 
-                                    // 保存ボタンを非活性にする
+                                    // 保存、完了ボタンを非活性にする
                                     buttonSave.setEnabled(false);
-                                    // 完了ボタンを非活性にする
                                     buttonComplete.setEnabled(false);
+                                    // 入力項目を非活性にする
+                                    editTextTitle.setEnabled(false);
+                                    editTextDetail.setEnabled(false);
+                                    spinnerLimit.setEnabled(false);
+                                    editTextLimit.setEnabled(false);
 //                // 削除ボタンを非活性にする
 //                buttonDelete.setEnabled(false);
                                     // 再登録ボタンを活性化する
@@ -257,7 +291,8 @@ public class TodoDetailFragment extends Fragment {
 
                                 }
                             })
-                            .setNegativeButton("Cancel", null)
+                            //.setNegativeButton("Cancel", null)
+                            .setNeutralButton("CANCEL", null)
                             .show();
 
 //                    // TODOモデルの取得
@@ -304,22 +339,17 @@ public class TodoDetailFragment extends Fragment {
                         Toast.makeText(getActivity(), "TODOの再登録に失敗しました", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d(TAG, "todoModel update結果：TODOを再登録しました");
-                        Toast.makeText(getActivity(), "TODOを再登録しました", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "TODOを再登録しました", Toast.LENGTH_SHORT).show();
                     }
 
-                    // 保存ボタンを活性化する
+                    // 保存、完了、削除ボタンを活性化する
                     buttonSave.setEnabled(true);
-                    // 完了ボタンを活性化する
                     buttonComplete.setEnabled(true);
-                    // 削除ボタンを活性化する
                     buttonDelete.setEnabled(true);
                     // 再登録ボタンを非活性にする
                     buttonResetting.setEnabled(false);
 
                     // 各要素を編集可能にする（TODO一覧の完了済を再登録したとき用）
-                    buttonSave.setEnabled(true);
-                    buttonComplete.setEnabled(true);
-                    buttonDelete.setEnabled(true);
                     editTextTitle.setEnabled(true);
                     editTextDetail.setEnabled(true);
                     spinnerLimit.setEnabled(true);
@@ -570,7 +600,7 @@ public class TodoDetailFragment extends Fragment {
 //            buttonDelete.setEnabled(false);
 //            // 再登録ボタンを活性化する
 //            buttonResetting.setEnabled(true);
-            Toast.makeText(getActivity(), "TODOを削除しました", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "TODOを削除しました", Toast.LENGTH_SHORT).show();
             // 当画面のActivityを終了する
             getActivity().finish();
 
@@ -595,7 +625,7 @@ public class TodoDetailFragment extends Fragment {
         String result = null;
 
         // ##### 必須入力項目チェック #####
-        if (todoInfo.getTitle() == null || todoInfo.getTitle().isEmpty()) {
+        if (!TodoCommonFunction.isValidValue(todoInfo.getTitle())) {
             result = "タイトルは入力必須の項目です";
         } else if (todoInfo.getTodoLimit() == null) {
             result = "期限は入力必須の項目です";

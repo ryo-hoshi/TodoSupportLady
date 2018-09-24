@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
+import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
 import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
+import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
 import apl.r_m_unt.todosupportlady.info.CircleInfoSetting;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailActivity;
@@ -168,6 +171,15 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        // タイトルに呼ばれ方を設定
+        TextView mainToolbar = (TextView)getActivity().findViewById(R.id.textView_main_toolbar);
+        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        String name = sharedPreferenceData.getName(getActivity());
+        if (!TodoCommonFunction.isValidValue(name)) {
+            name = getResources().getString(R.string.default_name);
+        }
+        mainToolbar.setText(name + getResources().getString(R.string.main_toolbar));
 
         String id = getActivity().getIntent().getStringExtra("id");
         String label =  getActivity().getIntent().getStringExtra("label");

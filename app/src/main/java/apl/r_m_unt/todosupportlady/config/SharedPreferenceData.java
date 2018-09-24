@@ -13,6 +13,7 @@ public class SharedPreferenceData {
     private static final String CONFIG_DATA = "CONFIG_DATA";
     private static final String TODO_LIST_DATA = "TODO_LIST_DATA";
     private static final String CONFIG_IS_SHOW_LADY_IMAGE = "CONFIG_IS_SHOW_LADY_IMAGE";
+    private static final String CONFIG_NAME = "CONFIG_NAME";
     private static final String TODO_LIST_IS_SHOW_COMPLETED = "TODO_LIST_IS_SHOW_COMPLETED";
 
     /**
@@ -26,6 +27,20 @@ public class SharedPreferenceData {
         SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(CONFIG_IS_SHOW_LADY_IMAGE, isShowLadyImage);
+        editor.apply();
+    }
+
+    /**
+     * メイドからの呼ばれ方を設定
+     * @param context
+     * @param name メイドからの呼ばれ方
+     */
+    public void setName(Context context, String name) {
+
+        // メイドからの呼ばれ方を設定
+        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(CONFIG_NAME, name);
         editor.apply();
     }
 
@@ -54,6 +69,19 @@ public class SharedPreferenceData {
         SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
         boolean isShowLadyImage = prefs.getBoolean(CONFIG_IS_SHOW_LADY_IMAGE, true);
         return isShowLadyImage;
+    }
+
+    /**
+     * メイドからの呼ばれ方を取得
+     * @param context
+     * @return 呼ばれ方
+     */
+    public String getName(Context context) {
+
+        // メイドからの呼ばれ方を取得
+        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
+        String name = prefs.getString(CONFIG_NAME, "ご主人");
+        return name;
     }
 
     /**

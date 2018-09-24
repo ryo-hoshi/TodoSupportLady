@@ -78,8 +78,28 @@
                     android:textSize="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_info_usage_content"
-                    android:id="@+id/textView_usage_content" />
+                    android:text="@string/app_info_usage_about_apl1"
+                    android:id="@+id/app_info_usage_about_apl1" />
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_usage_about_apl2"
+                    android:id="@+id/app_info_usage_about_apl2" />
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:textSize="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_usage_image_show"
+                    android:id="@+id/textView_usage_image_show" />
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:textSize="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_usage_delete"
+                    android:id="@+id/textView_usage_delete" />
                 <View
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
@@ -97,11 +117,20 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
                 <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="@string/app_info_description1"
+                android:id="@+id/textView_circleInfoDescription1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
-                    android:text="@string/app_info_description"
-                    android:id="@+id/textView_circleInfoDescription"
+                    android:text="@string/app_info_description2"
+                    android:id="@+id/textView_circleInfoDescription2"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
                 <TextView

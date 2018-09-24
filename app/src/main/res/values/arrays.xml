@@ -10,4 +10,9 @@
         <item>日付を指定</item>
         <item>未定</item>
     </string-array>
+    <string-array name="complete_msg_reika">
+        <item>完了ですわ</item>
+        <item>クリアですわ</item>
+        <item>お疲れ様です </item>
+    </string-array>
 </resources>

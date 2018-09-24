@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
+import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
 
 /**
  * Created by ryota on 2017/04/09.
@@ -21,6 +24,7 @@ public class ConfigFragment extends Fragment {
 
     private static final String TAG = "ConfigFragment";
     private Switch switchIsShowLadyImage;
+    private EditText editTextName;
 
 //    private List<String> mList = new ArrayList<>();
 
@@ -41,15 +45,18 @@ public class ConfigFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // サポート画像表示有無の保存値を画面に設定
-        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        final SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
         switchIsShowLadyImage = (Switch)getView().findViewById(R.id.switch_show_lady_image);
         switchIsShowLadyImage.setChecked(sharedPreferenceData.isShowLadyImage(getActivity()));
 
-        // サポート画像表示有無の画面設定値を保存
+        // メイドからの呼ばれ方の保存値を画面に設定
+        editTextName = (EditText) getView().findViewById(R.id.editText_name);
+        editTextName.setText(sharedPreferenceData.getName(getActivity()));
+
+        // サポート画像表示有無の画面設定値を変更したときにローカルファイルに保存
         switchIsShowLadyImage.setOnCheckedChangeListener(
             new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                    SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
                     sharedPreferenceData.setShowLadyImage(getActivity(), isChecked);
                 }
             }
@@ -61,6 +68,15 @@ public class ConfigFragment extends Fragment {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String name = editTextName.getText().toString();
+                if (!TodoCommonFunction.isValidValue(name)) {
+                    Toast.makeText(getActivity(), "呼び方を入力してください", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // メイドからの呼ばれ方を保存
+                sharedPreferenceData.setName(getActivity(), editTextName.getText().toString());
+
                 // 当画面のActivityを終了する
                 getActivity().finish();
             }

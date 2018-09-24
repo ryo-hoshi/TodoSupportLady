@@ -67,7 +67,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         // TODO一覧で削除の場合
         if (todoListFragment != null ) {
-            dialogBuilder.setTitle("下記のTODOを削除します");
+            dialogBuilder.setTitle("下記のTODOを削除しますか？");
             dialogBuilder.setMessage(getArguments().getString(TODO_TITLE));
         } else {
             dialogBuilder.setTitle("TODOを削除しますか？");
@@ -114,7 +114,8 @@ public class DeleteConfirmDialogFragment extends DialogFragment{
 
             }
         });
-        dialogBuilder.setNegativeButton("Cancel", null);
+        //dialogBuilder.setNegativeButton("Cancel", null);
+        dialogBuilder.setNeutralButton("CANCEL", null);
         return dialogBuilder.create();
     }
 }

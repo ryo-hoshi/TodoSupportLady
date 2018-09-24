@@ -1,6 +1,5 @@
 package apl.r_m_unt.todosupportlady.info;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,11 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.List;
 
 import apl.r_m_unt.todosupportlady.R;
 
@@ -23,8 +19,8 @@ public class InfoFragment extends Fragment {
 
     private TextView textView_circleInfoRead;
     private Button buttonBack;
-    CircleInfoAdapter circleInfoAdapter = null;
-    CircleInfoSetting circleInfoSetting;
+//    CircleInfoAdapter circleInfoAdapter = null;
+//    CircleInfoSetting circleInfoSetting;
 //    List<CircleInfo> circleInfoList;
 //
 //    private ListView circleInfoListView;
@@ -86,40 +82,40 @@ public class InfoFragment extends Fragment {
 //        }
     }
 
-    /**
-     *
-     */
-    public class CircleInfoAdapter extends ArrayAdapter<CircleInfo> {
-
-        // レイアウトxmlファイルからIDを指定してViewが使用可能
-        private LayoutInflater mLayoutInflater;
-
-        public CircleInfoAdapter(Context context, int resourceId, List<CircleInfo> objects) {
-            super(context, resourceId, objects);
-            // getLayoutInflater()メソッドはActivityじゃないと使えない
-            mLayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        // getView()メソッドは各行を表示しようとした時に呼ばれる
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View rowView = convertView;
-
-            // 特定行(position)のデータを得る
-            CircleInfo item = (CircleInfo)getItem(position);
-            // convertViewは使いまわされている可能性があるのでnullの時だけ新しく作る
-            if (null == rowView) rowView = mLayoutInflater.inflate(R.layout.circle_info_item, null);
-
-            // CircleInfoのデータをViewの各Widgetにセットする
-            // サークル情報ラベル
-            TextView textViewLabel = (TextView)rowView.findViewById(R.id.textView_circleInfoLabel);
-            textViewLabel.setText(item.getLabel());
-            // サークル情報本文
-            TextView textViewMemo = (TextView)rowView.findViewById(R.id.textView_circleInfoText);
-            textViewMemo.setText(item.getText());
-
-            return rowView;
-        }
-    }
+//    /**
+//     *
+//     */
+//    public class CircleInfoAdapter extends ArrayAdapter<CircleInfo> {
+//
+//        // レイアウトxmlファイルからIDを指定してViewが使用可能
+//        private LayoutInflater mLayoutInflater;
+//
+//        public CircleInfoAdapter(Context context, int resourceId, List<CircleInfo> objects) {
+//            super(context, resourceId, objects);
+//            // getLayoutInflater()メソッドはActivityじゃないと使えない
+//            mLayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        }
+//
+//        // getView()メソッドは各行を表示しようとした時に呼ばれる
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//
+//            View rowView = convertView;
+//
+//            // 特定行(position)のデータを得る
+//            CircleInfo item = (CircleInfo)getItem(position);
+//            // convertViewは使いまわされている可能性があるのでnullの時だけ新しく作る
+//            if (null == rowView) rowView = mLayoutInflater.inflate(R.layout.circle_info_item, null);
+//
+//            // CircleInfoのデータをViewの各Widgetにセットする
+//            // サークル情報ラベル
+//            TextView textViewLabel = (TextView)rowView.findViewById(R.id.textView_circleInfoLabel);
+//            textViewLabel.setText(item.getLabel());
+//            // サークル情報本文
+//            TextView textViewMemo = (TextView)rowView.findViewById(R.id.textView_circleInfoText);
+//            textViewMemo.setText(item.getText());
+//
+//            return rowView;
+//        }
+//    }
 }
