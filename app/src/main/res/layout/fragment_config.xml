@@ -43,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Switch
+            android:layout_marginTop="10dp"
             android:id="@+id/switch_show_lady_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ご主人様 今日の予定はこちらです</string>
-    <string name="main_toolbar">様 今日の予定はこちらです</string>
+    <string name="main_toolbar">今日の予定はこちらです</string>
     <string name="default_name">ご主人</string>
     <string name="default_honorific">様</string>
 
@@ -37,16 +37,25 @@
     <string name="app_info_usage">アプリについて</string>
     <string name="app_info_usage_about_apl1">このアプリではTODOと期限を登録してやることを管理することができます。</string>
     <string name="app_info_usage_about_apl2">TODOを完了したらメイドさんがねぎらってくれます。</string>
-    <string name="app_info_usage_image_show">TODO完了時のキャラクター表示/非表示の切り替えは設定画面から行うことができます。</string>
-    <string name="app_info_usage_delete">TODOを削除する場合、TODO更新画面から またはTODO一覧画面のロングタップから削除できます。</string>
+    <string name="app_info_usage_image_show">設定画面からTODO完了時のキャラクター表示/非表示の切り替えや、メイドからの呼ばれ方を設定することができます。</string>
+    <string name="app_info_usage_delete">TODOの削除はTODO更新画面から、またはTODO一覧画面のロングタップから行うことができます。</string>
     <string name="app_info_version">バージョン</string>
     <string name="app_info_version_content">バージョン 1.0.0</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
     <string name="config_toolbar">設定</string>
     <string name="config_back">戻る</string>
-    <string name="config_show_lady_image">TODO完了／削除時のキャラクター表示</string>
+    <string name="config_show_lady_image">TODO完了時のキャラクター表示</string>
     <string name="config_name">メイドからの呼ばれ方</string>
 
-    <string name="confirm_todo_delete">TODOを削除しますか?</string>
+    <string name="message_todo_delete_confirm">TODOを削除しますか?</string>
+    <string name="message_todo_delete">TODOを削除しました</string>
+    <string name="message_todo_complete_confirm">TODOを完了しますか？</string>
+    <string name="message_register_success">TODOを再登録しました</string>
+    <string name="message_register_fail">TODOの再登録に失敗しました</string>
+
+    <string name="message_validate_title_required">タイトルは入力必須の項目です</string>
+    <string name="message_validate_limit_required">期限は入力必須の項目です</string>
+    <string name="message_validate_limit_past">期限に過去日は設定できません</string>
+
 </resources>

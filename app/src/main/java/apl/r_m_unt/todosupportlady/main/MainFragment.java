@@ -15,8 +15,7 @@ import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
 import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
-import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
-import apl.r_m_unt.todosupportlady.info.CircleInfoSetting;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoListActivity;
@@ -30,10 +29,7 @@ import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_ID
  */
 public class MainFragment extends Fragment {
 
-   // private TextView mTextView;
-
     private static final String TAG = "MainFragment";
-    CircleInfoSetting circleInfoSetting;
 
     // Fragmentで表示するViewを作成するメソッド
     @Override
@@ -87,37 +83,6 @@ public class MainFragment extends Fragment {
                 startActivity(configIntent);
             }
         });
-
-//        // PUSH通知用
-//        Button logTokenButton = (Button) getActivity().findViewById(R.id.logTokenButton);
-//        logTokenButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Get token
-//                String token = FirebaseInstanceId.getInstance().getToken();
-//
-//                // Log and toast
-//                String msg = getString(R.string.circle_msg_token_fmt, token);
-//                Log.d(TAG, msg);
-//                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        Button subscribeButton = (Button) getActivity().findViewById(R.id.subscribeButton);
-//        subscribeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // [START subscribe_topics]
-//                FirebaseMessaging.getInstance().subscribeToTopic("news");
-//                // [END subscribe_topics]
-//
-//
-//                // Log and toast
-//                String msg = getString(R.string.circle_info_msg_subscribed);
-//                Log.d(TAG, msg);
-//                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
 
@@ -145,27 +110,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        String id = getActivity().getIntent().getStringExtra("id");
-//        String label =  getActivity().getIntent().getStringExtra("label");
-//        String text =  getActivity().getIntent().getStringExtra("text");
-//        if (id != null && label != null && text != null) {
-//
-//            Toast.makeText(getActivity(), "バックグラウンドで通知を受信　id:" + id + ", label:" + label, Toast.LENGTH_LONG).show();
-//            Log.d(TAG, "id:" + id + ", label:" + label);
-//
-//            //
-//            circleInfoSetting = CircleInfoSetting.getInstance(getActivity());
-//            circleInfoSetting.addCircleInfo(new CircleInfo(id, label, text));
-//            circleInfoSetting.setExistNews(true);
-//            circleInfoSetting.saveInstance(getActivity());
-//        }
-//
-//        // 新着ニュースが存在する場合はインフォメーション画像を差し替える
-//        if (circleInfoSetting == null) {circleInfoSetting = CircleInfoSetting.getInstance(getActivity());}
-//        if (circleInfoSetting.isExistNews()) {
-//            ImageButton imageButtonInfo = (ImageButton)getActivity().findViewById(R.id.imageButton_info);
-//            imageButtonInfo.setImageResource(R.drawable.falulu2);
-//        }
     }
 
     @Override
@@ -174,12 +118,12 @@ public class MainFragment extends Fragment {
 
         // タイトルに呼ばれ方を設定
         TextView mainToolbar = (TextView)getActivity().findViewById(R.id.textView_main_toolbar);
-        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         String name = sharedPreferenceData.getName(getActivity());
         if (!TodoCommonFunction.isValidValue(name)) {
             name = getResources().getString(R.string.default_name);
         }
-        mainToolbar.setText(name + getResources().getString(R.string.main_toolbar));
+        mainToolbar.setText(name + getResources().getString(R.string.default_honorific) + " " + getResources().getString(R.string.main_toolbar));
 
         String id = getActivity().getIntent().getStringExtra("id");
         String label =  getActivity().getIntent().getStringExtra("label");
@@ -189,19 +133,7 @@ public class MainFragment extends Fragment {
             Toast.makeText(getActivity(), "バックグラウンドで通知を受信　id:" + id + ", label:" + label, Toast.LENGTH_LONG).show();
             Log.d(TAG, "id:" + id + ", label:" + label);
 
-            //
-//            circleInfoSetting = CircleInfoSetting.getInstance(getActivity());
-//            circleInfoSetting.addCircleInfo(new CircleInfo(id, label, text));
-//            circleInfoSetting.setExistNews(true);
-//            circleInfoSetting.saveInstance(getActivity());
         }
-
-        // 新着ニュースが存在する場合はインフォメーション画像を差し替える
-//        if (circleInfoSetting == null) {circleInfoSetting = CircleInfoSetting.getInstance(getActivity());}
-//        if (circleInfoSetting.isExistNews()) {
-//            ImageButton imageButtonInfo = (ImageButton)getActivity().findViewById(R.id.imageButton_info);
-//            imageButtonInfo.setImageResource(R.drawable.falulu2);
-//        }
 
     }
 }

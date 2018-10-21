@@ -25,11 +25,12 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.List;
 
-import apl.r_m_unt.todosupportlady.CompleteImgDialogFragment;
-import apl.r_m_unt.todosupportlady.DeleteConfirmDialogFragment;
+import apl.r_m_unt.todosupportlady.dialog.CompleteImgDialogFragment;
+import apl.r_m_unt.todosupportlady.dialog.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoConstant;
-import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
+import apl.r_m_unt.todosupportlady.model.TodoDao;
 
 import static apl.r_m_unt.todosupportlady.common.TodoCommonFunction.formatLimitString;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_DETAIL;
@@ -40,8 +41,6 @@ import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LI
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_LIMIT_YEAR;
 import static apl.r_m_unt.todosupportlady.todo.TodoDetailFragment.SELECT_TODO_TITLE;
 
-//import android.app.DialogFragment;
-
 /**
  * TODOリスト画面のフラグメント
  */
@@ -49,12 +48,6 @@ public class TodoListFragment extends ListFragment {
 
     private static final String TAG = "TodoListFragment";
     TodoInfoAdapter todoInfoAdapter = null;
-
-//    private TodoController todoController;
-
-//    private List<TodoSettingInfo> todoSettingInfoList;
-
-    private int todoSelectIndex = 0;
 
     private ListView todoListView;
     private Button buttonAdd;
@@ -77,7 +70,6 @@ public class TodoListFragment extends ListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        todoController = TodoController.getInstance(getActivity().getApplicationContext());
         todoListView = getListView();
         myFragment = this;
 
@@ -103,27 +95,6 @@ public class TodoListFragment extends ListFragment {
             }
         });
 
-//        // TODO一覧表示
-//        setTodoInfoList();
-
-////        Realm上手くいかない
-//        // Realm全体の初期化
-//        Realm.init(getActivity());
-//
-////        // Realmのカスタム設定の場合
-////        RealmConfiguration realmConfig  = new RealmConfiguration.Builder(this).build();
-////        RealmConfiguration realmConfig = new RealmConfiguration.Builder().build();
-////        Realm realm = Realm.getInstance(realmConfig);
-//
-//        // Realmのデフォルト設定の場合
-//        Realm realm = Realm.getDefaultInstance();
-//
-//        // DBとアダプター、アダプターとビューの関連付けを行う
-//        RealmResults<Task> tasks = realm.where(Task.class).findAll();
-//        TaskAdapter todoAdapter = new TaskAdapter(getActivity(), tasks);
-//        todoListView.setAdapter(todoAdapter);
-
-
         /**
          * リストアイテムのロングタップ時
          */
@@ -141,8 +112,6 @@ public class TodoListFragment extends ListFragment {
                 args.putInt(DeleteConfirmDialogFragment.TODO_ID, todoInfo.getId());
                 // 削除対象のTODOのタイトルを設定
                 args.putString(DeleteConfirmDialogFragment.TODO_TITLE, todoInfo.getTitle());
-//                // TODO一覧からの遷移であることを設定してダイアログ呼び出し
-//                args.putInt(DeleteDialogFragment.TRANSITION_SOURCE_CD, DeleteDialogFragment.TransitionSource.TodoDetail.getInt());
                 dialogFragment.setArguments(args);
                 // ダイアログに呼び出し元のFragmentオブジェクトを設定
                 dialogFragment.setTargetFragment(myFragment, TodoConstant.RequestCode.TodoList.getInt());
@@ -155,7 +124,7 @@ public class TodoListFragment extends ListFragment {
         });
 
         // 完了済表示設定の保存値を読み込んで設定
-        SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         switchCompleteShow = (Switch)getView().findViewById(R.id.switch_complete_show);
         switchCompleteShow.setChecked(sharedPreferenceData.isShowCompleted(getActivity()));
 
@@ -166,7 +135,7 @@ public class TodoListFragment extends ListFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // 完了済表示設定を保存
-                SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+                SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
                 sharedPreferenceData.setShowCompleted(getActivity(), isChecked);
                 // 一覧を再表示
                 setTodoInfoList();
@@ -192,15 +161,6 @@ public class TodoListFragment extends ListFragment {
 
         // TODO一覧表示
         setTodoInfoList();
-
-        // ここに日付変更フラグを入れて、日付が変わっていたらTODOの再読み込みを行う
-
-////        // TODO設定情報リストを取得
-//        todoSettingInfoList = todoController.getTodoSettingInfoList();
-//        // TODO設定一覧に設定
-//        todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoSettingInfoList);
-//        setListAdapter(todoInfoAdapter);
-
     }
 
     /**
@@ -208,8 +168,8 @@ public class TodoListFragment extends ListFragment {
      */
     public void setTodoInfoList() {
         // 完了済の表示フラグをスイッチの状態から取得してTODO一覧を取得する
-        TodoModel todoModel = new TodoModel(getActivity());
-        todoInfoList = todoModel.getTodoInfo(isCompleteShow());
+        TodoDao todoDao = new TodoDao(getActivity());
+        todoInfoList = todoDao.getTodoInfo(isCompleteShow());
 
         todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoInfoList);
         setListAdapter(todoInfoAdapter);
@@ -230,7 +190,7 @@ public class TodoListFragment extends ListFragment {
                 return;
             }
 
-            Toast.makeText(getActivity(), "TODOを削除しました", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.message_todo_delete), Toast.LENGTH_SHORT).show();
 
             // TODO一覧の再設定
             setTodoInfoList();
@@ -239,57 +199,9 @@ public class TodoListFragment extends ListFragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-//    /**
-//     * TODO情報リストの更新
-//     */
-//    public void updateTodoInfoList() {
-//        //todoSettingInfoList = todoController.getTodoSettingInfoList();
-//        todoInfoAdapter = new TodoInfoAdapter(getActivity(), 0, todoSettingInfoList);
-//        setListAdapter(todoInfoAdapter);
-//
-//        // TODO情報の保存
-//        todoController.saveInstance(getActivity().getApplicationContext());
-//    }
 
-    /*
-     * TODOの追加
-     */
-//    public void addTodoInfo() {
-//
-//        // TODO情報の追加
-//        //todoSettingInfoList = todoSetting.getAddedTodoSettingInfoList();
-//        int todoIndex = todoController.addTodoSettingInfo();
-//        Toast.makeText(this.getActivity().getApplicationContext(),"生成したインデックス：" + String.valueOf(todoIndex), Toast.LENGTH_SHORT).show();
-//        //updateTodoInfoList();
-//        // 追加したTODOの明細画面に遷移
-//        int position = todoController.getTodoSetSize() - 1;
-//        Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
-//        todoDetailIntent.putExtra(TODO_SELECT_NO, position);
-//        startActivity(todoDetailIntent);
-//    }
 
-    /*
-     * TODOの更新
-     */
-//    public void updateTodoInfo(int listIndex, TodoSettingInfo todoSettingInfo) {
-//
-//        if (todoSelectIndex < 0 || todoController.getTodoSetSize() <= todoSelectIndex) {
-//            return;
-//        }
-//
-//        // 画面設定情報をTODO設定情報に反映
-//        todoController.setTodoSettingInfo(listIndex, todoSettingInfo);
-//        // 変更内容の反映
-//        updateTodoInfoList();
-//
-//        // TODO実行の更新
-////        TodoModel todoModel = new TodoModel(getActivity());
-////        todoModel.setTodo(todoSettingInfo);
-//
-//
-//    }
-
-    /*
+    /**
      * アイテムのクリック(TODO明細へ遷移させる)
      *
      * @see
@@ -305,10 +217,6 @@ public class TodoListFragment extends ListFragment {
 
         Intent todoDetailIntent = new Intent(getActivity(), TodoDetailActivity.class);
         Bundle bundle = new Bundle();
-//        todoDetailIntent.putExtra(SELECT_TODO_ID, todoInfo.getId());
-//        todoDetailIntent.putExtra(SELECT_TODO_TITLE, todoInfo.getTitle());
-//        todoDetailIntent.putExtra(SELECT_TODO_DETAIL, todoInfo.getDetail());
-//        todoDetailIntent.putExtra(SELECT_TODO_LIMIT, todoInfo.getLimit());
         bundle.putInt(SELECT_TODO_ID, todoInfo.getId());
         bundle.putString(SELECT_TODO_TITLE, todoInfo.getTitle());
         bundle.putString(SELECT_TODO_DETAIL, todoInfo.getDetail());
@@ -427,29 +335,19 @@ public class TodoListFragment extends ListFragment {
 
                         // TODOを完了する
                         // TODOモデルの取得
-                        TodoModel todoModel = new TodoModel(getActivity());
+                        TodoDao todoDao = new TodoDao(getActivity());
                         // 完了を設定
-                        long rtn = todoModel.complete(todoInfo.getId());
+                        long rtn = todoDao.complete(todoInfo.getId());
                         if (rtn == -1) {
-                            Log.d(TAG, "todoModel update結果：TODOの完了に失敗しました");
+                            Log.d(TAG, "todoDao update結果：TODOの完了に失敗しました");
                         } else {
-                            Log.d(TAG, "todoModel update結果：TODOを完了しました");
+                            Log.d(TAG, "todoDao update結果：TODOを完了しました");
                         }
 
-//                        ConfigModel configModel = new ConfigModel();
-//                        // TODO完了イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
-//                        if (configModel.isShowLadyImage(getActivity())) {
-                            // 完了時の画像ダイアログを表示する
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            dialogFragment = new CompleteImgDialogFragment();
-                            dialogFragment.show(fragmentManager, "complete");
-//                        } else {
-//                            new AlertDialog.Builder(getActivity())
-//                                    .setTitle("TODO完了")
-//                                    .setMessage("TODOを完了しました")
-//                                    .setPositiveButton("OK", null)
-//                                    .show();
-//                        }
+                        // 完了時の画像ダイアログを表示する
+                        fragmentManager = getActivity().getSupportFragmentManager();
+                        dialogFragment = new CompleteImgDialogFragment();
+                        dialogFragment.show(fragmentManager, "complete");
 
                         setTodoInfoList();
                     }

@@ -1,6 +1,4 @@
-package apl.r_m_unt.todosupportlady.todo;
-
-//import io.realm.Realm;
+package apl.r_m_unt.todosupportlady.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,15 +8,18 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoModel {
+import apl.r_m_unt.todosupportlady.todo.TodoInfo;
+import apl.r_m_unt.todosupportlady.todo.TodoLimit;
+
+public class TodoDao {
 
     TodoDataBaseHelper todoDataBaseHelper;
 
-    private TodoModel() {
+    private TodoDao() {
 
     }
 
-    public TodoModel(Context context) {
+    public TodoDao(Context context) {
         todoDataBaseHelper = new TodoDataBaseHelper(context);
     }
 

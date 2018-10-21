@@ -91,15 +91,15 @@
                     android:textSize="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_info_usage_image_show"
-                    android:id="@+id/textView_usage_image_show" />
+                    android:text="@string/app_info_usage_delete"
+                    android:id="@+id/textView_usage_delete" />
                 <TextView
                     android:layout_marginTop="4dp"
                     android:textSize="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_info_usage_delete"
-                    android:id="@+id/textView_usage_delete" />
+                    android:text="@string/app_info_usage_image_show"
+                    android:id="@+id/textView_usage_image_show" />
                 <View
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"

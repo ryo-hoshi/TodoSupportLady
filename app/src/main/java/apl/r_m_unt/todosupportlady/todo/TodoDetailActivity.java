@@ -16,8 +16,6 @@ public class TodoDetailActivity extends FragmentActivity {
         setContentView(R.layout.activity_todo_detail);
 
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
 
             int todoId = getIntent().getIntExtra(TodoDetailFragment.SELECT_TODO_ID, -1);
 

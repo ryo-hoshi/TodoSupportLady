@@ -1,8 +1,10 @@
-package apl.r_m_unt.todosupportlady.todo;
+package apl.r_m_unt.todosupportlady.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import apl.r_m_unt.todosupportlady.todo.TodoInfo;
 
 
 /**
@@ -45,21 +47,6 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
             + COLUMN_DETAIL + " TEXT NOT NULL"+COMMA
             + COLUMN_IS_COMPLETE + " INTEGER NOT NULL"+COMMA
             + COLUMN_IS_DELETE + " INTEGER NOT NULL)";
-
-//    public String selectTodoSql(){
-//        StringBuilder sb = new StringBuilder();
-//
-//        sb.append("SELECT ")
-//                .append(COLUMN_LIMIT).append(COMMA)
-//                .append(COLUMN_TITLE).append(COMMA)
-//                .append(COLUMN_DETAIL).append(COMMA)
-//                .append(COLUMN_IS_COMPLETE)
-//                .append(" FROM ")
-//                .append(TABLE_TODO)
-//                .append(" WHERE ")
-//                .append(COLUMN_ID).append(EQUAL).append(PLACEHOLDER);
-//        return sb.toString();
-//    }
 
     public String selectNotCompleteTodoSql() {
         StringBuilder sb = new StringBuilder();

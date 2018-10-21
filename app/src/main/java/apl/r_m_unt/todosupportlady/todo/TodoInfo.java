@@ -14,14 +14,6 @@ public class TodoInfo {
     private String detail;
     private int isComplete;
 
-//    public TodoInfo(int id) {
-//        this.id = id;
-//        this.limit = "";
-//        this.isComplete = 0;
-//        this.title = "タイトル";
-//        this.detail = "TODO" + (id + 1 );
-//    }
-
     public TodoInfo(int id,
                     TodoLimit todoLimit,
                     String title,
@@ -33,12 +25,6 @@ public class TodoInfo {
         this.detail = detail;
         this.isComplete = isComplete;
     }
-
-//    public String getTodoLimitDisplay() {
-////        return String.format("%02d", hour) + TIME_DELIMITER + String.format("%02d", minute);
-//        return "期限："+ DateTimeFormat.forPattern("yyyy/MM/dd").print(detail);
-//        //return todoLimit;
-//    }
 
     public int getId() { return id;}
     public TodoLimit getTodoLimit() { return todoLimit;}

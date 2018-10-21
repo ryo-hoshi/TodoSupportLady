@@ -1,7 +1,5 @@
 package apl.r_m_unt.todosupportlady.config;
 
-//import android.app.ListFragment;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,18 +13,16 @@ import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 
 /**
  * Created by ryota on 2017/04/09.
  */
-//public class ConfigFragment extends ListFragment {
 public class ConfigFragment extends Fragment {
 
     private static final String TAG = "ConfigFragment";
     private Switch switchIsShowLadyImage;
     private EditText editTextName;
-
-//    private List<String> mList = new ArrayList<>();
 
     private Button buttonBack;
 
@@ -45,7 +41,7 @@ public class ConfigFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // サポート画像表示有無の保存値を画面に設定
-        final SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        final SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         switchIsShowLadyImage = (Switch)getView().findViewById(R.id.switch_show_lady_image);
         switchIsShowLadyImage.setChecked(sharedPreferenceData.isShowLadyImage(getActivity()));
 
@@ -89,7 +85,4 @@ public class ConfigFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
     }
-
-
-
 }

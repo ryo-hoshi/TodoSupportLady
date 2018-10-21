@@ -1,4 +1,4 @@
-package apl.r_m_unt.todosupportlady.config;
+package apl.r_m_unt.todosupportlady.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by ryota on 2018/05/30.
  */
 
-public class SharedPreferenceData {
+public class SharedPreferenceDataHelper {
 
     // KEY
     private static final String CONFIG_DATA = "CONFIG_DATA";

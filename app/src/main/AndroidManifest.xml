@@ -26,9 +26,9 @@
              Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
         -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
+        <!--<meta-data-->
+            <!--android:name="com.google.firebase.messaging.default_notification_color"-->
+            <!--android:resource="@color/colorAccent" />-->
 
         <activity
             android:name=".main.MainActivity"
@@ -53,36 +53,10 @@
             android:screenOrientation="portrait"/>
 
         <!-- [START firebase_service] -->
-        <service android:name=".push.TodoFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service android:name=".push.TodoFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
         <!-- [END firebase_iid_service] -->
 
-        <receiver
-            android:name=".todo.TodoBroadcastReceiver"
-            android:process=":remote" />
-
-        <activity
-            android:name=".todo.CompleteActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".push.PushReceiveActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="PUSH" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

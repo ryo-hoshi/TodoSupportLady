@@ -1,4 +1,4 @@
-package apl.r_m_unt.todosupportlady;
+package apl.r_m_unt.todosupportlady.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -64,22 +64,7 @@ public class CalendarDialogFragment extends DialogFragment{
         String todoLimitStr  = getArguments().getString(TODO_LIMIT_KEY);
         TodoLimit todoLimit = textToTodoLimit(todoLimitStr);
 
-//        if (todoLimit != null && todoLimit.length() > 0) {
-//            try{
-//                String[] yearMonths = todoLimit.split("年");
-//                String[] monthDayss = yearMonths[1].split("月");
-//                String[] days = monthDayss[1].split("日");
-//                year = Integer.parseInt(yearMonths[0]);
-//                month = Integer.parseInt(monthDayss[0]) - 1;
-//                day = Integer.parseInt(days[0]);
-//            } catch (Exception e) {
-//                Log.d(TAG, "■■■カレンダーダイアログの日付取得に失敗:" + e.getMessage());
-//                Log.d(TAG, "■■■todoLimit[" + todoLimit + "]");
-//            }
-//        }
-
         // 日付取得でできていない場合は今日日付をカレンダーダイアログに設定する
-//        if (year == 0 || month == 0 || day == 0){
         if (todoLimit == null || todoLimit.getYear() == 9999){
             final Calendar calendar = Calendar.getInstance();
             Log.d(TAG, "カレンダーの値：" + calendar);
@@ -111,15 +96,6 @@ public class CalendarDialogFragment extends DialogFragment{
                 month,
                 day
         );
-
-//        // ダイアログのサイズを調整
-//        DisplayMetrics metrics = getResources().getDisplayMetrics();
-//        int dialogWidth = (int) (metrics.widthPixels * 0.9);
-//        int dialogHeight = (int) (metrics.heightPixels * 0.9);
-//        WindowManager.LayoutParams lp = datePickerDialog.getWindow().getAttributes();
-//        lp.width = dialogWidth;
-//        lp.height = dialogHeight;
-//        datePickerDialog.getWindow().setAttributes(lp);
 
         datePickerDialog.show();
 

@@ -1,4 +1,4 @@
-package apl.r_m_unt.todosupportlady;
+package apl.r_m_unt.todosupportlady.dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,10 +14,9 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
-import apl.r_m_unt.todosupportlady.config.SharedPreferenceData;
-
-//import android.app.DialogFragment;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 
 /**
  * Created by ryota on 2018/03/10.
@@ -32,7 +31,7 @@ public class CompleteImgDialogFragment extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // TODO完了イメージ表示設定の場合は表示する。表示しない場合はメッセージのみ表示
-        final SharedPreferenceData sharedPreferenceData = new SharedPreferenceData();
+        final SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         Activity activity = getActivity();
         if (sharedPreferenceData.isShowLadyImage(activity)) {
 
@@ -74,8 +73,6 @@ public class CompleteImgDialogFragment extends DialogFragment{
             } else {
                 imgv.setImageResource(R.drawable.complete_reika2);
             }
-//            LinearLayout layout = (LinearLayout)imageView_layout
-
             // タップで削除する
             alertView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -83,15 +80,6 @@ public class CompleteImgDialogFragment extends DialogFragment{
                     getDialog().dismiss();
                 }
             });
-//            imgv.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-////                Log.d("complete dialog", "clicked");
-//
-////                alert.setMessage("image clicked");
-//                    // Dialogを消す
-//                    getDialog().dismiss();
-//                }
-//            });
 
             // ViewをCompleteDialog.Builderに追加
             alert.setView(alertView);
@@ -100,11 +88,6 @@ public class CompleteImgDialogFragment extends DialogFragment{
             alert = new AlertDialog.Builder(activity);
             alert.setTitle("TODOを完了しました");
             alert.setPositiveButton("OK", null);
-//            new AlertDialog.Builder(activity)
-//                    .setTitle("TODO完了")
-//                    .setMessage("TODOを完了しました")
-//                    .setPositiveButton("OK", null)
-//                    .show();
         }
 
         // Dialogを生成
@@ -112,8 +95,4 @@ public class CompleteImgDialogFragment extends DialogFragment{
         dialog.show();
         return dialog;
     }
-
-//    private void setMessage(String message) {
-//
-//    }
 }
