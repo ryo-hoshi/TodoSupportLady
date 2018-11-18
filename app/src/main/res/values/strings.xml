@@ -25,6 +25,7 @@
     <string name="todo_detail_delete">削除</string>
     <string name="todo_detail_complete">完了</string>
     <string name="todo_detail_resetting">再登録</string>
+    <string name="todo_detail_back_confirm_title">TODOを保存せずに戻ってもよいでしょうか</string>
 
     <string name="app_info_toolbar">アプリ情報</string>
     <string name="app_info_back">戻る</string>
@@ -40,7 +41,7 @@
     <string name="app_info_usage_image_show">設定画面からTODO完了時のキャラクター表示/非表示の切り替えや、メイドからの呼ばれ方を設定することができます。</string>
     <string name="app_info_usage_delete">TODOの削除はTODO更新画面から、またはTODO一覧画面のロングタップから行うことができます。</string>
     <string name="app_info_version">バージョン</string>
-    <string name="app_info_version_content">バージョン 1.0.0</string>
+    <string name="app_info_version_content">1.0.0</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
     <string name="config_toolbar">設定</string>

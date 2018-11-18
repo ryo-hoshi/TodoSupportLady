@@ -1,9 +1,15 @@
 package apl.r_m_unt.todosupportlady.todo;
 
+import android.util.Log;
+
+import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
+
 /**
  * Created by ryota on 2017/04/06.
  */
 public class TodoInfo {
+
+    private static final String TAG = "TodoInfo";
 
     /** TODO時間デミリタ */
     private static final String TIME_DELIMITER = ":";
@@ -39,6 +45,57 @@ public class TodoInfo {
     }
 
     public void setIsComplete(int isComplete) {this.isComplete = isComplete;}
+
+    /**
+     * TODO情報が変更されたかどうかチェックする
+     * @param anothorTodoInfo
+     * @return 比較結果
+     */
+    public boolean isChangeTodoInfo(TodoInfo anothorTodoInfo) {
+
+        Log.d(TAG, "今の期限（年）：" + this.todoLimit.getYear());
+        Log.d(TAG, "今の期限（月）：" + this.todoLimit.getMonth());
+        Log.d(TAG, "今の期限（日）：" + this.todoLimit.getDay());
+        Log.d(TAG, "今のタイトル：" + this.title);
+        Log.d(TAG, "今の詳細：" + this.detail);
+
+        Log.d(TAG, "最初の期限（年）：" + anothorTodoInfo.getTodoLimit().getYear());
+        Log.d(TAG, "最初の期限（月）：" + anothorTodoInfo.getTodoLimit().getMonth());
+        Log.d(TAG, "最初の期限（日）：" + anothorTodoInfo.getTodoLimit().getDay());
+        Log.d(TAG, "最初のタイトル：" + anothorTodoInfo.getTitle());
+        Log.d(TAG, "最初の詳細：" + anothorTodoInfo.getDetail());
+
+        // 期限が一致かつタイトルが一致かつ詳細が一致の場合はfalse
+        if (this.todoLimit.equalLimit(anothorTodoInfo.getTodoLimit())
+            && this.title.equals(anothorTodoInfo.getTitle())
+            && ((!TodoCommonFunction.isValidValue(this.detail) && !TodoCommonFunction.isValidValue(anothorTodoInfo.getDetail()))
+                || (TodoCommonFunction.isValidValue(this.detail) && this.detail.equals(anothorTodoInfo.getDetail()))
+        )) {
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * TODO情報が入力されているかどうかチェックする
+     * @return チェック結果
+     */
+    public boolean isInputTodoInfo() {
+
+        Log.d(TAG, "今のタイトル：" + this.title);
+        Log.d(TAG, "今の詳細：" + this.detail);
+
+        // タイトルまたは詳細が入力されている場合はfalse
+        if (TodoCommonFunction.isValidValue(this.title)
+                || TodoCommonFunction.isValidValue(this.detail)) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * 削除情報

@@ -64,7 +64,7 @@ public class CalendarDialogFragment extends DialogFragment{
         String todoLimitStr  = getArguments().getString(TODO_LIMIT_KEY);
         TodoLimit todoLimit = textToTodoLimit(todoLimitStr);
 
-        // 日付取得でできていない場合は今日日付をカレンダーダイアログに設定する
+        // 日付取得できていない場合は今日日付をカレンダーダイアログに設定する
         if (todoLimit == null || todoLimit.getYear() == 9999){
             final Calendar calendar = Calendar.getInstance();
             Log.d(TAG, "カレンダーの値：" + calendar);

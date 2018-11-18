@@ -4,6 +4,8 @@
     <color name="primaryDarkLabel">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bodyBackGround">#fffff0</color>
+    <!--<color name="bodyBackGroundLimitSelect">#eaf4ff</color>-->
+    <color name="bodyBackGroundLimitSelect">#f7efff</color>
     <color name="detailLabelBackGround">#ffee6b</color>
     <color name="headerBackGround">#fdf9f3</color>
     <color name="headerLine">#ffefd5</color>

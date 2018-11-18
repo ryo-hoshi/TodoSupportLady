@@ -26,4 +26,19 @@ public class TodoLimit {
     public int getDay() {
         return day;
     }
+
+    /**
+     * TODOの期限が同じかどうかチェック
+     * @param anothorTodoLimit
+     * @return
+     */
+    public boolean equalLimit(TodoLimit anothorTodoLimit) {
+        if (this.year == anothorTodoLimit.getYear()
+                && this.month == anothorTodoLimit.getMonth()
+                && this.day == anothorTodoLimit.getDay()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

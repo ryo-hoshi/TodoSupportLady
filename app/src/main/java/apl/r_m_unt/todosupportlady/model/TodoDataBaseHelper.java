@@ -65,10 +65,11 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
                 .append(COLUMN_IS_COMPLETE).append(EQUAL).append(TodoInfo.CompleteStatus.NotComplete.getInt())
                 .append(AND).append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt())
                 .append(ORDER_BY)
-                .append(COLUMN_LIMIT_YEAR).append(ASC)
-                .append(COMMA).append(COLUMN_LIMIT_MONTH).append(ASC)
-                .append(COMMA).append(COLUMN_LIMIT_DAY).append(ASC)
-                .append(COMMA).append(COLUMN_ID).append(ASC);
+//                .append(COLUMN_LIMIT_YEAR).append(ASC)
+//                .append(COMMA).append(COLUMN_LIMIT_MONTH).append(ASC)
+//                .append(COMMA).append(COLUMN_LIMIT_DAY).append(ASC)
+//                .append(COMMA).append(COLUMN_ID).append(ASC);
+                .append(COLUMN_ID).append(ASC);
         return sb.toString();
     }
 
@@ -88,10 +89,11 @@ public class TodoDataBaseHelper extends SQLiteOpenHelper {
                 .append(WHERE)
                 .append(COLUMN_IS_DELETE).append(EQUAL).append(TodoInfo.DeleteStatus.NotDelete.getInt())
                 .append(ORDER_BY)
-                .append(COLUMN_LIMIT_YEAR).append(ASC)
-                .append(COMMA).append(COLUMN_LIMIT_MONTH).append(ASC)
-                .append(COMMA).append(COLUMN_LIMIT_DAY).append(ASC)
-                .append(COMMA).append(COLUMN_ID).append(ASC);
+//                .append(COLUMN_LIMIT_YEAR).append(ASC)
+//                .append(COMMA).append(COLUMN_LIMIT_MONTH).append(ASC)
+//                .append(COMMA).append(COLUMN_LIMIT_DAY).append(ASC)
+//                .append(COMMA).append(COLUMN_ID).append(ASC);
+                .append(COLUMN_ID).append(ASC);
         return sb.toString();
     }
 
