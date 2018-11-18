@@ -95,7 +95,7 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scrollview"
             android:layout_width="fill_parent"
-            android:layout_height="290dp"
+            android:layout_height="230dp"
             android:layout_margin="0dp"
             android:clipToPadding="false"
             android:paddingBottom="1dp"
@@ -109,7 +109,7 @@
                 android:paddingRight="7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minLines="13"
+                android:minLines="10"
                 android:gravity="top|left"
                 android:maxLength="1000"
                 android:background="@color/bodyBackGround"
@@ -128,8 +128,8 @@
             android:background="@color/detailLabelBackGround"
             android:id="@+id/textView_limit" />
         <Spinner
-            android:paddingTop="8dp"
-            android:paddingBottom="7dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner_limit" />
@@ -137,16 +137,17 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/endLine"/>
-        <EditText
-            android:paddingTop="6dp"
+        <TextView
+            android:paddingTop="7dp"
             android:paddingLeft="7dp"
-            android:paddingBottom="4dp"
-            android:background="@color/bodyBackGround"
+            android:paddingBottom="7dp"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:background="@color/bodyBackGroundLimitSelect"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:maxLength="30"
             android:focusable="false"
-            android:id="@+id/editText_limit" />
+            android:id="@+id/textView_limitSelect" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -154,7 +155,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingTop="10dp"
+            android:paddingTop="14dp"
             android:paddingLeft="5dp"
             android:paddingRight="6dp"
             android:background="@color/backGround"

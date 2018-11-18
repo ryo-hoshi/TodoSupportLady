@@ -47,27 +47,6 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp">
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:textSize="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_info_version"
-                    android:textColor="@color/infoLabel"
-                    android:id="@+id/textView_version" />
-                <TextView
-                    android:textSize="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_info_version_content"
-                    android:id="@+id/textView_version_content" />
-                <View
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/endLine"/>
-
-                <TextView
-                    android:layout_marginTop="12dp"
                     android:textSize="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,13 +80,13 @@
                     android:text="@string/app_info_usage_image_show"
                     android:id="@+id/textView_usage_image_show" />
                 <View
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/endLine"/>
 
                 <TextView
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
@@ -117,13 +96,13 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
                 <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:text="@string/app_info_description1"
-                android:id="@+id/textView_circleInfoDescription1"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/app_info_description1"
+                    android:id="@+id/textView_circleInfoDescription1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
                 <TextView
                     android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
@@ -144,10 +123,31 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
                 <View
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/endLine"/>
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:textSize="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_version"
+                    android:textColor="@color/infoLabel"
+                    android:id="@+id/textView_version" />
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_info_version_content"
+                    android:id="@+id/textView_version_content" />
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/endLine"/>
+
             </LinearLayout>
     </LinearLayout>
 </LinearLayout>
