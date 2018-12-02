@@ -25,7 +25,7 @@
     <string name="todo_detail_delete">削除</string>
     <string name="todo_detail_complete">完了</string>
     <string name="todo_detail_resetting">再登録</string>
-    <string name="todo_detail_back_confirm_title">TODOを保存せずに戻ってもよいでしょうか</string>
+    <string name="todo_detail_back_confirm_title">TODOを保存せずに戻ってよいでしょうか？</string>
 
     <string name="app_info_toolbar">アプリ情報</string>
     <string name="app_info_back">戻る</string>

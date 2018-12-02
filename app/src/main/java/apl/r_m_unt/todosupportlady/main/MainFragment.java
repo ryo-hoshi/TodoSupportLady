@@ -4,19 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import apl.r_m_unt.todosupportlady.R;
 import apl.r_m_unt.todosupportlady.common.TodoCommonFunction;
 import apl.r_m_unt.todosupportlady.common.TodoConstant;
 import apl.r_m_unt.todosupportlady.config.ConfigActivity;
-import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 import apl.r_m_unt.todosupportlady.info.InfoActivity;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 import apl.r_m_unt.todosupportlady.todo.TodoDetailActivity;
 import apl.r_m_unt.todosupportlady.todo.TodoListActivity;
 
@@ -124,16 +122,6 @@ public class MainFragment extends Fragment {
             name = getResources().getString(R.string.default_name);
         }
         mainToolbar.setText(name + getResources().getString(R.string.default_honorific) + " " + getResources().getString(R.string.main_toolbar));
-
-        String id = getActivity().getIntent().getStringExtra("id");
-        String label =  getActivity().getIntent().getStringExtra("label");
-        String text =  getActivity().getIntent().getStringExtra("text");
-        if (id != null && label != null && text != null) {
-
-            Toast.makeText(getActivity(), "バックグラウンドで通知を受信　id:" + id + ", label:" + label, Toast.LENGTH_LONG).show();
-            Log.d(TAG, "id:" + id + ", label:" + label);
-
-        }
 
     }
 }

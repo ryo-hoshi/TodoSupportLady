@@ -19,7 +19,7 @@
             android:background="@color/headerLine"/>
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingTop="7dp"
+            android:paddingTop="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="6dp"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_height="1dp"
             android:background="@color/headerLine"/>
     </LinearLayout>
@@ -155,7 +155,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingTop="14dp"
+            android:paddingTop="8dp"
             android:paddingLeft="5dp"
             android:paddingRight="6dp"
             android:background="@color/backGround"
