@@ -17,8 +17,9 @@ import apl.r_m_unt.todosupportlady.R;
  */
 public class InfoFragment extends Fragment {
 
-    private TextView textView_circleInfoRead;
+    private TextView textViewCircleInfoRead;
     private Button buttonBack;
+    private TextView textViewPlayStore;
 
     // Fragmentで表示するViewを作成するメソッド
     @Override
@@ -34,7 +35,8 @@ public class InfoFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        textView_circleInfoRead = (TextView)getView().findViewById(R.id.textView_circleInfoRead);
+        textViewCircleInfoRead = (TextView)getView().findViewById(R.id.textView_circleInfoRead);
+        textViewPlayStore = (TextView)getView().findViewById(R.id.textView_play_store);
 
         // 戻るボタン押下時の処理
         buttonBack = (Button)getView().findViewById(R.id.button_info_back);
@@ -52,13 +54,31 @@ public class InfoFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        textView_circleInfoRead.setOnClickListener(new View.OnClickListener() {
+        textViewCircleInfoRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Uri uri = Uri.parse(getString(R.string.app_info_read_uri));
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+            }
+        });
+
+        textViewPlayStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String id = getString(R.string.app_info_store_id);
+
+                try {
+                    Uri storeUri = Uri.parse("market://details?id=" + id);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, storeUri);
+                    startActivity(intent);
+                } catch (Exception ex) {
+                    Uri storeUri = Uri.parse("https://play.google.com/store/apps/details?id=" + id);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, storeUri);
+                    startActivity(intent);
+                }
             }
         });
     }

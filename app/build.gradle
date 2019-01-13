@@ -8,7 +8,7 @@ android {
         applicationId "apl.r_m_unt.todosupportlady"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
+        versionCode 3
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

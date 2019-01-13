@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">ご主人様 今日の予定はこちらです</string>
-    <string name="main_toolbar">今日の予定はこちらです</string>
+    <string name="app_name">ご主人様 本日の予定はこちらです</string>
+    <string name="main_toolbar">本日の予定はこちらです</string>
     <string name="default_name">ご主人</string>
     <string name="default_honorific">様</string>
 
@@ -37,11 +37,13 @@
     <string name="app_info_msg_subscribed">Subscribed to news topic</string>
     <string name="app_info_usage">アプリについて</string>
     <string name="app_info_usage_about_apl1">このアプリではTODOと期限を登録してやることを管理することができます。</string>
-    <string name="app_info_usage_about_apl2">TODOを完了したらメイドさんがねぎらってくれます。</string>
-    <string name="app_info_usage_image_show">設定画面からTODO完了時のキャラクター表示/非表示の切り替えや、メイドからの呼ばれ方を設定することができます。</string>
+    <string name="app_info_usage_about_apl2">TODOを完了したらメイドさんが労ってくれます。</string>
+    <string name="app_info_usage_about_apl3">期限に「未定」を設定すると期限のチェックがなくなり、メモ帳として使用することもできます。</string>
     <string name="app_info_usage_delete">TODOの削除はTODO更新画面から、またはTODO一覧画面のロングタップから行うことができます。</string>
     <string name="app_info_version">バージョン</string>
     <string name="app_info_version_content">1.0.0</string>
+    <string name="app_info_store">Playストアを開く</string>
+    <string name="app_info_store_id">apl.r_m_unt.todosupportlady</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
     <string name="config_toolbar">設定</string>
