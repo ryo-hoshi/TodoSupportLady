@@ -9,40 +9,11 @@
     android:orientation="vertical"
     tools:context="apl.r_m_unt.todosupportlady.todo.TodoListActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todo_list_comp"
-            android:id="@+id/button_todo_comp"
-            android:layout_gravity="left|top" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/todo_list_add"
-            android:id="@+id/button_todo_add"
-            android:layout_gravity="left|top" />
-    </LinearLayout>
-
     <fragment
         android:id="@+id/fragment_todo_list"
         android:name="apl.r_m_unt.todosupportlady.todo.TodoListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp" />
 </LinearLayout>

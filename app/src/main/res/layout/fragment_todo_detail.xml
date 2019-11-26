@@ -10,100 +10,192 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="1dp"
+        android:background="@color/headerBackGround"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_cancel"
+                android:background="@drawable/button_design_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_detail_cancel" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/button_save"
+                android:background="@drawable/button_design_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_detail_save" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/bodyBackGround"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <NumberPicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/numberPicker_hour"
-                android:layout_gravity="center"
-                android:orientation="vertical" />
-            <NumberPicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/numberPicker_minute"
-                android:layout_marginLeft="3dp"
-                android:layout_gravity="center"
-                android:orientation="vertical" />
-        </LinearLayout>
-
         <TextView
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todo_set_sound"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/textView_sound" />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_sound" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/todo_set_message"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/textView_message" />
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_message" />
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/todo_set_memo"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/textView_memo" />
+            android:text="@string/todo_detail_title"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/textView_title"
+            >
+            <requestFocus />
+        </TextView>
         <EditText
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="30"
-            android:id="@+id/editText_memo" />
+            android:maxLength="36"
+            android:inputType="text"
+            android:background="@color/bodyBackGround"
+            android:id="@+id/editText_title" />
+
+        <TextView
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/todo_detail_memo"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
+            android:id="@+id/textView_memo" />
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="fill_parent"
+            android:layout_height="230dp"
+            android:layout_margin="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="1dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="1dp">
+            <EditText
+                android:paddingTop="2dp"
+                android:paddingLeft="7dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="10"
+                android:gravity="top|left"
+                android:maxLength="1000"
+                android:background="@color/bodyBackGround"
+                android:id="@+id/editText_detail">
+            </EditText>
+        </android.support.v4.widget.NestedScrollView>
+
+        <TextView
+            android:paddingTop="2dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/todo_detail_limit"
+            android:textColor="@color/primaryLabel"
+            android:background="@color/detailLabelBackGround"
+            android:id="@+id/textView_limit" />
+        <Spinner
+            android:paddingTop="6dp"
+            android:paddingBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_limit" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
+        <TextView
+            android:paddingTop="7dp"
+            android:paddingLeft="7dp"
+            android:paddingBottom="7dp"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:background="@color/bodyBackGroundLimitSelect"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:id="@+id/textView_limitSelect" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="6dp"
+            android:background="@color/backGround"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/todo_set_save"
-                android:id="@+id/button_save" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/todo_set_cancel"
-                android:id="@+id/button_cancel"
-                android:layout_gravity="center_horizontal" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/todo_set_delete"
                 android:id="@+id/button_delete"
-                android:layout_gravity="center_horizontal" />
+                android:background="@drawable/button_design_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_detail_delete"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/button_todo_resetting"
+                android:background="@drawable/button_design_reregister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/todo_detail_resetting"
+                style="?android:attr/borderlessButtonStyle"
+                android:enabled="false"
+                android:layout_gravity="right"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/button_complete"
+                android:background="@drawable/button_design_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_detail_complete" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="index"
-            android:visibility="invisible"
-            android:id="@+id/textView_todo_no" />
     </LinearLayout>
 
 </LinearLayout>

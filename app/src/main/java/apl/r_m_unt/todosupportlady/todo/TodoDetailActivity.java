@@ -16,12 +16,23 @@ public class TodoDetailActivity extends FragmentActivity {
         setContentView(R.layout.activity_todo_detail);
 
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
+
+            int todoId = getIntent().getIntExtra(TodoDetailFragment.SELECT_TODO_ID, -1);
+
             // 明細画面に渡すリスト選択情報を設定
             Bundle arguments = new Bundle();
-            arguments.putInt(TodoDetailFragment.TODO_SELECT_NO,
-                    getIntent().getIntExtra(TodoDetailFragment.TODO_SELECT_NO, 0));
+            arguments.putInt(TodoDetailFragment.SELECT_TODO_ID, todoId);
+
+            // 新規登録以外の場合はTODO情報をセットする
+            if (todoId != -1) {
+
+                arguments.putString(TodoDetailFragment.SELECT_TODO_TITLE, getIntent().getStringExtra(TodoDetailFragment.SELECT_TODO_TITLE));
+                arguments.putString(TodoDetailFragment.SELECT_TODO_DETAIL, getIntent().getStringExtra(TodoDetailFragment.SELECT_TODO_DETAIL));
+                arguments.putInt(TodoDetailFragment.SELECT_TODO_LIMIT_YEAR, getIntent().getIntExtra(TodoDetailFragment.SELECT_TODO_LIMIT_YEAR, 9999));
+                arguments.putInt(TodoDetailFragment.SELECT_TODO_LIMIT_MONTH, getIntent().getIntExtra(TodoDetailFragment.SELECT_TODO_LIMIT_MONTH, 99));
+                arguments.putInt(TodoDetailFragment.SELECT_TODO_LIMIT_DAY, getIntent().getIntExtra(TodoDetailFragment.SELECT_TODO_LIMIT_DAY, 99));
+            }
+
 
             // TODO明細画面フラグメントを生成
             TodoDetailFragment todoDetailFragment = new TodoDetailFragment();

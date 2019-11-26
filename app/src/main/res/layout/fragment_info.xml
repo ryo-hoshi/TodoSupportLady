@@ -1,39 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
+        android:background="@color/headerBackGround"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout_circle">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/circle_info_description"
-            android:id="@+id/textView_circleInfoDescription"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/circle_info_read"
-            android:id="@+id/textView_circleInfoRead"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_info_back"
+                android:background="@drawable/button_design_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/app_info_back" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
     </LinearLayout>
 
-    <ListView
-        android:layout_below="@+id/linearLayout_circle"
-        android:layout_marginTop="15dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView_circleInfo" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bodyBackGround">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textColor="@color/infoLabel"
+                        android:text="@string/app_info_description_title"
+                        android:id="@+id/textView_circleInfoDescription_title"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="@string/app_info_description1"
+                        android:id="@+id/textView_circleInfoDescription1"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <TextView
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:text="@string/app_info_description2"
+                        android:id="@+id/textView_circleInfoDescription2"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <TextView
+                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/link"
+                        android:textSize="15dp"
+                        android:text="@string/app_info_read"
+                        android:id="@+id/textView_circleInfoRead"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/endLine"/>
 
-</RelativeLayout>
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_usage"
+                        android:textColor="@color/infoLabel"
+                        android:id="@+id/textView_usage" />
+                    <TextView
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_usage_about_apl1"
+                        android:id="@+id/app_info_usage_about_apl1" />
+                    <TextView
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_usage_about_apl2"
+                        android:id="@+id/app_info_usage_about_apl2" />
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_usage_delete"
+                        android:id="@+id/textView_usage_delete" />
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_usage_about_apl3"
+                        android:id="@+id/textView_usage_image_show" />
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/endLine"/>
+
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_store"
+                        android:textColor="@color/infoLabel"
+                        android:id="@+id/textView_play_store" />
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/endLine"/>
+
+                    <TextView
+                        android:layout_marginTop="8dp"
+                        android:textSize="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_version"
+                        android:textColor="@color/infoLabel"
+                        android:id="@+id/textView_version" />
+                    <TextView
+                        android:textSize="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_info_version_content"
+                        android:id="@+id/textView_version_content" />
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/endLine"/>
+
+                </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

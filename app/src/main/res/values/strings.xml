@@ -1,35 +1,64 @@
 <resources>
-    <string name="app_name">TODOマネージャ</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="app_name">ご主人様 本日の予定はこちらです</string>
+    <string name="main_toolbar">本日の予定はこちらです</string>
+    <string name="default_name">ご主人</string>
+    <string name="default_honorific">様</string>
 
-    <string name="todo_list_add">追加</string>
-    <string name="todo_list_comp">完了</string>
+    <string name="todo_list_toolbar">TODO一覧</string>
+    <string name="todo_list_back">戻る</string>
+    <string name="todo_list_add">登録</string>
+    <string name="todo_list_complete">完了</string>
+    <string name="todo_list_complete_done">完了済</string>
+    <string name="todo_list_complete_show">完了済を表示</string>
+    <string name="todo_list_limit_label">期限：</string>
 
-    <string name="todo_set">アラーム設定</string>
-    <string name="todo_set_memo">メモ</string>
-    <string name="todo_set_sound">アラーム音</string>
-    <string name="todo_set_message">アラームメッセージ</string>
-    <string name="todo_set_save">保存</string>
-    <string name="todo_set_cancel">キャンセル</string>
-    <string name="todo_set_delete">削除</string>
+    <string name="todo_detail_toolbar">TODO設定</string>
+    <string name="todo_detail_toolbar_register">TODO登録</string>
+    <string name="todo_detail_toolbar_update">TODO更新</string>
+    <string name="todo_detail">TODO設定</string>
+    <string name="todo_detail_title">タイトル</string>
+    <string name="todo_detail_memo">TODO詳細</string>
+    <string name="todo_detail_limit">期限</string>
+    <string name="todo_detail_save">登録</string>
+    <string name="todo_detail_update">更新</string>
+    <string name="todo_detail_cancel">戻る</string>
+    <string name="todo_detail_delete">削除</string>
+    <string name="todo_detail_complete">完了</string>
+    <string name="todo_detail_resetting">再登録</string>
+    <string name="todo_detail_back_confirm_title">TODOを保存せずに戻ってよいでしょうか？</string>
 
-    <string name="circle_info_info">サークル情報</string>
-    <string name="circle_info_description">WEBマンガのキャラクターを使用しています。よかったらWEBマンガの方もご覧ください。</string>
-    <string name="circle_info_read">WEBマンガを読む(外部サイトに遷移)</string>
-    <string name="circle_info_read_uri">https://www.yahoo.co.jp</string>
-    <string name="circle_info_msg_subscribed">Subscribed to news topic</string>
+    <string name="app_info_toolbar">アプリ情報</string>
+    <string name="app_info_back">戻る</string>
+    <string name="app_info_description_title">このアプリに出てくるキャラクターについて</string>
+    <string name="app_info_description1">アプリ内で使用しているキャラクターはサークル「てるカフェ。」のWEBマンガ(お嬢様の社会勉強)のキャラクターを使用しています。</string>
+    <string name="app_info_description2">もし興味を持っていただけたらWEBマンガの方もぜひご覧ください。</string>
+    <string name="app_info_read">WEBマンガのページ(ニコニコ静画マンガ)を開く</string>
+    <string name="app_info_read_uri">http://seiga.nicovideo.jp/comic/28047?track=top_favorite</string>
+    <string name="app_info_msg_subscribed">Subscribed to news topic</string>
+    <string name="app_info_usage">アプリについて</string>
+    <string name="app_info_usage_about_apl1">このアプリではTODOと期限を登録してやることを管理することができます。</string>
+    <string name="app_info_usage_about_apl2">TODOを完了したらメイドさんが労ってくれます。</string>
+    <string name="app_info_usage_about_apl3">期限に「未定」を設定すると期限のチェックがなくなり、メモ帳として使用することもできます。</string>
+    <string name="app_info_usage_delete">TODOの削除はTODO更新画面から、またはTODO一覧画面のロングタップから行うことができます。</string>
+    <string name="app_info_version">バージョン</string>
+    <string name="app_info_version_content">1.0.0</string>
+    <string name="app_info_store">Playストアを開く</string>
+    <string name="app_info_store_id">apl.r_m_unt.todosupportlady</string>
     <string name="circle_msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
-    <string name="config_usage">使い方</string>
-    <string name="config_usage_content">使い方説明の内容</string>
-    <string name="config_version">バージョン</string>
-    <string name="config_version_content">バージョン説明の内容</string>
-    <string name="config_setting">設定</string>
-    <string name="config_setting_voice">アラーム停止後のボイス再生</string>
-    <string name="info_config_cfc">info_config_cfc</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="config_toolbar">設定</string>
+    <string name="config_back">戻る</string>
+    <string name="config_show_lady_image">TODO完了時のキャラクター表示</string>
+    <string name="config_name">メイドからの呼ばれ方</string>
 
-    <string name="confirm_todo_delete">アラームを削除しますか?</string>
-    <string name="over_todo_add_title">アラームの設定数は最大%s件です</string>
-    <string name="over_todo_add_msg">設定から最大件数の変更が可能です</string>
+    <string name="message_todo_delete_confirm">TODOを削除しますか?</string>
+    <string name="message_todo_delete">TODOを削除しました</string>
+    <string name="message_todo_complete_confirm">TODOを完了しますか？</string>
+    <string name="message_register_success">TODOを再登録しました</string>
+    <string name="message_register_fail">TODOの再登録に失敗しました</string>
+
+    <string name="message_validate_title_required">タイトルは入力必須の項目です</string>
+    <string name="message_validate_limit_required">期限は入力必須の項目です</string>
+    <string name="message_validate_limit_past">期限に過去日は設定できません</string>
+
 </resources>

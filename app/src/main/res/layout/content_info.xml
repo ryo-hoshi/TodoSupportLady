@@ -12,5 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="apl.r_m_unt.todosupportlady.info.InfoFragment"
-        android:id="@+id/fragment_info" />
+        android:id="@+id/fragment_info"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp" />
 </RelativeLayout>

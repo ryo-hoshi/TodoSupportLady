@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="primaryLabel">#3F51B5</color>
+    <color name="primaryDarkLabel">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bodyBackGround">#fffff0</color>
+    <!--<color name="bodyBackGroundLimitSelect">#eaf4ff</color>-->
+    <color name="bodyBackGroundLimitSelect">#f7efff</color>
+    <color name="detailLabelBackGround">#ffee6b</color>
+    <color name="headerBackGround">#fdf9f3</color>
+    <color name="headerLine">#ffefd5</color>
+    <color name="backGround">#fffafa</color>
+    <color name="endLine">#f0f0f0</color>
+    <color name="infoLabel">#ee7710</color>
+    <color name="link">#4169e1</color>
+    <color name="backButton_off_start">#eaf4ff</color>
+    <color name="backButton_off_end">#b2d8ff</color>
+    <color name="backButton_on_start">#f4f9ff</color>
+    <color name="backButton_on_end">#c1e0ff</color>
+    <color name="backButton_stroke">#dbedff</color>
+    <color name="registerButton_off_start">#ffeaea</color>
+    <color name="registerButton_off_end">#ffb7b7</color>
+    <color name="registerButton_on_start">#fff4f4</color>
+    <color name="registerButton_on_end">#ffc1c1</color>
+    <color name="registerButton_stroke">#ffdbdb</color>
+    <color name="deleteButton_off_start">#efefef</color>
+    <color name="deleteButton_off_end">#d6d6d6</color>
+    <color name="deleteButton_on_start">#f3f3f3</color>
+    <color name="deleteButton_on_end">#d9d9d9</color>
+    <color name="deleteButton_stroke">#d7d7d7</color>
+    <color name="completeButton_off_start">#e5ffe5</color>
+    <color name="completeButton_off_end">#adffad</color>
+    <color name="completeButton_on_start">#efffef</color>
+    <color name="completeButton_on_end">#bcffbc</color>
+    <color name="completeButton_stroke">#ccffcc</color>
+    <color name="reRegisterButton_off_start">#ffeaf4</color>
+    <color name="reRegisterButton_off_end">#ffb7db</color>
+    <color name="reRegisterButton_on_start">#fff4f9</color>
+    <color name="reRegisterButton_on_end">#ffc1e0</color>
+    <color name="reRegisterButton_stroke">#ffdbed</color>
 </resources>

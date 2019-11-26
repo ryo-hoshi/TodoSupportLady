@@ -1,11 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/headerBackGround"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_todo_list_back"
+                android:background="@drawable/button_design_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_list_back" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <Switch
+                android:id="@+id/switch_complete_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35"
+                android:layout_marginRight="10dp"
+                android:checked="false"
+                android:switchMinWidth="@dimen/activity_horizontal_margin"
+                android:text="@string/todo_list_complete_show"
+                android:textAlignment="textEnd" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/button_add"
+                android:background="@drawable/button_design_register"
+                android:layout_marginRight="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="@string/todo_list_add" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_height="1dp"
+            android:background="@color/headerLine"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/endLine"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bodyBackGround"
         android:id="@+id/android:list" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/endLine"/>
 </LinearLayout>
