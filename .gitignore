@@ -10,3 +10,5 @@
 .idea/*.xml
 *.apk
 .idea/caches/build_file_checksums.ser
+app/release/
+/.idea/

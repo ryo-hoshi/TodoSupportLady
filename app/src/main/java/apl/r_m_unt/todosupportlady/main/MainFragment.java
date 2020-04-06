@@ -42,6 +42,10 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        // ツールバー設定
+//        TextView mainToolbar = getActivity().findViewById(R.id.textView_main_toolbar);
+//        mainToolbar.setText(getResources().getString(R.string.main_toolbar));
+
         // TODO登録のイメージをクリックした時の処理
         view.findViewById(R.id.imageButton_todo_register).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,14 +118,13 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // タイトルに呼ばれ方を設定
-        TextView mainToolbar = (TextView)getActivity().findViewById(R.id.textView_main_toolbar);
+        // メインメッセージに呼ばれ方を設定
+        TextView mainMassage = getActivity().findViewById(R.id.textView_main_message);
         SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         String name = sharedPreferenceData.getName(getActivity());
         if (!TodoCommonFunction.isValidValue(name)) {
             name = getResources().getString(R.string.default_name);
         }
-        mainToolbar.setText(name + getResources().getString(R.string.default_honorific) + " " + getResources().getString(R.string.main_toolbar));
-
+        mainMassage.setText(name + getResources().getString(R.string.default_honorific) + " " + getResources().getString(R.string.main_message));
     }
 }

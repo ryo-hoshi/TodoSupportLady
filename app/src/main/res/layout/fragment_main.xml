@@ -12,14 +12,26 @@
         android:scaleType="centerCrop"
         android:layout_gravity="top"/>
 
+    <TextView
+        android:id="@+id/textView_main_message"
+        android:textSize="20sp"
+        android:text="@string/main_message"
+        android:textColor="@color/mainMessage"
+        android:layout_marginBottom="14dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout_upper">
+    </TextView>
     <LinearLayout
+        android:id="@+id/linearLayout_upper"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="18dp"
         android:layout_above="@+id/linearLayout_under">
         <ImageButton
             android:layout_width="56dp"
@@ -49,7 +61,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/view_bottom">
         <ImageButton
             android:layout_width="56dp"
