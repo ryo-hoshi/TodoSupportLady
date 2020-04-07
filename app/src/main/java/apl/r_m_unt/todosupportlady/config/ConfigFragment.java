@@ -22,6 +22,7 @@ public class ConfigFragment extends Fragment {
 
     private static final String TAG = "ConfigFragment";
     private Switch switchIsShowLadyImage;
+    private Switch switchIsAutoSave;
     private EditText editTextName;
 
     private Button buttonBack;
@@ -40,16 +41,18 @@ public class ConfigFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // サポート画像表示有無の保存値を画面に設定
+        // サポート画像表示有無、自動保存の保存値を画面に設定
         final SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
         switchIsShowLadyImage = (Switch)getView().findViewById(R.id.switch_show_lady_image);
         switchIsShowLadyImage.setChecked(sharedPreferenceData.isShowLadyImage(getActivity()));
+        switchIsAutoSave = getView().findViewById(R.id.switch_auto_save);
+        switchIsAutoSave.setChecked(sharedPreferenceData.isAutoSave(getActivity()));
 
         // メイドからの呼ばれ方の保存値を画面に設定
         editTextName = (EditText) getView().findViewById(R.id.editText_name);
         editTextName.setText(sharedPreferenceData.getName(getActivity()));
 
-        // サポート画像表示有無の画面設定値を変更したときにローカルファイルに保存
+        // スイッチボタンの設定値を変更したときにローカルファイルに保存
         switchIsShowLadyImage.setOnCheckedChangeListener(
             new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
@@ -58,6 +61,13 @@ public class ConfigFragment extends Fragment {
             }
         );
 
+        switchIsAutoSave.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                        sharedPreferenceData.setAutoSave(getActivity(), isChecked);
+                    }
+                }
+        );
 
         // 戻るボタン押下時の処理
         buttonBack = (Button)getView().findViewById(R.id.button_config_back);

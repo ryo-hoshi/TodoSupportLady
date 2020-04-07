@@ -13,6 +13,7 @@ public class SharedPreferenceDataHelper {
     private static final String CONFIG_DATA = "CONFIG_DATA";
     private static final String TODO_LIST_DATA = "TODO_LIST_DATA";
     private static final String CONFIG_IS_SHOW_LADY_IMAGE = "CONFIG_IS_SHOW_LADY_IMAGE";
+    private static final String CONFIG_IS_AUTO_SAVE = "CONFIG_IS_AUTO_SAVE";
     private static final String CONFIG_NAME = "CONFIG_NAME";
     private static final String TODO_LIST_IS_SHOW_COMPLETED = "TODO_LIST_IS_SHOW_COMPLETED";
 
@@ -27,6 +28,19 @@ public class SharedPreferenceDataHelper {
         SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(CONFIG_IS_SHOW_LADY_IMAGE, isShowLadyImage);
+        editor.apply();
+    }
+
+    /**
+     * 自動保存するかどうかを設定
+     * @param context
+     * @param isAutoSave 自動保存するかどうか
+     */
+    public void setAutoSave(Context context, boolean isAutoSave) {
+
+        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(CONFIG_IS_AUTO_SAVE, isAutoSave);
         editor.apply();
     }
 
@@ -69,6 +83,19 @@ public class SharedPreferenceDataHelper {
         SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
         boolean isShowLadyImage = prefs.getBoolean(CONFIG_IS_SHOW_LADY_IMAGE, true);
         return isShowLadyImage;
+    }
+
+    /**
+     * 自動保存設定を取得
+     * @param context
+     * @return 自動保存
+     */
+    public boolean isAutoSave(Context context) {
+
+        // 自動保存設定を取得（初期値は未設定）
+        SharedPreferences prefs = context.getSharedPreferences(CONFIG_DATA, Context.MODE_PRIVATE);
+        boolean isAutoSave = prefs.getBoolean(CONFIG_IS_AUTO_SAVE, true);
+        return isAutoSave;
     }
 
     /**

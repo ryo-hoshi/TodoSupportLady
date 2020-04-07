@@ -42,19 +42,6 @@
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Switch
-            android:layout_marginTop="10dp"
-            android:id="@+id/switch_show_lady_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/config_show_lady_image" />
-
-        <View
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/endLine"/>
-
         <LinearLayout
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
@@ -88,5 +75,31 @@
                 android:textSize="16dp"
                 android:text="様" />
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
+
+        <Switch
+            android:layout_marginTop="10dp"
+            android:id="@+id/switch_show_lady_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/config_show_lady_image" />
+
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/endLine"/>
+
+        <Switch
+            android:layout_marginTop="10dp"
+            android:id="@+id/switch_auto_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/config_auto_save" />
     </LinearLayout>
 </LinearLayout>

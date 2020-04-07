@@ -25,6 +25,11 @@ public class TodoInfo {
                     String title,
                     String detail,
                     int isComplete) {
+        // 自動保存時のタイトル未設定時の対応
+        if (title == null || title.isEmpty()) {
+            title = "タイトル未設定";
+        }
+
         this.id = id;
         this.todoLimit = todoLimit;
         this.title = title;

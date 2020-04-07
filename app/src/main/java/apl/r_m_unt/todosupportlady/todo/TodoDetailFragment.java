@@ -32,6 +32,7 @@ import apl.r_m_unt.todosupportlady.dialog.CalendarDialogFragment;
 import apl.r_m_unt.todosupportlady.dialog.CompleteImgDialogFragment;
 import apl.r_m_unt.todosupportlady.dialog.DeleteConfirmDialogFragment;
 import apl.r_m_unt.todosupportlady.dialog.DetailBackConfirmDialogFragment;
+import apl.r_m_unt.todosupportlady.model.SharedPreferenceDataHelper;
 import apl.r_m_unt.todosupportlady.model.TodoDao;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,6 +57,7 @@ public class TodoDetailFragment extends Fragment {
     public static final String INTENT_KEY_REGISTER_NEW = "INTENT_KEY_REGISTER_NEW";
 
     private static final String TAG = "TodoDetailFragment";
+    TodoDao todoDao;
 
     private int todoId;
 
@@ -73,8 +75,19 @@ public class TodoDetailFragment extends Fragment {
     private TextView textViewTitle;
     private Fragment myFragment;
     private String limitSomeTimeString;
+    private boolean isAutoSave = false;
     Resources res;
     TodoInfo beforeTodoInfo;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final SharedPreferenceDataHelper sharedPreferenceData = new SharedPreferenceDataHelper();
+        isAutoSave = sharedPreferenceData.isAutoSave(getActivity());
+
+        todoDao = new TodoDao(getActivity());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -154,10 +167,10 @@ public class TodoDetailFragment extends Fragment {
 
                     fragmentManager = getActivity().getSupportFragmentManager();
 
-                    // todoが入力されている場合は確認ダイアログを表示する
+                    // 自動保存が無効かつtodoが入力されている場合は確認ダイアログを表示する
                     TodoInfo currentTodoInfo = getScreenValue();
 
-                    if (currentTodoInfo.isInputTodoInfo()) {
+                    if (!isAutoSave && currentTodoInfo.isInputTodoInfo()) {
 
                         DialogFragment backConfDialogFragment = DetailBackConfirmDialogFragment.newInstance(
                                 R.string.todo_detail_back_confirm_title);
@@ -233,9 +246,9 @@ public class TodoDetailFragment extends Fragment {
 
                     fragmentManager = getActivity().getSupportFragmentManager();
 
-                    // todoが更新画面表示時から変更されている場合は確認ダイアログを表示する
+                    // 自動保存が無効かつtodoが更新画面表示時から変更されている場合は確認ダイアログを表示する
                     TodoInfo currentTodoInfo = getScreenValue();
-                    if (currentTodoInfo.isChangeTodoInfo(beforeTodoInfo)) {
+                    if (!isAutoSave && currentTodoInfo.isChangeTodoInfo(beforeTodoInfo)) {
 
                         DialogFragment backConfDialogFragment = DetailBackConfirmDialogFragment.newInstance(
                                 R.string.todo_detail_back_confirm_title);
@@ -284,8 +297,6 @@ public class TodoDetailFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    // TODOモデルの取得
-                                    TodoDao todoDao = new TodoDao(getActivity());
                                     // 完了を設定
                                     long rtn = todoDao.complete(todoId);
                                     if (rtn == -1) {
@@ -325,8 +336,6 @@ public class TodoDetailFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "★★★再登録ボタンのリスナー設定★★★");
-                    // TODOモデルの取得
-                    TodoDao todoDao = new TodoDao(getActivity());
                     // TODOを再登録
                     long rtn = todoDao.reRegister(todoId);
                     if (rtn == -1) {
@@ -434,9 +443,6 @@ public class TodoDetailFragment extends Fragment {
                     return;
                 }
 
-                // TODOモデルの取得
-                TodoDao todoDao = new TodoDao(getActivity());
-
                 // 新規登録時はINSERT
                 if (todoId == -1) {
                     long rtn = todoDao.insertTodoInfo(todoSetInfo);
@@ -509,6 +515,37 @@ public class TodoDetailFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // 自動保存設定の場合は入力データを保存する
+        if (!isAutoSave) {
+            return;
+        }
+
+        String title = editTextTitle.getText().toString();
+        String detail = editTextDetail.getText().toString();
+        if ((title.isEmpty()) && detail.isEmpty()) {
+            return;
+        }
+
+        // 画面入力情報を取得
+        TodoInfo todoSetInfo = getScreenValue();
+
+        if (todoId == -1) {
+            todoDao.insertTodoInfo(todoSetInfo);
+
+            // Main画面に戻った時に新規登録からの戻りかどうかの判断用に設定
+            Intent intent = new Intent();
+            intent.putExtra(INTENT_KEY_REGISTER, INTENT_KEY_REGISTER_NEW);
+            getActivity().setResult(RESULT_OK, intent);
+
+        } else {
+            todoDao.updateTodoInfo(todoSetInfo);
+        }
+    }
+
     /**
      * 画面入力値のチェック
      *
@@ -519,6 +556,7 @@ public class TodoDetailFragment extends Fragment {
         String result = null;
 
         // ##### 必須入力項目チェック #####
+        // 自動保存対応でタイトル未設定が設定されるのでタイトルチェックは実質行わない
         if (!TodoCommonFunction.isValidValue(todoInfo.getTitle())) {
             result = res.getString(R.string.message_validate_title_required);
         } else if (todoInfo.getTodoLimit() == null) {

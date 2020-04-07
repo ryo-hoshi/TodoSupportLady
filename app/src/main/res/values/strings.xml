@@ -51,6 +51,7 @@
     <string name="config_back">戻る</string>
     <string name="config_show_lady_image">TODO完了時のキャラクター表示</string>
     <string name="config_name">メイドからの呼ばれ方</string>
+    <string name="config_auto_save">TODO登録や更新を自動保存する</string>
 
     <string name="message_todo_delete_confirm">TODOを削除しますか?</string>
     <string name="message_todo_delete">TODOを削除しました</string>
